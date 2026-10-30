@@ -1,0 +1,133 @@
+# How serious each warning is. Each line is a warning kind and its severity: low, high, severe, or off.
+# Changing a severity is at your own risk. A warning you lower or turn off can hide a broken loot or a lost box, and the
+# plugin will not tell you. Leave a line alone unless you know the warning is harmless on this server.
+#
+# low, high, and severe set how the warning is logged, and warning-level in config.yml decides which of them reach the
+# log. off drops the warning: it is not logged and /rkl warnings does not list it. /rkl warnings shows each warning at
+# the severity set here, and lists a warning the warning level keeps out of the log with a mark.
+# A kind left out of this file keeps its default. A name that is no kind warns low. Every kind is listed below at its
+# default, except LOOT_LANGUAGE_CLASH, which is off: a loot written in another language than the server's still loads.
+# A reload picks up a change.
+
+# Reading the config files
+MISSING_GLOBALS: high
+UNKNOWN_WARNING_LEVEL: high
+UNUSABLE_DEBUG: high
+MISSING_LANGUAGE: high
+MISSING_KEY: high
+MISSING_ENGLISH_KEY: severe
+LOOT_LANGUAGE_CLASH: off
+LOOT_LANGUAGE_MISSING: low
+OLD_NAME: low
+UNKNOWN_NAME: high
+MISSING_WORLDS: high
+UNUSABLE_OPEN_MODE: high
+UNUSABLE_LOCK: high
+NEGATIVE_LIFE: low
+UNUSABLE_LIFE: high
+UNUSABLE_SUMMON_DELAY: high
+UNUSABLE_MESSAGE_OWNER_ON_REMOVE: high
+UNUSABLE_SUMMON_ITEM: high
+UNUSABLE_LOOT_END: high
+UNUSABLE_DISPLAY_NAME: high
+UNUSABLE_DESCRIPTION: high
+UNUSABLE_WIKI: high
+MISSING_BLOCK: high
+UNUSABLE_HEAD_DATA: high
+UNUSABLE_ROLL: high
+NO_CONTENT_ENTRIES: high
+SKIPPED_CONTENT_ENTRY: high
+REJECTED_SLOT: high
+CORRECTED_MIN_MAX: high
+UNKNOWN_KEY: high
+YAML_PARSE_REJECTED: high
+UNKNOWN_STORAGE_TYPE: high
+UNUSABLE_STORAGE_VALUE: high
+UNUSABLE_CLAIM_COMMAND_VALUE: high
+UNUSABLE_ADMIN_COMMAND_VALUE: high
+UNUSABLE_WIKI_COMMAND_VALUE: high
+OLD_KEY: high
+UNKNOWN_TAG: high
+UNKNOWN_GROUP: high
+GROUP_CYCLE: severe
+EMPTY_GROUP: low
+ILLEGAL_GROUP_NAME: high
+UNUSABLE_SUMMON_TYPE: high
+UNUSABLE_SUMMON_OPTION: high
+UNUSABLE_SUMMON_SEARCH: high
+UNUSABLE_PLACEMENT_ATTEMPTS: high
+SMART_WITH_SKIP: high
+UNUSABLE_BANNED_LOOT_BLOCKS: high
+BANNED_LOOT_BLOCK: high
+UNUSABLE_HOLOGRAM: high
+UNKNOWN_HOLOGRAM_PROVIDER: high
+UNUSABLE_GLOW: high
+UNUSABLE_LASER: high
+UNUSABLE_WORLD_VALUE: high
+UNUSABLE_ANIMATION: high
+UNUSABLE_ANIMATIONS: high
+CONFIG_UNKNOWN_ANIMATION: high
+SKIPPED_OPTIONAL_ENTRIES: low
+MORE_TYPOS: high
+UNKNOWN_WARNING_KIND: low
+UNUSABLE_WARNING_SEVERITY: high
+UNUSABLE_DECIMALS: high
+
+# Menu files
+UNUSABLE_MENU_ROWS: high
+REJECTED_MENU_SLOT: high
+MENU_BUTTON_ON_CONTENT: high
+DUPLICATE_MENU_BUTTON_SLOT: high
+UNKNOWN_MENU_BUTTON: high
+UNKNOWN_MENU_FILE: high
+UNKNOWN_MENU_KEY: high
+UNUSABLE_MENU_VOLUME: high
+UNUSABLE_MENU_PITCH: high
+UNKNOWN_MENU_SOUND: high
+UNUSABLE_MENU_BUTTONS: high
+MENU_FALLBACK: severe
+
+# Loot box lifecycle
+SLOT_MOVED: low
+NO_ROOM: high
+BLOCK_REFUSED: high
+LOAD_FAILED: severe
+SAVE_FAILED: severe
+CHANGED_BLOCK: high
+OBSERVER_FAILED: high
+ASYNC_FAILED: high
+LIFECYCLE_LOOT_MISSING: high
+SUMMON_FAILED: high
+TIMER_FAILED: high
+
+# Stored loot boxes
+STORAGE_LOOT_MISSING: high
+WORLD_NOT_LOADED: high
+UNREADABLE_STACK: high
+UNREADABLE_BOX: high
+FLUSH_FAILED: severe
+
+# Glow and laser
+GLOW_UNAVAILABLE: low
+LASER_UNAVAILABLE: low
+GLOW_FAILED: low
+LASER_FAILED: low
+GUARDIAN_IN_PEACEFUL: low
+
+# Animations
+ANIMATION_UNKNOWN_ANIMATION: high
+UNKNOWN_TYPE: high
+UNUSABLE_VARIABLES: high
+DRAW_FAILED: high
+
+# Holograms
+PROVIDER_CANNOT_RUN: high
+PACKETS_CANNOT_RUN: high
+NO_PROVIDER: high
+
+# Loot rolls
+MISSED_ENTRY: high
+ITEM_WARNING: high
+
+# Menus
+MENU_LAYOUT_ITEM_MISSING: high

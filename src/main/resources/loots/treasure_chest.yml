@@ -1,0 +1,157 @@
+# A chest on the ground that a player opens as an inventory. It shows the options airdrops.yml leaves out: the
+# inventory open mode, the any_surface placement, every loot_end flag, vanilla item additions, a message override, and
+# a hologram with its own lines. Keys are explained in airdrops.yml; this file explains what is new.
+
+display_name: '&r&6&lTreasure Chest'
+description:
+  - '&f(&6+&f) A chest on solid ground, opened as an inventory.'
+
+language: en
+# inventory: the box opens as a shared inventory and players take items out. drop: the items fall when it opens.
+open_mode: inventory
+lock: 30
+life: 600
+summon_delay: 40
+block: chest
+
+# false: the owner is not told when this box ends. Leave the key out for the same.
+message_owner_on_remove_enable: false
+# This loot rewords two messages. Any message key of the language files can go here.
+messages:
+  lootbox_spawned_broadcast: "{prefix} &6A treasure chest appeared in &c{box_world} &6around &c{from_x} {from_z}&6 !"
+  hologram_unlocked: "&aOpen"
+
+# All four flags on. allow_explosion: an explosion may end the box. drop_block: the box drops its block as an item when
+# it ends. timeout_spill: when its life runs out, the items fall instead of vanishing. empty_removal: the box ends
+# once its inventory is empty and nobody has it open (inventory open mode only).
+loot_end:
+  allow_explosion: true
+  drop_block: true
+  timeout_spill: true
+  empty_removal: true
+
+# min and max count the entries with a positive weight that are rolled. A negative weight is always given. Entries
+# with a slot keep that slot in the inventory (0 to 26); the others fill the free slots.
+roll:
+  min: 1
+  max: 3
+  entries:
+    gold_ingots:
+      slot: 13
+      weight: -1
+      amount: 8
+      item:
+        # vanilla is the default source. A server with MMOItems, Oraxen, and others can name their source here.
+        source: vanilla
+        id: gold_ingot
+    chest_blade:
+      slot: 11
+      weight: 30
+      amount: 1
+      item:
+        id: iron_sword
+        name: '&bBlade of the Chest'
+        lore:
+          - '&7Found in a treasure chest.'
+        # name:level. Names are the vanilla enchantment names.
+        enchants:
+          - 'sharpness:3'
+          - 'unbreaking:2'
+        flags:
+          - HIDE_ENCHANTS
+        # Uses already spent, out of the item's durability.
+        damage: 25
+    chest_pickaxe:
+      weight: 20
+      amount: 1
+      item:
+        id: iron_pickaxe
+        name: '&bEver-Sharp Pickaxe'
+        unbreakable: true
+        flags:
+          - HIDE_UNBREAKABLE
+        # Only shows with a resource pack that uses it.
+        custom_model_data: 1001
+    bread:
+      weight: 40
+      amount: 6
+      item:
+        id: bread
+    tagged_stick:
+      weight: 10
+      amount: 1
+      item:
+        id: stick
+        name: '&7A Tagged Stick'
+        # Written into the item's data as it is made.
+        nbt:
+          rakunloots:
+            loot: treasure_chest
+
+summon_item:
+  id: compass
+  name: '&r&6&lTreasure Compass'
+  lore:
+    - '&7Right click to bring a treasure chest'
+    - '&7onto solid ground near you.'
+
+summon_settings:
+  # any_surface: any spot with a solid floor and free room above, in caves as well as outside.
+  summon_type: any_surface
+  any_surface:
+    # The blocks the box may stand on. '@solid' is a group of blocks.yml.
+    floor:
+      - '@solid'
+    # Blocks of free room needed above the box.
+    headroom: 2
+  y_range: '0:200'
+  replaceable_blocks:
+    - 'minecraft:air'
+  avoid_surfaces:
+    - minecraft:lava
+    - minecraft:fire
+    - minecraft:magma_block
+  # How many columns the search tries before it gives up. The default is placement_attempts in config.yml.
+  attempts: 60
+  # A summon item places the box this far from the player, in blocks.
+  player_ring:
+    min: 4
+    max: 16
+  # With the offset on, a summon item keeps the box within this many blocks above or below the player.
+  vertical_offset_enable: true
+  vertical_offset: 12
+
+animations:
+  summon:
+    - SPARKLE
+  alive:
+    - SPARKLE
+  unlocked:
+    - GOLD_BURST
+  open:
+    - GOLD_BURST
+  remove:
+    - CLOUD_RING
+
+# {name}, {owner}, {lock}, {life} fill in each line. height is in blocks and may have a decimal.
+hologram:
+  enabled: true
+  height: 1.5
+  view_range: 24
+  lines:
+    - '&6&l{name}'
+    - '&7Owner: &e{owner}'
+    - '&7Unlocks in: &c{lock}'
+    - '&7Leaves in: &e{life}'
+
+glow:
+  enabled: true
+  color: AQUA
+
+# CRYSTAL is an ender crystal beam; GUARDIAN is a guardian beam.
+laser:
+  type: CRYSTAL
+  view_distance: 64
+  # Blocks above the bottom of the box's block where the beam's entity starts, 0 to 64. A crystal is wider than a
+  # block, so it floats 3 blocks above the chest, out of a player's reach.
+  start_offset: 4

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.config.RawRollExtremeChanceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:09:55" hostname="LAPTOP-2PQGPS0P" time="0.269">
+  <properties/>
+  <testcase name="rawMaxAboveEntryCountAveragesTheCappedCounts()" classname="me.rakkoon69.rakunloots.config.RawRollExtremeChanceTest" time="0.001"/>
+  <testcase name="rawIntegerMaxFoldsTheCappedTailWithoutIteratingToMax()" classname="me.rakkoon69.rakunloots.config.RawRollExtremeChanceTest" time="0.002"/>
+  <testcase name="rawRollTenThousandTwoDrawsMatchesClosedFormInclusion()" classname="me.rakkoon69.rakunloots.config.RawRollExtremeChanceTest" time="0.264"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,224 @@
+# Block groups. Any block list in a loot or in config.yml may name one of these groups.
+#
+# Each entry is one of:
+#   'minecraft:stone'        a block id
+#   '@plants'                another group
+#   '#minecraft:flowers'     a vanilla block tag
+#   '?minecraft:grass'       an optional entry: a '?' before an id or a tag
+# Quote every entry. YAML reads an unquoted # as a comment and refuses an unquoted @.
+#
+# An optional entry is used only when this server knows that exact name. An old name does not stand in for it, and a
+# server that lacks it skips it with one low warning that lists every skipped entry. A block renamed between versions
+# is written under both names, so each server uses the one it has. A plain entry the server does not know, or knows
+# only by an old name, warns. The tall_flowers tag is gone from 1.21.4, so its four flowers are also named one by one.
+#
+# A group may contain other groups. A group that contains itself, directly or through others, is refused.
+# Remove a group here and the plugin uses its shipped version.
+
+groups:
+  flowers:
+    - '#minecraft:small_flowers'
+    - '?#minecraft:tall_flowers'
+    - 'minecraft:sunflower'
+    - 'minecraft:lilac'
+    - 'minecraft:rose_bush'
+    - 'minecraft:peony'
+
+  # Bamboo, sugar cane, and cactus are tall plants on purpose.
+  # plants, non_solid, airdrop_blocks, and banned_loot_blocks include this group, so replace breaks cactus.
+  tall_plants:
+    - '?#minecraft:tall_flowers'
+    - 'minecraft:sunflower'
+    - 'minecraft:lilac'
+    - 'minecraft:rose_bush'
+    - 'minecraft:peony'
+    - 'minecraft:tall_grass'
+    - 'minecraft:large_fern'
+    - 'minecraft:tall_seagrass'
+    - 'minecraft:big_dripleaf'
+    - 'minecraft:big_dripleaf_stem'
+    - 'minecraft:bamboo'
+    - 'minecraft:bamboo_sapling'
+    - 'minecraft:sugar_cane'
+    - 'minecraft:cactus'
+
+  plants:
+    - '@flowers'
+    - '@tall_plants'
+    - '#minecraft:saplings'
+    - '#minecraft:crops'
+    - '#minecraft:cave_vines'
+    - '?minecraft:grass'
+    - '?minecraft:short_grass'
+    - 'minecraft:fern'
+    - 'minecraft:dead_bush'
+    - 'minecraft:brown_mushroom'
+    - 'minecraft:red_mushroom'
+    - 'minecraft:sweet_berry_bush'
+    - 'minecraft:vine'
+    - 'minecraft:glow_lichen'
+    - 'minecraft:hanging_roots'
+    - 'minecraft:spore_blossom'
+    - 'minecraft:small_dripleaf'
+    - 'minecraft:lily_pad'
+    - 'minecraft:seagrass'
+    - 'minecraft:kelp'
+    - 'minecraft:kelp_plant'
+    - 'minecraft:crimson_roots'
+    - 'minecraft:warped_roots'
+    - 'minecraft:nether_sprouts'
+    - 'minecraft:crimson_fungus'
+    - 'minecraft:warped_fungus'
+    - 'minecraft:weeping_vines'
+    - 'minecraft:weeping_vines_plant'
+    - 'minecraft:twisting_vines'
+    - 'minecraft:twisting_vines_plant'
+
+  liquids:
+    - 'minecraft:water'
+    - 'minecraft:lava'
+    - 'minecraft:bubble_column'
+
+  natural_ground:
+    - '#minecraft:dirt'
+    # Newer servers keep only dirt, coarse dirt, and rooted dirt in #minecraft:dirt, so the grassy and soft ground is
+    # named here. On older servers these ids are already in the tag.
+    - 'minecraft:grass_block'
+    - 'minecraft:podzol'
+    - 'minecraft:mycelium'
+    - 'minecraft:moss_block'
+    - '#minecraft:sand'
+    - '#minecraft:base_stone_overworld'
+    - '#minecraft:base_stone_nether'
+    - '#minecraft:nylium'
+    - 'minecraft:gravel'
+    - 'minecraft:clay'
+    - 'minecraft:sandstone'
+    - 'minecraft:red_sandstone'
+    - 'minecraft:terracotta'
+    - 'minecraft:dirt_path'
+    - 'minecraft:farmland'
+    - 'minecraft:snow_block'
+    - 'minecraft:powder_snow'
+    - 'minecraft:ice'
+    - 'minecraft:packed_ice'
+    - 'minecraft:blue_ice'
+    - 'minecraft:calcite'
+    - 'minecraft:dripstone_block'
+    - 'minecraft:soul_sand'
+    - 'minecraft:soul_soil'
+    - 'minecraft:end_stone'
+
+  decorative:
+    - '#minecraft:flower_pots'
+    - '#minecraft:signs'
+    - '#minecraft:banners'
+    - '#minecraft:buttons'
+    - '#minecraft:pressure_plates'
+    - '#minecraft:rails'
+    - '#minecraft:candles'
+    - 'minecraft:torch'
+    - 'minecraft:wall_torch'
+    - 'minecraft:soul_torch'
+    - 'minecraft:soul_wall_torch'
+    - 'minecraft:redstone_torch'
+    - 'minecraft:redstone_wall_torch'
+    - 'minecraft:lantern'
+    - 'minecraft:soul_lantern'
+    - 'minecraft:ladder'
+    - 'minecraft:lever'
+    - 'minecraft:redstone_wire'
+    - 'minecraft:tripwire'
+    - 'minecraft:tripwire_hook'
+    - 'minecraft:cobweb'
+
+  # Blocks a loot box may take the place of.
+  non_solid:
+    - 'minecraft:air'
+    - 'minecraft:cave_air'
+    - 'minecraft:void_air'
+    - 'minecraft:snow'
+    - '@plants'
+    - '@decorative'
+
+  # Blocks a loot box may rest on.
+  solid:
+    - '@natural_ground'
+    - '#minecraft:logs'
+    - '#minecraft:planks'
+    - '#minecraft:leaves'
+    - '#minecraft:stone_bricks'
+    - '#minecraft:wool'
+    - 'minecraft:cobblestone'
+    - 'minecraft:mossy_cobblestone'
+    - 'minecraft:cobbled_deepslate'
+    - 'minecraft:smooth_stone'
+    - 'minecraft:polished_granite'
+    - 'minecraft:polished_diorite'
+    - 'minecraft:polished_andesite'
+    - 'minecraft:bricks'
+    - 'minecraft:obsidian'
+    - 'minecraft:bedrock'
+    - 'minecraft:glass'
+
+  # Blocks an airdrop may replace. Built from plants and flowers.
+  airdrop_blocks:
+    - '@plants'
+    - '@flowers'
+
+  # Blocks no loot may use as its block. config.yml names this group in banned_loot_blocks.
+  # A loot whose block is here does not load. Summon rules may still name these blocks.
+  banned_loot_blocks:
+    - '@non_solid'
+    - '@liquids'
+    - '@tall_plants'
+    - '#minecraft:doors'
+    - '#minecraft:beds'
+    # Carpets
+    - 'minecraft:white_carpet'
+    - 'minecraft:orange_carpet'
+    - 'minecraft:magenta_carpet'
+    - 'minecraft:light_blue_carpet'
+    - 'minecraft:yellow_carpet'
+    - 'minecraft:lime_carpet'
+    - 'minecraft:pink_carpet'
+    - 'minecraft:gray_carpet'
+    - 'minecraft:light_gray_carpet'
+    - 'minecraft:cyan_carpet'
+    - 'minecraft:purple_carpet'
+    - 'minecraft:blue_carpet'
+    - 'minecraft:brown_carpet'
+    - 'minecraft:green_carpet'
+    - 'minecraft:red_carpet'
+    - 'minecraft:black_carpet'
+    - 'minecraft:moss_carpet'
+    # Blocks that fall
+    - '#minecraft:sand'
+    - '#minecraft:anvil'
+    - 'minecraft:gravel'
+    - 'minecraft:white_concrete_powder'
+    - 'minecraft:orange_concrete_powder'
+    - 'minecraft:magenta_concrete_powder'
+    - 'minecraft:light_blue_concrete_powder'
+    - 'minecraft:yellow_concrete_powder'
+    - 'minecraft:lime_concrete_powder'
+    - 'minecraft:pink_concrete_powder'
+    - 'minecraft:gray_concrete_powder'
+    - 'minecraft:light_gray_concrete_powder'
+    - 'minecraft:cyan_concrete_powder'
+    - 'minecraft:purple_concrete_powder'
+    - 'minecraft:blue_concrete_powder'
+    - 'minecraft:brown_concrete_powder'
+    - 'minecraft:green_concrete_powder'
+    - 'minecraft:red_concrete_powder'
+    - 'minecraft:black_concrete_powder'
+    # Technical blocks
+    - 'minecraft:air'
+    - 'minecraft:cave_air'
+    - 'minecraft:void_air'
+    - '#minecraft:fire'
+    - '#minecraft:portals'
+    - 'minecraft:piston_head'
+    - 'minecraft:moving_piston'
+    - 'minecraft:bubble_column'
+    - 'minecraft:structure_void'

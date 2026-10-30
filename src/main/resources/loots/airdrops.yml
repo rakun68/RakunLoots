@@ -1,0 +1,163 @@
+# Keys this file may use: language, messages, open_mode, lock, life, summon_delay, message_owner_on_remove_enable,
+# loot_end, display_name, description, block, head_data, roll, summon_item, summon_settings, hologram, glow, laser,
+# animations. Commands belong to a later phase.
+# The other files in this folder, treasure_chest, buried_stash, deep_vault, sunken_treasure, sky_lantern, and
+# head_trophy, each show other options. Together they use every key above.
+
+display_name: '&r<#fad778>Air Supply'
+description:
+  - '&f(&b+&f) Airdrops. What can I say?'
+
+language: en
+open_mode: drop
+lock: 10
+life: 360
+# Ticks between the summon finding its spot and the block appearing. 0 writes at once.
+summon_delay: 60
+# The block of the loot box. head_data is only for a player_head block; see loots/head_trophy.yml.
+block: barrel
+# The loots wiki lists this loot by its block. Set wiki: false to hide it, or give it another icon:
+# wiki:
+#   icon:
+#     id: emerald
+
+# Whether the box's owner is told when it ends, looted or timed out. The text is the message_owner_on_remove message,
+# which this loot can reword under messages.
+message_owner_on_remove_enable: true
+# This loot's own owner message, the old message_owner_on_remove. {box_name} is the old {loot_name}. It is the same text
+# as the default in the language files, written here so it can be edited per loot.
+messages:
+  message_owner_on_remove: "{prefix} &7Your {box_name} &r&7at &c{box_x} {box_y} {box_z} &r&7has disappeared."
+
+# The old file resisted explosions. The other loot-end flags stay off.
+loot_end:
+  allow_explosion: false
+
+roll:
+  min: 2
+  max: 5
+  entries:
+    you_can_use_vanilla_item:
+      slot: 5
+      weight: -50
+      amount: 1
+      item:
+        id: diamond
+    or_itemedit_items:
+      slot: 9
+      weight: -50
+      amount: 5
+      item:
+        id: cobweb
+    or_mmoitems_items:
+      slot: 15
+      weight: 10
+      amount: 1
+      item:
+        id: golden_apple
+    # The old example was a custom stack of an enchanted golden apple.
+    or_any_custom_items:
+      slot: 20
+      weight: 10
+      amount: 1
+      item:
+        id: enchanted_golden_apple
+    place_anywhere:
+      slot: 7
+      weight: 50
+      amount: 1
+      item:
+        id: diamond
+    with_any_chance:
+      slot: 8
+      weight: 20
+      amount: 3
+      item:
+        id: emerald
+    amethyst:
+      slot: 10
+      weight: 10
+      amount: 5
+      item:
+        id: amethyst_shard
+
+# Right click with this item in the main hand to summon the loot around you. You own the box. The item is written like a
+# roll entry's item: id, an optional source, and for a vanilla item name, lore, enchants, flags, custom_model_data,
+# unbreakable, damage, and nbt. The old file used a nether star. Leave this out for a loot with no summon item.
+# The name and lore tell this item from a vanilla nether star. Colour codes use &.
+summon_item:
+  id: nether_star
+  name: '&r<#fad778>&lAir Supply Beacon'
+  lore:
+    - '&7Right click to call an airdrop'
+    - '&7down around you.'
+    - '&8The crate is yours to open first.'
+
+summon_settings:
+  summon_type: top_surface
+  top_surface:
+    plants: replace
+  y_range: '-64:320'
+  vertical_offset_enable: false
+  vertical_offset: 0
+  player_ring:
+    min: 0
+    max: 0
+  # @airdrop_blocks is plants and flowers, so replace breaks tall grass instead of landing on it.
+  replaceable_blocks:
+    - '@airdrop_blocks'
+  # Cactus is a tall plant, so replace breaks it. This refuses a spot whose floor is cactus.
+  avoid_surfaces:
+    - minecraft:lava
+    - minecraft:fire
+    - minecraft:campfire
+    - minecraft:soul_fire
+    - minecraft:soul_campfire
+    - minecraft:cactus
+
+# Animations by id from animations.yml, for each moment of the box. Each moment takes a list, so several can layer.
+# summon: at the spot during summon_delay. alive: while the box is shown, again each second once it has finished.
+# unlocked: once, when the lock reaches 0. open: when a player opens the box. remove: when the box ends.
+# The old file called alive "tick". Leave a moment out for no animation.
+animations:
+  summon:
+    - RED_SPHERE
+  alive:
+    - BLUE_SPHERE
+  unlocked:
+    - GREEN_SPHERE
+  open:
+    - WHITE_SPHERE
+  remove:
+    - WHITE_SPHERE
+
+# The hologram above each box. The old file used the default lines, at height 2.
+hologram:
+  enabled: true
+  # Blocks from the bottom of the block up to the hologram's lowest line. The lines stack upward from there.
+  height: 2
+  # Blocks. Leave out to use hologram.view_range in config.yml.
+  # view_range: 48
+  # Leave out to use the hologram_lines message of the active language. {name}, {owner}, {lock}, {life}.
+  # lines:
+  #   - '&f&l<< &r{name} &f&l>>'
+  #   - '&7Owner: &e{owner}'
+
+# The box glows through walls in this colour, for each player in its world. The old file glowed it gold. The colour is
+# one of BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED,
+# LIGHT_PURPLE, YELLOW, WHITE. Leave the section out for no glow. Glow needs a Paper server.
+glow:
+  enabled: true
+  color: GOLD
+
+# A beam from the box to the sky. type is GUARDIAN or CRYSTAL; leave the section out, or write NONE, for no beam.
+# view_distance is how far in blocks from the box a player still sees it. The old file used a guardian beam, 50 blocks.
+# start_offset is how many blocks above the bottom of the box's block the beam's entity starts, from 0 to 64; the
+# default is 0. A guardian has no hitbox, so it can start anywhere. A crystal has one, wider than a block, so give it
+# 4 or more to keep it out of a player's reach. The beam ends at the world's build limit.
+# A guardian is a hostile mob, which the client does not create in a peaceful world, so there a guardian laser draws as
+# a crystal laser, at a start_offset of at least 4, with one low warning.
+laser:
+  type: GUARDIAN
+  view_distance: 50
+  start_offset: 0

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:10:11" hostname="LAPTOP-2PQGPS0P" time="4.491">
+  <properties/>
+  <testcase name="twoLargeEqualWeightGroupsNearFullDraw()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="2.723"/>
+  <testcase name="midDrawOracleChecksBothLargeWeightGroups()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="1.105"/>
+  <testcase name="tenThousandEntriesFirstDrawMatchesTheExactWeightShare()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="0.321"/>
+  <testcase name="weightRatioMillionKeepsTheLightEntry()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="0.002"/>
+  <testcase name="fiveHundredEntriesAtRatioTwoConserveTheDrawCount()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="0.336"/>
+  <testcase name="firstDrawChancesAreRateShares()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="0.002"/>
+  <testcase name="hundredEqualWeightsNearFullDraw()" classname="me.rakkoon69.rakunloots.roll.LootChanceLargeGroupAccuracyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

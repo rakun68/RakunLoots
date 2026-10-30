@@ -1,0 +1,95 @@
+# A stash under the ground: a player digs it up. It shows the buried placement, no lock, a hologram and a glow that are
+# switched off, a laser written as NONE, and a loot that drops its block. Keys are explained in airdrops.yml and
+# treasure_chest.yml.
+
+display_name: '&r&2&lBuried Stash'
+description:
+  - '&f(&2+&f) A stash a few blocks under the ground.'
+
+language: en
+open_mode: drop
+# 0 or a missing lock means nobody has to wait.
+lock: 0
+# A negative life is unending life: the stash stays until a player digs it up or an admin removes it. The loader notes
+# it with one low warning, so the author knows it is meant. Write a positive number of seconds for a timed box.
+life: -1
+# 0 writes the block at once, with no summon animation delay.
+summon_delay: 0
+block: trapped_chest
+
+# Only the block item drops when the stash ends.
+loot_end:
+  drop_block: true
+
+roll:
+  min: 2
+  max: 4
+  entries:
+    coal:
+      weight: 40
+      amount: 16
+      item:
+        id: coal
+    iron:
+      weight: 30
+      amount: 6
+      item:
+        id: raw_iron
+    gold:
+      weight: 20
+      amount: 4
+      item:
+        id: raw_gold
+    redstone:
+      weight: 20
+      amount: 12
+      item:
+        id: redstone
+    lapis:
+      weight: 10
+      amount: 8
+      item:
+        id: lapis_lazuli
+
+summon_item:
+  id: flint
+  name: '&r&2&lStash Flint'
+  lore:
+    - '&7Right click to bury a stash'
+    - '&7under the ground near you.'
+
+summon_settings:
+  # buried: the box replaces a block under the surface, so players have to dig.
+  summon_type: buried
+  buried:
+    # How many blocks under the surface.
+    depth:
+      min: 1
+      max: 4
+  y_range: '45:120'
+  # What the box may replace while buried: here the natural ground group of blocks.yml.
+  replaceable_blocks:
+    - '@natural_ground'
+  player_ring:
+    min: 0
+    max: 10
+  vertical_offset_enable: true
+  vertical_offset: 6
+
+# Nothing plays while the box is buried and quiet; it only bursts when opened and puffs when it ends.
+animations:
+  open:
+    - GOLD_BURST
+  remove:
+    - CLOUD_RING
+
+# A buried stash shows no hologram and does not glow through walls. glow still names a colour that a later edit may use.
+hologram:
+  enabled: false
+glow:
+  enabled: false
+  color: GREEN
+
+# NONE, or leaving the section out, shows no beam.
+laser:
+  type: NONE

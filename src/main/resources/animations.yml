@@ -1,0 +1,94 @@
+RED_SPHERE:
+  type: SPHERE
+  variables:
+    delay: 0
+    interval: 10
+    loops: 26
+    radius: 0.8
+    count: 8
+    particles:
+      outer_line:
+        type: REDSTONE
+        count: 1
+        size: 1.0
+        color: '210:60:60'
+BLUE_SPHERE:
+  type: EXPLOSION
+  variables:
+    delay: 0
+    interval: 10
+    loops: 1
+    radius: 1.8
+    count: 10
+    particles:
+      outer_line:
+        type: REDSTONE
+        count: 1
+        size: 0.5
+        color: '110:110:210'
+GREEN_SPHERE:
+  type: EXPLOSION
+  variables:
+    delay: 0
+    interval: 10
+    loops: 1
+    radius: 2.4
+    count: 7
+    particles:
+      outer_line:
+        type: REDSTONE
+        count: 1
+        size: 0.75
+        color: '110:210:110'
+WHITE_SPHERE:
+  type: SPHERE
+  variables:
+    delay: 0
+    interval: 10
+    loops: 6
+    radius: 5
+    count: 18
+    particles:
+      outer_line:
+        type: REDSTONE
+        count: 1
+        size: 1.5
+        color: '255:255:255'
+
+# Added for the shipped loots beyond airdrops. A particle other than REDSTONE needs only type and count.
+GOLD_BURST:
+  type: EXPLOSION
+  variables:
+    delay: 0
+    interval: 5
+    loops: 1
+    radius: 2
+    count: 8
+    particles:
+      outer_line:
+        type: FLAME
+        count: 1
+SPARKLE:
+  type: SPHERE
+  variables:
+    delay: 0
+    interval: 10
+    loops: 20
+    radius: 1
+    count: 6
+    particles:
+      outer_line:
+        type: END_ROD
+        count: 1
+CLOUD_RING:
+  type: SPHERE
+  variables:
+    delay: 0
+    interval: 8
+    loops: 4
+    radius: 3
+    count: 10
+    particles:
+      outer_line:
+        type: CLOUD
+        count: 1

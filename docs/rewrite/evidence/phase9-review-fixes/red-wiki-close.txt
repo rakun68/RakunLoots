@@ -1,0 +1,160 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileFancyJava UP-TO-DATE
+> Task :compileFoliaJava UP-TO-DATE
+> Task :processFoliaResources NO-SOURCE
+> Task :foliaClasses UP-TO-DATE
+> Task :v1_18_R1:checkSpigotServer
+> Task :v1_18_R1:compileJava UP-TO-DATE
+> Task :v1_18_R1:processResources NO-SOURCE
+> Task :v1_18_R1:classes UP-TO-DATE
+> Task :v1_18_R1:jar UP-TO-DATE
+> Task :v1_18_R1:remapToObf UP-TO-DATE
+> Task :v1_18_R1:reobfJar UP-TO-DATE
+> Task :v1_18_R2:checkSpigotServer
+> Task :v1_18_R2:compileJava UP-TO-DATE
+> Task :v1_18_R2:processResources NO-SOURCE
+> Task :v1_18_R2:classes UP-TO-DATE
+> Task :v1_18_R2:jar UP-TO-DATE
+> Task :v1_18_R2:remapToObf UP-TO-DATE
+> Task :v1_18_R2:reobfJar UP-TO-DATE
+> Task :v1_19_R1:checkSpigotServer
+> Task :v1_19_R1:compileJava UP-TO-DATE
+> Task :v1_19_R1:processResources NO-SOURCE
+> Task :v1_19_R1:classes UP-TO-DATE
+> Task :v1_19_R1:jar UP-TO-DATE
+> Task :v1_19_R1:remapToObf UP-TO-DATE
+> Task :v1_19_R1:reobfJar UP-TO-DATE
+> Task :v1_19_R2:checkSpigotServer
+> Task :v1_19_R2:compileJava UP-TO-DATE
+> Task :v1_19_R2:processResources NO-SOURCE
+> Task :v1_19_R2:classes UP-TO-DATE
+> Task :v1_19_R2:jar UP-TO-DATE
+> Task :v1_19_R2:remapToObf UP-TO-DATE
+> Task :v1_19_R2:reobfJar UP-TO-DATE
+> Task :v1_19_R3:checkSpigotServer
+> Task :v1_19_R3:compileJava UP-TO-DATE
+> Task :v1_19_R3:processResources NO-SOURCE
+> Task :v1_19_R3:classes UP-TO-DATE
+> Task :v1_19_R3:jar UP-TO-DATE
+> Task :v1_19_R3:remapToObf UP-TO-DATE
+> Task :v1_19_R3:reobfJar UP-TO-DATE
+> Task :v1_20_R1:checkSpigotServer
+> Task :v1_20_R1:compileJava UP-TO-DATE
+> Task :v1_20_R1:processResources NO-SOURCE
+> Task :v1_20_R1:classes UP-TO-DATE
+> Task :v1_20_R1:jar UP-TO-DATE
+> Task :v1_20_R1:remapToObf UP-TO-DATE
+> Task :v1_20_R1:reobfJar UP-TO-DATE
+> Task :v1_20_R2:checkSpigotServer
+> Task :v1_20_R2:compileJava UP-TO-DATE
+> Task :v1_20_R2:processResources NO-SOURCE
+> Task :v1_20_R2:classes UP-TO-DATE
+> Task :v1_20_R2:jar UP-TO-DATE
+> Task :v1_20_R2:remapToObf UP-TO-DATE
+> Task :v1_20_R2:reobfJar UP-TO-DATE
+> Task :v1_20_R3:checkSpigotServer
+> Task :v1_20_R3:compileJava UP-TO-DATE
+> Task :v1_20_R3:processResources NO-SOURCE
+> Task :v1_20_R3:classes UP-TO-DATE
+> Task :v1_20_R3:jar UP-TO-DATE
+> Task :v1_20_R3:remapToObf UP-TO-DATE
+> Task :v1_20_R3:reobfJar UP-TO-DATE
+> Task :v1_20_R4:checkSpigotServer
+> Task :v1_20_R4:compileJava UP-TO-DATE
+> Task :v1_20_R4:processResources NO-SOURCE
+> Task :v1_20_R4:classes UP-TO-DATE
+> Task :v1_20_R4:jar UP-TO-DATE
+> Task :v1_20_R4:remapToObf UP-TO-DATE
+> Task :v1_20_R4:reobfJar UP-TO-DATE
+> Task :v1_21_R1:checkSpigotServer
+> Task :v1_21_R1:compileJava UP-TO-DATE
+> Task :v1_21_R1:processResources NO-SOURCE
+> Task :v1_21_R1:classes UP-TO-DATE
+> Task :v1_21_R1:jar UP-TO-DATE
+> Task :v1_21_R1:remapToObf UP-TO-DATE
+> Task :v1_21_R1:reobfJar UP-TO-DATE
+> Task :v1_21_R2:checkSpigotServer
+> Task :v1_21_R2:compileJava UP-TO-DATE
+> Task :v1_21_R2:processResources NO-SOURCE
+> Task :v1_21_R2:classes UP-TO-DATE
+> Task :v1_21_R2:jar UP-TO-DATE
+> Task :v1_21_R2:remapToObf UP-TO-DATE
+> Task :v1_21_R2:reobfJar UP-TO-DATE
+> Task :v1_21_R3:checkSpigotServer
+> Task :v1_21_R3:compileJava UP-TO-DATE
+> Task :v1_21_R3:processResources NO-SOURCE
+> Task :v1_21_R3:classes UP-TO-DATE
+> Task :v1_21_R3:jar UP-TO-DATE
+> Task :v1_21_R3:remapToObf UP-TO-DATE
+> Task :v1_21_R3:reobfJar UP-TO-DATE
+> Task :v1_21_R4:checkSpigotServer
+> Task :v1_21_R4:compileJava UP-TO-DATE
+> Task :v1_21_R4:processResources NO-SOURCE
+> Task :v1_21_R4:classes UP-TO-DATE
+> Task :v1_21_R4:jar UP-TO-DATE
+> Task :v1_21_R4:remapToObf UP-TO-DATE
+> Task :v1_21_R4:reobfJar UP-TO-DATE
+> Task :v1_21_R5:checkSpigotServer
+> Task :v1_21_R5:compileJava UP-TO-DATE
+> Task :v1_21_R5:processResources NO-SOURCE
+> Task :v1_21_R5:classes UP-TO-DATE
+> Task :v1_21_R5:jar UP-TO-DATE
+> Task :v1_21_R5:remapToObf UP-TO-DATE
+> Task :v1_21_R5:reobfJar UP-TO-DATE
+> Task :v1_21_R6:checkSpigotServer
+> Task :v1_21_R6:compileJava UP-TO-DATE
+> Task :v1_21_R6:processResources NO-SOURCE
+> Task :v1_21_R6:classes UP-TO-DATE
+> Task :v1_21_R6:jar UP-TO-DATE
+> Task :v1_21_R6:remapToObf UP-TO-DATE
+> Task :v1_21_R6:reobfJar UP-TO-DATE
+> Task :v1_21_R7:checkSpigotServer
+> Task :v1_21_R7:compileJava UP-TO-DATE
+> Task :v1_21_R7:processResources NO-SOURCE
+> Task :v1_21_R7:classes UP-TO-DATE
+> Task :v1_21_R7:jar UP-TO-DATE
+> Task :v1_21_R7:remapToObf UP-TO-DATE
+> Task :v1_21_R7:reobfJar UP-TO-DATE
+> Task :v26_1:checkSpigotServer
+> Task :v26_1:compileJava UP-TO-DATE
+> Task :v26_1:processResources NO-SOURCE
+> Task :v26_1:classes UP-TO-DATE
+> Task :v26_1:jar UP-TO-DATE
+> Task :v26_2:checkSpigotServer
+> Task :v26_2:compileJava UP-TO-DATE
+> Task :v26_2:processResources NO-SOURCE
+> Task :v26_2:classes UP-TO-DATE
+> Task :v26_2:jar UP-TO-DATE
+> Task :shadowJar UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources UP-TO-DATE
+> Task :testClasses UP-TO-DATE
+
+> Task :test
+
+Phase9WikiSessionCloseProofTest > normalCloseReleasesTheWikiSessionWithoutAnotherChancePublication() FAILED
+    org.opentest4j.AssertionFailedError at Phase9WikiSessionCloseProofTest.java:75
+
+1 test completed, 1 failed
+
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///C:/Workspace/Projects/MinecraftPlugins/RakunLoots/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+94 actionable tasks: 19 executed, 75 up-to-date
+
+BUILD FAILED in 14s

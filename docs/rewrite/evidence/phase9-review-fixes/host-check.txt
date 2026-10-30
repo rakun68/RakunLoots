@@ -1,0 +1,282 @@
+
+> Task :compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :compileFancyJava UP-TO-DATE
+> Task :compileFoliaJava UP-TO-DATE
+> Task :processFoliaResources NO-SOURCE
+> Task :foliaClasses UP-TO-DATE
+> Task :v1_18_R1:checkSpigotServer
+> Task :v1_18_R1:compileJava UP-TO-DATE
+> Task :v1_18_R1:processResources NO-SOURCE
+> Task :v1_18_R1:classes UP-TO-DATE
+> Task :v1_18_R1:jar UP-TO-DATE
+> Task :v1_18_R1:remapToObf UP-TO-DATE
+> Task :v1_18_R1:reobfJar UP-TO-DATE
+> Task :v1_18_R2:checkSpigotServer
+> Task :v1_18_R2:compileJava UP-TO-DATE
+> Task :v1_18_R2:processResources NO-SOURCE
+> Task :v1_18_R2:classes UP-TO-DATE
+> Task :v1_18_R2:jar UP-TO-DATE
+> Task :v1_18_R2:remapToObf UP-TO-DATE
+> Task :v1_18_R2:reobfJar UP-TO-DATE
+> Task :v1_19_R1:checkSpigotServer
+> Task :v1_19_R1:compileJava UP-TO-DATE
+> Task :v1_19_R1:processResources NO-SOURCE
+> Task :v1_19_R1:classes UP-TO-DATE
+> Task :v1_19_R1:jar UP-TO-DATE
+> Task :v1_19_R1:remapToObf UP-TO-DATE
+> Task :v1_19_R1:reobfJar UP-TO-DATE
+> Task :v1_19_R2:checkSpigotServer
+> Task :v1_19_R2:compileJava UP-TO-DATE
+> Task :v1_19_R2:processResources NO-SOURCE
+> Task :v1_19_R2:classes UP-TO-DATE
+> Task :v1_19_R2:jar UP-TO-DATE
+> Task :v1_19_R2:remapToObf UP-TO-DATE
+> Task :v1_19_R2:reobfJar UP-TO-DATE
+> Task :v1_19_R3:checkSpigotServer
+> Task :v1_19_R3:compileJava UP-TO-DATE
+> Task :v1_19_R3:processResources NO-SOURCE
+> Task :v1_19_R3:classes UP-TO-DATE
+> Task :v1_19_R3:jar UP-TO-DATE
+> Task :v1_19_R3:remapToObf UP-TO-DATE
+> Task :v1_19_R3:reobfJar UP-TO-DATE
+> Task :v1_20_R1:checkSpigotServer
+> Task :v1_20_R1:compileJava UP-TO-DATE
+> Task :v1_20_R1:processResources NO-SOURCE
+> Task :v1_20_R1:classes UP-TO-DATE
+> Task :v1_20_R1:jar UP-TO-DATE
+> Task :v1_20_R1:remapToObf UP-TO-DATE
+> Task :v1_20_R1:reobfJar UP-TO-DATE
+> Task :v1_20_R2:checkSpigotServer
+> Task :v1_20_R2:compileJava UP-TO-DATE
+> Task :v1_20_R2:processResources NO-SOURCE
+> Task :v1_20_R2:classes UP-TO-DATE
+> Task :v1_20_R2:jar UP-TO-DATE
+> Task :v1_20_R2:remapToObf UP-TO-DATE
+> Task :v1_20_R2:reobfJar UP-TO-DATE
+> Task :v1_20_R3:checkSpigotServer
+> Task :v1_20_R3:compileJava UP-TO-DATE
+> Task :v1_20_R3:processResources NO-SOURCE
+> Task :v1_20_R3:classes UP-TO-DATE
+> Task :v1_20_R3:jar UP-TO-DATE
+> Task :v1_20_R3:remapToObf UP-TO-DATE
+> Task :v1_20_R3:reobfJar UP-TO-DATE
+> Task :v1_20_R4:checkSpigotServer
+> Task :v1_20_R4:compileJava UP-TO-DATE
+> Task :v1_20_R4:processResources NO-SOURCE
+> Task :v1_20_R4:classes UP-TO-DATE
+> Task :v1_20_R4:jar UP-TO-DATE
+> Task :v1_20_R4:remapToObf UP-TO-DATE
+> Task :v1_20_R4:reobfJar UP-TO-DATE
+> Task :v1_21_R1:checkSpigotServer
+> Task :v1_21_R1:compileJava UP-TO-DATE
+> Task :v1_21_R1:processResources NO-SOURCE
+> Task :v1_21_R1:classes UP-TO-DATE
+> Task :v1_21_R1:jar UP-TO-DATE
+> Task :v1_21_R1:remapToObf UP-TO-DATE
+> Task :v1_21_R1:reobfJar UP-TO-DATE
+> Task :v1_21_R2:checkSpigotServer
+> Task :v1_21_R2:compileJava UP-TO-DATE
+> Task :v1_21_R2:processResources NO-SOURCE
+> Task :v1_21_R2:classes UP-TO-DATE
+> Task :v1_21_R2:jar UP-TO-DATE
+> Task :v1_21_R2:remapToObf UP-TO-DATE
+> Task :v1_21_R2:reobfJar UP-TO-DATE
+> Task :v1_21_R3:checkSpigotServer
+> Task :v1_21_R3:compileJava UP-TO-DATE
+> Task :v1_21_R3:processResources NO-SOURCE
+> Task :v1_21_R3:classes UP-TO-DATE
+> Task :v1_21_R3:jar UP-TO-DATE
+> Task :v1_21_R3:remapToObf UP-TO-DATE
+> Task :v1_21_R3:reobfJar UP-TO-DATE
+> Task :v1_21_R4:checkSpigotServer
+> Task :v1_21_R4:compileJava UP-TO-DATE
+> Task :v1_21_R4:processResources NO-SOURCE
+> Task :v1_21_R4:classes UP-TO-DATE
+> Task :v1_21_R4:jar UP-TO-DATE
+> Task :v1_21_R4:remapToObf UP-TO-DATE
+> Task :v1_21_R4:reobfJar UP-TO-DATE
+> Task :v1_21_R5:checkSpigotServer
+> Task :v1_21_R5:compileJava UP-TO-DATE
+> Task :v1_21_R5:processResources NO-SOURCE
+> Task :v1_21_R5:classes UP-TO-DATE
+> Task :v1_21_R5:jar UP-TO-DATE
+> Task :v1_21_R5:remapToObf UP-TO-DATE
+> Task :v1_21_R5:reobfJar UP-TO-DATE
+> Task :v1_21_R6:checkSpigotServer
+> Task :v1_21_R6:compileJava UP-TO-DATE
+> Task :v1_21_R6:processResources NO-SOURCE
+> Task :v1_21_R6:classes UP-TO-DATE
+> Task :v1_21_R6:jar UP-TO-DATE
+> Task :v1_21_R6:remapToObf UP-TO-DATE
+> Task :v1_21_R6:reobfJar UP-TO-DATE
+> Task :v1_21_R7:checkSpigotServer
+> Task :v1_21_R7:compileJava UP-TO-DATE
+> Task :v1_21_R7:processResources NO-SOURCE
+> Task :v1_21_R7:classes UP-TO-DATE
+> Task :v1_21_R7:jar UP-TO-DATE
+> Task :v1_21_R7:remapToObf UP-TO-DATE
+> Task :v1_21_R7:reobfJar UP-TO-DATE
+> Task :v26_1:checkSpigotServer
+> Task :v26_1:compileJava UP-TO-DATE
+> Task :v26_1:processResources NO-SOURCE
+> Task :v26_1:classes UP-TO-DATE
+> Task :v26_1:jar UP-TO-DATE
+> Task :v26_2:checkSpigotServer
+> Task :v26_2:compileJava UP-TO-DATE
+> Task :v26_2:processResources NO-SOURCE
+> Task :v26_2:classes UP-TO-DATE
+> Task :v26_2:jar UP-TO-DATE
+> Task :shadowJar
+
+> Task :compileTestJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processTestResources UP-TO-DATE
+> Task :testClasses
+> Task :test
+> Task :processFancyResources NO-SOURCE
+> Task :fancyClasses UP-TO-DATE
+
+> Task :compileFancyTestJava
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Admin/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Task :processFancyTestResources NO-SOURCE
+> Task :fancyTestClasses
+> Task :fancyTest
+> Task :compileFoliaTestJava
+> Task :processFoliaTestResources NO-SOURCE
+> Task :foliaTestClasses
+> Task :foliaTest
+> Task :java17Test
+> Task :check
+> Task :v1_18_R1:compileTestJava UP-TO-DATE
+> Task :v1_18_R1:processTestResources NO-SOURCE
+> Task :v1_18_R1:testClasses UP-TO-DATE
+> Task :v1_18_R1:test
+> Task :v1_18_R1:check
+> Task :v1_18_R2:compileTestJava UP-TO-DATE
+> Task :v1_18_R2:processTestResources NO-SOURCE
+> Task :v1_18_R2:testClasses UP-TO-DATE
+> Task :v1_18_R2:test
+> Task :v1_18_R2:check
+> Task :v1_19_R1:compileTestJava UP-TO-DATE
+> Task :v1_19_R1:processTestResources NO-SOURCE
+> Task :v1_19_R1:testClasses UP-TO-DATE
+> Task :v1_19_R1:test
+> Task :v1_19_R1:check
+> Task :v1_19_R2:compileTestJava UP-TO-DATE
+> Task :v1_19_R2:processTestResources NO-SOURCE
+> Task :v1_19_R2:testClasses UP-TO-DATE
+> Task :v1_19_R2:test
+> Task :v1_19_R2:check
+> Task :v1_19_R3:compileTestJava UP-TO-DATE
+> Task :v1_19_R3:processTestResources NO-SOURCE
+> Task :v1_19_R3:testClasses UP-TO-DATE
+> Task :v1_19_R3:test
+> Task :v1_19_R3:check
+> Task :v1_20_R1:compileTestJava UP-TO-DATE
+> Task :v1_20_R1:processTestResources NO-SOURCE
+> Task :v1_20_R1:testClasses UP-TO-DATE
+> Task :v1_20_R1:test
+> Task :v1_20_R1:check
+> Task :v1_20_R2:compileTestJava UP-TO-DATE
+> Task :v1_20_R2:processTestResources NO-SOURCE
+> Task :v1_20_R2:testClasses UP-TO-DATE
+> Task :v1_20_R2:test
+> Task :v1_20_R2:check
+> Task :v1_20_R3:compileTestJava UP-TO-DATE
+> Task :v1_20_R3:processTestResources NO-SOURCE
+> Task :v1_20_R3:testClasses UP-TO-DATE
+> Task :v1_20_R3:test
+> Task :v1_20_R3:check
+> Task :v1_20_R4:compileTestJava UP-TO-DATE
+> Task :v1_20_R4:processTestResources NO-SOURCE
+> Task :v1_20_R4:testClasses UP-TO-DATE
+> Task :v1_20_R4:test
+> Task :v1_20_R4:check
+> Task :v1_21_R1:compileTestJava UP-TO-DATE
+> Task :v1_21_R1:processTestResources NO-SOURCE
+> Task :v1_21_R1:testClasses UP-TO-DATE
+> Task :v1_21_R1:test
+> Task :v1_21_R1:check
+> Task :v1_21_R2:compileTestJava UP-TO-DATE
+> Task :v1_21_R2:processTestResources NO-SOURCE
+> Task :v1_21_R2:testClasses UP-TO-DATE
+> Task :v1_21_R2:test
+> Task :v1_21_R2:check
+> Task :v1_21_R3:compileTestJava UP-TO-DATE
+> Task :v1_21_R3:processTestResources NO-SOURCE
+> Task :v1_21_R3:testClasses UP-TO-DATE
+> Task :v1_21_R3:test
+> Task :v1_21_R3:check
+> Task :v1_21_R4:compileTestJava UP-TO-DATE
+> Task :v1_21_R4:processTestResources NO-SOURCE
+> Task :v1_21_R4:testClasses UP-TO-DATE
+> Task :v1_21_R4:test
+> Task :v1_21_R4:check
+> Task :v1_21_R5:compileTestJava UP-TO-DATE
+> Task :v1_21_R5:processTestResources NO-SOURCE
+> Task :v1_21_R5:testClasses UP-TO-DATE
+> Task :v1_21_R5:test
+> Task :v1_21_R5:check
+> Task :v1_21_R6:compileTestJava UP-TO-DATE
+> Task :v1_21_R6:processTestResources NO-SOURCE
+> Task :v1_21_R6:testClasses UP-TO-DATE
+> Task :v1_21_R6:test
+> Task :v1_21_R6:check
+> Task :v1_21_R7:compileTestJava UP-TO-DATE
+> Task :v1_21_R7:processTestResources NO-SOURCE
+> Task :v1_21_R7:testClasses UP-TO-DATE
+> Task :v1_21_R7:test
+> Task :v1_21_R7:check
+
+> Task :v26_1:compileTestJava
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Admin/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Task :v26_1:processTestResources NO-SOURCE
+> Task :v26_1:testClasses
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/C:/Users/Admin/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.8/fc0a71dad90a2cf41d82a76156a0e700af8e4f8d/joml-1.10.8.jar)
+WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+> Task :v26_1:test
+> Task :v26_1:check
+
+> Task :v26_2:compileTestJava
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Admin/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Task :v26_2:processTestResources NO-SOURCE
+> Task :v26_2:testClasses
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/C:/Users/Admin/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.8/fc0a71dad90a2cf41d82a76156a0e700af8e4f8d/joml-1.10.8.jar)
+WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+> Task :v26_2:test
+> Task :v26_2:check
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 8m 15s
+135 actionable tasks: 47 executed, 88 up-to-date

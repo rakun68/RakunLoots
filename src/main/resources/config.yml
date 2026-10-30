@@ -1,0 +1,88 @@
+# Debug mode. true logs to the console, at info and prefixed [debug], what happens to every summon (placed with its
+# loot, world, position, and source, or abandoned with its reason), every world timer run (summoned or refused with its
+# reason), every loot box end (and how it ended), and the outcome of every admin command, which otherwise only the
+# sender sees. A reload picks up a change. false logs nothing extra.
+debug: false
+
+# Blocks no loot may use as its block. A loot whose block is in this list does not load, with a warning.
+# Takes blocks, '@group' from blocks.yml, and '#minecraft:tag', like any block list. Quote each entry.
+# The shipped group bans liquids, carpets, redstone, falling blocks, two-block blocks, and technical blocks.
+# Edit that group in blocks.yml, or replace this list. [] bans nothing. Summon rules may still name these blocks.
+banned_loot_blocks:
+  - '@banned_loot_blocks'
+
+# What draws the holograms above loot boxes: auto, packets, decentholograms, holographicdisplays,
+# fancyholograms, or none. packets is the plugin's own and needs no other plugin, on each Minecraft version it has a
+# packet adapter for. auto picks the first that can run on this server: packets, decentholograms, fancyholograms,
+# then holographicdisplays. When it cannot use packets, it warns with the server's Minecraft version.
+# decentholograms needs Minecraft 1.18 or newer, and on Folia a DecentHolograms that declares Folia support. Loot box
+# holograms are never saved in DecentHolograms' files. After /dh reload, each comes back when its lines next change.
+# holographicdisplays runs up to Minecraft 1.20.4 and never on Folia. It shows holograms as far as its own
+# holograms-view-range setting, not view_range. Loot box holograms are never saved in its files.
+# fancyholograms needs Paper 1.21.4 or newer on Java 25, never Spigot, and on Folia a FancyHolograms that declares Folia
+# support. Loot box holograms are never saved in its files.
+# A provider that is not installed or cannot run here falls back to auto with a warning. none shows no holograms.
+hologram_provider: auto
+
+hologram:
+  # How far away, in blocks, players see a loot box's hologram. A loot may set its own hologram.view_range.
+  # holographicdisplays uses its own holograms-view-range instead.
+  view_range: 48
+
+# The admin command. Each command under it has its own permission, rakunloots.command.<command>, and
+# rakunloots.admin has them all. A sender sees and completes only the commands they may run.
+admin_command:
+  name: rkl
+  aliases:
+    - rkloots
+
+# Default attempts per placement rule. A loot may override with summon_settings.attempts.
+# Do not set a rule above 500. A high count can slow the server.
+placement_attempts:
+  top_surface: 30
+  any_surface: 40
+  buried: 40
+  deep_buried: 60
+  underwater: 80
+  anywhere: 30
+
+# Where loot boxes are kept across a restart.
+storage:
+  # sqlite (default, no setup) or mysql. Anything else uses sqlite.
+  type: sqlite
+  # MySQL only. Quote a password or user made of digits.
+  host: localhost
+  port: 3306
+  database: rakunloots
+  user: root
+  password: ""
+  # MySQL only. Put before each table name so each server's rows stay its own.
+  # Letters, digits, and underscores only.
+  table_prefix: rakunloots_
+  # SQLite only. How many copies of the SQLite file stay in the backups folder.
+  # Copies are named with the UTC time they were taken. 0 keeps none and removes the old ones.
+  backups_kept: 5
+
+# The claim command opens the claim menu, where a player takes one loot's summon items at a time. Adding `all`
+# after it gives every summon item they are owed at once. They are ones a summon gave back while their inventory was
+# full or they were offline, or an admin gave them. It gives as many as fit and keeps the rest. A player with some
+# waiting is told its name when they join. A loot that no longer exists keeps its items waiting until it comes back.
+# Names are lower case, with no space or slash. Changing them needs a restart.
+# permission_default says who may run it when no permission plugin says otherwise, through the rakunloots.claim
+# permission: true (everyone), false (nobody), op (operators), or not op (everyone but operators). A reload applies it.
+claim_command:
+  name: claimsummon
+  aliases:
+    - rklclaim
+  permission_default: true
+
+# The loots wiki command opens a list of every listed loot in the player's world, rarest timer chance first. A loot
+# can hide itself or set an icon in its own file with its wiki settings. Names are lower case, with no space or slash.
+# Changing them needs a restart.
+# permission_default says who may run it when no permission plugin says otherwise, through the rakunloots.wiki
+# permission: true (everyone), false (nobody), op (operators), or not op (everyone but operators). A reload applies it.
+wiki_command:
+  name: loots
+  aliases:
+    - rklloots
+  permission_default: true

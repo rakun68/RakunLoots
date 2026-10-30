@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.roll.LootChanceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:10:15" hostname="LAPTOP-2PQGPS0P" time="0.153">
+  <properties/>
+  <testcase name="performance100Entries100DistinctWeightsMax50()" classname="me.rakkoon69.rakunloots.roll.LootChanceTest" time="0.151"/>
+  <testcase name="equalWeightsFixedKMatchesFraction()" classname="me.rakkoon69.rakunloots.roll.LootChanceTest" time="0.0"/>
+  <testcase name="groupedWeightsProduceIdenticalChances()" classname="me.rakkoon69.rakunloots.roll.LootChanceTest" time="0.001"/>
+  <testcase name="exactEdgesAndSpecialEntries()" classname="me.rakkoon69.rakunloots.roll.LootChanceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

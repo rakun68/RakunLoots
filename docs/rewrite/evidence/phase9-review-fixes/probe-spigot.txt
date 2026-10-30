@@ -1,0 +1,98 @@
+== spigot-26.2  jar=RakunLoots-1.0-SNAPSHOT-all.jar  bot version=26.1  port=25566  mode=fresh
+PASS server started
+PASS RakunLoots enabled
+PASS RakunProbe enabled
+INFO external Windows OSHI bootstrap diagnostic (full trace retained below): [12:28:45] [ServerMain/ERROR]: Unable to locate English counter names in registry Perflib 009. Counters may need to be rebuilt: 
+PASS no unexpected ERROR or exception at startup
+INFO startup warning codes: NEGATIVE_LIFE, SKIPPED_OPTIONAL_ENTRIES
+PASS no RakunLoots WARN at startup  [0 lines]
+PASS both shipped menu files were written
+PASS packet hologram adapter picked  [[PROBE] holo {"adapter":"me.rakkoon69.rakunloots.hologram.packet.v26_2.NmsPacketAdapter","revision":"v26_2","server":"26.2-R0.1-SNAPSHOT"}]
+PASS wiki opens before the first reload
+PASS empty claim works before the first reload
+PASS an empty claim does not open a menu
+PASS rkl reload
+PASS rkl list
+PASS rkl help
+PASS a mistyped loot suggests a close match
+PASS claimsummon is player only  [[RakunLoots] Only a player can take summon items, because they go into an inventory.]
+PASS claimsummon all is player only  [[RakunLoots] Only a player can take summon items, because they go into an inventory.]
+PASS loots is player only  [[RakunLoots] Only a player can open the loots wiki, because it shows the world they are in.]
+PASS summon airdrops  [(292, 63, -80)]
+PASS summon treasure_chest  [(-314, 6, -29)]
+PASS summon head_trophy  [(-72, 63, 60)]
+PASS summon buried_stash  [(-323, 92, 534)]
+PASS summon deep_vault  [(-5, -41, 355)]
+PASS summon sky_lantern  [(-113, 139, -552)]
+PASS summon sunken_treasure  [(144, 36, 12)]
+PASS timer world now --force  [summoned loot=buried_stash]
+PASS block of airdrops is there  ["data":"minecraft:barrel[facing=north,open=false]","tile":"Barrel","it]
+PASS block of treasure_chest is there  ["data":"minecraft:chest[facing=north,type=single,waterlogged=false]","]
+PASS block of head_trophy is there  ["data":"minecraft:player_head[powered=false,rotation=0]","tile":"Skull]
+PASS block of buried_stash is there  ["data":"minecraft:trapped_chest[facing=north,type=single,waterlogged=f]
+PASS block of sky_lantern is there  ["data":"minecraft:glowstone"}]
+PASS block of deep_vault is there  ["data":"minecraft:blast_furnace[facing=north,lit=false]","tile":"Blast]
+PASS block of buried_stash is there  ["data":"minecraft:trapped_chest[facing=north,type=single,waterlogged=f]
+PASS block of sunken_treasure is there  ["data":"minecraft:sea_lantern"}]
+PASS bot joined
+PASS summon item summons its loot  [[('airdrops', -326, 72, 169, 'summon item f8858de8-743c-37c4-a7a3-b7c3c93eeaaf')]]
+PASS drop open (airdrops) ends the box  [[{'kind': 'block', 'x': -326, 'y': 72, 'z': 169, 'name': 'air'}]]
+PASS drop open dropped items
+PASS inventory open (treasure_chest) shows its items  [Treasure Chest size 18 4 stacks]
+PASS break (head_trophy) ends the box  [[{'kind': 'break', 'block': 'player_head', 'after': 'air', 'changed': True}]]
+PASS hologram packets reach the player  [13 of 3884 packets: ['ClientboundSetEntityDataPacket']]
+PASS a locked box refuses a player who is not its owner  [['[RakunLoots] This loot is still locked and you are not the owner !', '[RakunLoots] This loot is still locked and you are not the owner !']]
+PASS a locked box is not ended by that player
+PASS the locked box is still there  ["data":"minecraft:chest[facing=north,type=single,waterlogged]
+PASS join message names the claim command  [['Other1 joined the game', '[RakunLoots] You have 2 summon item(s) waiting. Take them with /claimsummon.']]
+PASS claim command opens the shipped menu with the owed items
+PASS claim menu row gives the summon items  [['[RakunLoots] You have 2 summon item(s) waiting. Take them with /claimsummon.', '[RakunLoots] You took 2 summon item(s) of Treasure Chest.']]
+PASS claim row gives exactly two summon items
+PASS claim menu closes when nothing is owed
+PASS claim all keeps the direct claim behaviour  [['[RakunLoots] You have 1 summon item(s) waiting. Take them with /claimsummon.', '[RakunLoots] You took 1 summon item(s) of Treasure Chest.']]
+PASS claim all does not open a menu
+PASS wiki opens the shipped list menu
+PASS wiki orders the shipped loots by timer chance  [['Deep Vault', 'Head Trophy', 'Buried Stash', 'Treasure Chest', 'Air Supply', 'Sky Lantern', 'Sunken Treasure']]
+PASS wiki loot page shows treasure chest information  [(+) A chest on solid ground, opened as an inventory.
+Open mode: opens in your inventory
+Lock: 0:30
+Life: 10:00
+Items per box: 1 to 3
+Worlds:
+- world: 15.79%]
+PASS wiki back returns to the list
+PASS reload with live boxes
+PASS RakunLoots disabled cleanly
+PASS RakunLoots enabled again after a restart
+PASS boxes survived the restart and remove all ended them  [[RakunLoots] Removed 10 loot box(es).]
+---- RakunLoots warnings, errors, and exceptions during the run
+  [12:28:45] [ServerMain/ERROR]: Unable to locate English counter names in registry Perflib 009. Counters may need to be rebuilt: 
+  com.sun.jna.platform.win32.Win32Exception: The parameter is incorrect.
+  	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringArray(Advapi32Util.java:921)
+  	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringArray(Advapi32Util.java:898)
+  	at oshi.driver.windows.registry.HkeyPerformanceDataUtil.mapCounterIndicesFromRegistry(HkeyPerformanceDataUtil.java:274)
+  	at oshi.driver.windows.registry.HkeyPerformanceDataUtil.<clinit>(HkeyPerformanceDataUtil.java:51)
+  	at oshi.driver.windows.registry.ProcessPerformanceData.buildProcessMapFromRegistry(ProcessPerformanceData.java:45)
+  	at oshi.software.os.windows.WindowsOperatingSystem.queryProcessMapFromRegistry(WindowsOperatingSystem.java:328)
+  	at oshi.util.Memoizer$1.get(Memoizer.java:65)
+  	at oshi.software.os.windows.WindowsOperatingSystem.processMapToList(WindowsOperatingSystem.java:298)
+  	at oshi.software.os.windows.WindowsOperatingSystem.getProcess(WindowsOperatingSystem.java:292)
+  	at oshi.software.os.OperatingSystem.getCurrentProcess(OperatingSystem.java:246)
+  	at net.minecraft.SystemReport.lambda$putSoftware$0(SystemReport.java:116)
+  	at net.minecraft.SystemReport.ignoreErrors(SystemReport.java:121)
+  	at net.minecraft.SystemReport.putSoftware(SystemReport.java:116)
+  	at net.minecraft.SystemReport.lambda$new$7(SystemReport.java:68)
+  	at net.minecraft.SystemReport.<init>(SystemReport.java:68)
+  	at net.minecraft.CrashReport.<init>(CrashReport.java:34)
+  	at net.minecraft.CrashReport.preload(CrashReport.java:268)
+  	at net.minecraft.server.Main.main(Main.java:121)
+  	at org.bukkit.craftbukkit.Main.main(Main.java:210)
+  	at org.bukkit.craftbukkit.bootstrap.Main.lambda$run$0(Main.java:60)
+  	at java.base/java.lang.Thread.run(Thread.java:1474)
+  [12:28:58] [Server thread/INFO]: [RakunLoots] NEGATIVE_LIFE loot=buried_stash
+  [12:28:58] [Server thread/INFO]: [RakunLoots] SKIPPED_OPTIONAL_ENTRIES entries=[?#minecraft:tall_flowers, ?minecraft:grass]
+  [12:29:26] [Server thread/INFO]: [RakunLoots] GUARDIAN_IN_PEACEFUL loot=airdrops box=1c2a539b-2990-4e4d-b436-6505df0f06e4
+  [12:29:28] [Server thread/INFO]: [RakunLoots] GUARDIAN_IN_PEACEFUL loot=head_trophy box=5ed82391-3643-4d3c-81b9-75a322d05d72
+  [12:29:34] [Server thread/INFO]: [RakunLoots] GUARDIAN_IN_PEACEFUL loot=deep_vault box=b3b1b700-ee56-4386-9a2a-daa0afd83c1d
+  [12:29:36] [Server thread/INFO]: [RakunLoots] GUARDIAN_IN_PEACEFUL loot=sunken_treasure box=e14ec177-8092-4571-8bd4-de4eb27cf822
+== spigot-26.2: 58 passed, 0 failed

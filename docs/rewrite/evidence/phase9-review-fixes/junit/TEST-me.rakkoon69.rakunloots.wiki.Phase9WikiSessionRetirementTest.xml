@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.wiki.Phase9WikiSessionRetirementTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:10:25" hostname="LAPTOP-2PQGPS0P" time="0.038">
+  <properties/>
+  <testcase name="anExplicitCloseRetiresTheWikiSessionImmediately()" classname="me.rakkoon69.rakunloots.wiki.Phase9WikiSessionRetirementTest" time="0.01"/>
+  <testcase name="navigationKeepsTheSameSessionAndASuccessfulReplacementTransfersRetirement()" classname="me.rakkoon69.rakunloots.wiki.Phase9WikiSessionRetirementTest" time="0.008"/>
+  <testcase name="aFreshWikiOpenSupersedesTheOldSessionAndAnOldHandleCloseCannotDropTheNewOne()" classname="me.rakkoon69.rakunloots.wiki.Phase9WikiSessionRetirementTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

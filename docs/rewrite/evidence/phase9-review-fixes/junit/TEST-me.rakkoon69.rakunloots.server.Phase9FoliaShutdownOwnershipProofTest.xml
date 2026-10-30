@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.server.Phase9FoliaShutdownOwnershipProofTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:10:48" hostname="LAPTOP-2PQGPS0P" time="0.008">
+  <properties/>
+  <testcase name="shutdownOwnerPhysicallyClosesTheMenuAfterThePluginIsDisabled()" classname="me.rakkoon69.rakunloots.server.Phase9FoliaShutdownOwnershipProofTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

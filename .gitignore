@@ -1,0 +1,50 @@
+# Gradle
+.gradle/
+build/
+**/build/
+gradle-app.setting
+.gradletasknamecache
+
+# Build output and packages
+*.class
+*.jar
+*.war
+*.zip
+*.tar.gz
+!gradle-wrapper.jar
+bin/
+out/
+
+# Local test servers and their logs
+run/
+packet-adapters/*/logs/
+*.log
+hs_err_pid*
+
+# IDEs
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# Operating systems
+.DS_Store
+._*
+Thumbs.db
+[Dd]esktop.ini
+*~
+
+# Deploy handoff and its secrets
+minecraft-plugin-deploy-handoff.md
+.env
+*.ptlc
+
+# Per-developer AI agent configuration
+.agents/
+.claude/
+.codex/
+.pi/
+.lykos/
+.mcp.json
+skills-lock.json

@@ -1,0 +1,45 @@
+# The claim menu. Each key is documented here and in menus/wiki.yml; the two files use the same layout shape.
+#
+# rows: how many rows of nine slots the menu has, from 1 to 6. Missing uses this value; an unusable value warns high
+# and uses this value.
+rows: 6
+
+# content_slots: the slots the unclaimed summon items fill, in order. Write a slot number or a "first-last" range.
+# A slot outside the page warns high and is dropped. A button on a content slot warns high and takes the slot out.
+content_slots:
+  - "0-44"
+
+# filler: the item shown in every slot that is neither content nor a button. Write an item reference as in a loot
+# file, with source, id, and the vanilla additions. Missing uses this item; an unusable reference warns and uses it.
+filler:
+  id: gray_stained_glass_pane
+
+# buttons: the clickable items by name. A button this page does not know warns high and is dropped. A button left out
+# is not shown. A known button with no slot or item inherits this file's value.
+buttons:
+  # previous_page and next_page page the entries. claim_all takes every loot's items that fit.
+  previous_page:
+    # slot: where the button sits, inside this page. Missing inherits the shipped slot; an unusable slot drops it.
+    slot: 45
+    item:
+      id: arrow
+    sound:
+      # key: a namespaced sound key the server knows. An unknown key warns high and the button plays nothing. A
+      # button with no sound block also plays nothing.
+      key: minecraft:ui.button.click
+      # volume: 0 or more; missing is 1.0. A bad value warns high and uses 1.0.
+      volume: 1.0
+      # pitch: 0.5 to 2.0; missing is 1.0. A bad value warns high and uses 1.0.
+      pitch: 1.0
+  claim_all:
+    slot: 49
+    item:
+      id: chest_minecart
+    sound:
+      key: minecraft:ui.button.click
+  next_page:
+    slot: 53
+    item:
+      id: arrow
+    sound:
+      key: minecraft:ui.button.click

@@ -1,0 +1,58 @@
+worlds:
+  # Any world name here.
+  # You can customize as many worlds as you want.
+  world:
+    # How a server summon picks columns in this world.
+    summon_search:
+      # spawn: ring around world spawn. smart: ring around a picked player.
+      mode: smart
+      # skip: only loaded chunks. load: load generated chunks. generate: generate if needed.
+      # smart mode with skip warns and runs as load.
+      # load and generate also keep the chunk of each live loot box loaded until the box ends.
+      # skip does not, and removing a box in an unloaded chunk loads that chunk for the removal only.
+      # load or generate is recommended. generate is the default here because load finds no spot on a fresh world.
+      # skip works only with mode: spawn and a spawn ring where chunks stay loaded, such as spawn chunks or busy areas.
+      # Under skip a box in an unloaded chunk waits for a player to load it before its life can end.
+      unloaded_chunks: generate
+      spawn_ring:
+        min: 0
+        max: 800
+      smart:
+        ring:
+          min: 32
+          max: 400
+        # Nearest-to-median player weight is 1 + pick_bias; farthest is 1. 0 to 100.
+        pick_bias: 20
+        # Percent of spots on the median-facing half of the ring. 50 to 100.
+        median_pull: 70
+        idle_seconds: 300
+        # When nobody is online: spawn in the spawn ring, or none.
+        when_all_absent: spawn
+
+    # The range of location that will be broadcast
+    public_location_vertical_offset: 15
+    public_location_horizontal_offset: 40
+
+    # Minimum number of player in that world for a loot to spawn.
+    minimum_player_to_spawn_loot: 1
+    # Number of players from these world will also be counted.
+    also_count_players_from:
+      - world_nether
+      - world_the_end
+
+    # Minimum time between loot spawn (in seconds) is always at least 5, for safety reasons
+    time_between_loot_spawn: 420
+    # You can set this up to 200 or even higher.
+    # Based on my test, a 3GB Ram Server could easily handle 1000 lootboxes at a time with tps still at 20.
+    loot_spawn_limit: 5
+    # Whether or not broadcast when a loot is removed.
+    broadcast_remove: true
+    loots:
+      # Syntax: <loot_id>:<chance>
+      airdrops: 100
+      treasure_chest: 30
+      buried_stash: 30
+      head_trophy: 20
+      deep_vault: 10
+      # sunken_treasure and sky_lantern are left out: a timer rarely finds water or open sky for them. They are for
+      # the summon item and /rkl summon.

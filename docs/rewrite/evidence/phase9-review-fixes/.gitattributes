@@ -1,0 +1,9 @@
+# Preserve verbatim evidence bytes, including recorded CRLF and whitespace.
+*.txt -text -whitespace
+*.json -text -whitespace
+*.jsonl -text -whitespace
+*.xml -text -whitespace
+*.cjs -text -whitespace
+*.gradle -text -whitespace
+*.py -text -whitespace
+*.java -text -whitespace

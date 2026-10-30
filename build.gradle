@@ -1,0 +1,533 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group = 'me.rakkoon69'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+def targetJavaVersion = 17
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven {
+        name = 'papermc-repo'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+
+    maven {
+        name = 'jitpack.io'
+        url = "https://jitpack.io"
+    }
+
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+
+    maven {
+        name = "CodeMC"
+        url = uri("https://repo.codemc.io/repository/maven-public/")
+    }
+
+    maven {
+        name = "phoenix"
+        url = "https://nexus.phoenixdevt.fr/repository/maven-public/"
+    }
+
+    maven {
+        name = 'oraxen'
+        url = 'https://repo.oraxen.com/releases'
+    }
+
+    maven {
+        name = 'fancyinnovations'
+        url = 'https://maven.fancyspaces.net/fancyinnovations/releases'
+    }
+}
+
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+
+    implementation("fr.skytasul:glowingentities:2.0.1")
+    implementation("fr.skytasul:guardianbeam:2.4.8")
+    implementation("de.tr7zw:item-nbt-api:2.16.1")
+    implementation("org.yaml:snakeyaml:2.2")
+
+    // The plugin module alone: its root coordinate pulls every NMS module, some built for Java 21 and newer.
+    compileOnly("com.github.decentsoftware-eu.decentholograms:decentholograms:2.10.1")
+    // The API alone; its pom pulls spigot-api, which the Paper API already covers.
+    compileOnly("me.filoghost.holographicdisplays:holographicdisplays-api:3.0.5") {
+        transitive = false
+    }
+
+    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT")
+    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT")
+    compileOnly("io.th0rgal:oraxen:1.167.0")
+
+    compileOnly("com.github.LoneDev6:API-ItemsAdder:3.6.1")
+    compileOnly("com.github.Ssomar-Developement:SCore:5.25.3.9") {
+        transitive = false
+    }
+
+    testImplementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.85.2")
+    // The real DHAPI checks hologram names before it needs a running DecentHolograms.
+    testImplementation("com.github.decentsoftware-eu.decentholograms:decentholograms:2.10.1") {
+        transitive = false
+    }
+    // The real plugin jar, with its API, its core, and its shaded libraries, runs HolographicDisplays' own main thread check.
+    testImplementation("me.filoghost.holographicdisplays:holographicdisplays-plugin:3.0.5") {
+        transitive = false
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    // The server bundles the SQLite driver at runtime; tests bring their own.
+    testImplementation("org.xerial:sqlite-jdbc:3.36.0.3")
+    // The server fetches the MySQL driver from plugin.yml's libraries at runtime; it is never shaded.
+    testRuntimeOnly("com.mysql:mysql-connector-j:9.7.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+// The Folia adapter, and the block display glow of ADR 0016, compile against folia-api in their own source set, so the 1.18
+// core never sees Folia API or block displays. The core loads both by class name.
+sourceSets {
+    folia {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+    // The main test source set exposes the adapter contracts to the Folia tests.
+    foliaTest {
+        compileClasspath += sourceSets.main.output + sourceSets.folia.output + sourceSets.test.output
+        // Ahead of the dependencies, so the shipped config.yml is read, not the config.yml inside DecentHolograms' jar.
+        runtimeClasspath = sourceSets.main.output + sourceSets.folia.output + sourceSets.test.output + runtimeClasspath
+    }
+}
+
+dependencies {
+    foliaCompileOnly("dev.folia:folia-api:1.20.1-R0.1-SNAPSHOT")
+
+    foliaTestImplementation("dev.folia:folia-api:1.20.1-R0.1-SNAPSHOT")
+    // Their plugin.yml files, read for folia-supported.
+    foliaTestImplementation("com.github.decentsoftware-eu.decentholograms:decentholograms:2.10.1") {
+        transitive = false
+    }
+    foliaTestImplementation("me.filoghost.holographicdisplays:holographicdisplays-plugin:3.0.5") {
+        transitive = false
+    }
+    foliaTestImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    foliaTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+def foliaTest = tasks.register('foliaTest', Test) {
+    description = 'Runs the Folia adapter tests against folia-api.'
+    group = 'verification'
+    testClassesDirs = sourceSets.foliaTest.output.classesDirs
+    classpath = sourceSets.foliaTest.runtimeClasspath
+    useJUnitPlatform()
+    shouldRunAfter tasks.named('test')
+}
+
+// The FancyHolograms provider compiles on the Java 25 toolchain to Java 21 bytecode in its own source set, since
+// FancyHolograms 2.12.0 and its API are Java 25 bytecode, which only a JDK 25 compiler reads. The core never refers to it: it loads by class name only when FancyHolograms can run (ADR 0012).
+def fancyJavaVersion = 25
+def fancyBytecodeVersion = 21
+sourceSets {
+    fancy {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+    // The main test source set brings the probes, the recording provider, and the shipped config helper.
+    fancyTest {
+        compileClasspath += sourceSets.main.output + sourceSets.fancy.output + sourceSets.test.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.fancy.output + sourceSets.test.output
+    }
+}
+
+configurations {
+    fancyTestImplementation.extendsFrom(implementation)
+}
+
+// Resolve Java 25 variants, which Gradle refuses on the core's Java 17 classpaths.
+['fancyCompileClasspath', 'fancyRuntimeClasspath', 'fancyTestCompileClasspath', 'fancyTestRuntimeClasspath'].each {
+    configurations.named(it) {
+        attributes.attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, fancyJavaVersion)
+    }
+}
+
+dependencies {
+    fancyCompileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    // The API alone; its one dependency is already shaded into it.
+    fancyCompileOnly("de.oliver:FancyHolograms:2.12.0") {
+        transitive = false
+    }
+
+    fancyTestImplementation("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    // The real API classes: hologram data with FancyHolograms' own defaults, and the manager interface the fake keeps.
+    fancyTestImplementation("de.oliver:FancyHolograms:2.12.0") {
+        transitive = false
+    }
+    fancyTestImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    fancyTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+def fancyTest = tasks.register('fancyTest', Test) {
+    description = 'Runs the FancyHolograms provider tests on Java 25.'
+    group = 'verification'
+    testClassesDirs = sourceSets.fancyTest.output.classesDirs
+    classpath = sourceSets.fancyTest.runtimeClasspath
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(fancyJavaVersion)
+    }
+    useJUnitPlatform()
+    dependsOn tasks.named('shadowJar')
+    systemProperty 'rakunloots.shadowJar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+    shouldRunAfter tasks.named('test')
+}
+
+// The core must load on Java 17 with the provider's class never touched, so its loader tests also run on Java 17.
+def java17Test = tasks.register('java17Test', Test) {
+    description = 'Runs the FancyHolograms loader tests on Java 17.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    filter {
+        includeTestsMatching 'me.rakkoon69.rakunloots.hologram.fancy.*'
+    }
+    systemProperty 'rakunloots.java', "${targetJavaVersion}"
+    useJUnitPlatform()
+    shouldRunAfter tasks.named('test')
+}
+
+tasks.named('check') {
+    dependsOn foliaTest
+    dependsOn fancyTest
+    dependsOn java17Test
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    // The class version test reads the built plugin jar.
+    dependsOn tasks.named('shadowJar')
+    systemProperty 'rakunloots.shadowJar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+}
+
+// Packet adapters (ADR 0012). Each NMS revision is a subproject in packet-adapters/<revision>, listed in
+// settings.gradle. Its gradle.properties names minecraftVersion, the Spigot build it is written and tested against, and
+// spigotVersion when BuildTools installs that build as other than <minecraftVersion>-R0.1-SNAPSHOT;
+// javaLevel, the Java its servers run; and mappings: spigot for 1.18 to 1.21.x, whose Spigot servers run Spigot's names
+// (Paper from 1.20.5 runs Mojang's names and remaps a plugin in Spigot's names as it loads it), or mojang for 26.x,
+// which ships unobfuscated and which Spigot, Paper, and Folia all run in Mojang's names. An adapter compiles and tests
+// against Spigot's server in Mojang's names: for spigot mappings the Mojang-mapped server Spigot BuildTools --remapped
+// installs into the local Maven repository, for mojang mappings the server BuildTools installs, which already has
+// them. A spigot mapped adapter is then remapped by SpecialSource from Mojang names to Spigot's, in the two steps
+// Spigot's own plugin build uses, and that jar is the one the plugin jar ships; a mojang mapped adapter ships as
+// compiled. The core never sees an adapter: PacketAdapters loads the one it needs by class name.
+def packetAdapterProjects = subprojects.findAll { it.projectDir.parentFile.name == 'packet-adapters' }
+// A fixed BuildTools build from Spigot's own Jenkins, so every machine builds the same server.
+def buildToolsBuild = 201
+def buildToolsSha256 = '81ed06f5ce5fb705b558bf9b3cc2c5c53cdd9742406c5338c452faa13a1e1c24'
+def buildToolsDir = new File(gradle.gradleUserHomeDir, 'caches/rakunloots-buildtools')
+
+configure(packetAdapterProjects) { adapter ->
+    apply plugin: 'java'
+
+    group = rootProject.group
+    version = rootProject.version
+
+    def minecraftVersion = adapter.property('minecraftVersion') as String
+    // The Maven version BuildTools installs that build as: R0.1 unless gradle.properties names another, as 1.21.11's
+    // R0.2 build does.
+    def spigotVersion = (adapter.findProperty('spigotVersion') ?: "${minecraftVersion}-R0.1-SNAPSHOT") as String
+    def javaLevel = (adapter.property('javaLevel') as String).toInteger()
+    // The class version the adapter compiles to: javaLevel unless gradle.properties names an older one. The 26.x adapters
+    // build and test on Java 25 but compile to Java 21 bytecode, so Paper's plugin remapper, which cannot read newer
+    // classes, loads the plugin on 1.20.6 to 1.21.5 (ADR 0017).
+    def bytecodeLevel = (adapter.findProperty('bytecodeLevel') ?: javaLevel) as int
+    def mappings = adapter.property('mappings') as String
+    if (!(mappings in ['spigot', 'mojang'])) {
+        throw new GradleException("${adapter.name}: mappings is spigot or mojang, not $mappings")
+    }
+    def adapterLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(javaLevel) }
+
+    // Only Spigot's own artifacts, which BuildTools installs: BuildTools also leaves plain poms of libraries it builds
+    // with, such as JUnit, whose Gradle metadata is missing there.
+    def localMaven = repositories.mavenLocal {
+        content { includeGroup 'org.spigotmc' }
+    }
+    repositories {
+        mavenCentral()
+        // Minecraft's own libraries, such as brigadier and authlib, which the Spigot server's pom names.
+        maven {
+            name = 'minecraft-libraries'
+            url = 'https://libraries.minecraft.net/'
+        }
+        maven {
+            name = 'spigotmc'
+            url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+        }
+    }
+
+    configurations {
+        // SpecialSource and the two mappings and reference jars each remap step reads.
+        specialSource { transitive = false }
+        mojangMappings { transitive = false }
+        spigotMappings { transitive = false }
+        mojangServer { transitive = false }
+        obfServer { transitive = false }
+        // Spigot's server as it runs, with its libraries: the shipped adapter must link against it.
+        runtimeServer
+        // The jar the plugin jar ships.
+        shippedAdapter {
+            canBeConsumed = true
+            canBeResolved = false
+        }
+    }
+
+    // Spigot's server in Mojang's names: BuildTools' remapped-mojang jar up to 1.21.x, its plain jar from 26.1.
+    def mojangNamedServer = mappings == 'spigot'
+            ? "org.spigotmc:spigot:${spigotVersion}:remapped-mojang"
+            : "org.spigotmc:spigot:${spigotVersion}"
+
+    dependencies {
+        compileOnly(mojangNamedServer)
+        // The core's own classes only, so the adapter can implement PacketAdapter.
+        compileOnly(files(rootProject.sourceSets.main.output))
+
+        testImplementation(mojangNamedServer)
+        // The core and its test helpers: selection, the provider choice, and the fake server probes.
+        testImplementation(files(rootProject.sourceSets.main.output, rootProject.sourceSets.test.output))
+        testImplementation('org.junit.jupiter:junit-jupiter:5.10.2')
+        // Reads the shipped adapter's class files for the check that each name it uses is the running server's.
+        testImplementation('org.ow2.asm:asm:9.9.1')
+        testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+
+        // The server as it runs: in Spigot's names up to 1.21.x, in Mojang's from 26.1; its plain jar either way.
+        runtimeServer("org.spigotmc:spigot:${spigotVersion}")
+        if (mappings == 'spigot') {
+            specialSource('net.md-5:SpecialSource:1.11.6:shaded')
+            mojangMappings("org.spigotmc:minecraft-server:${spigotVersion}:maps-mojang@txt")
+            spigotMappings("org.spigotmc:minecraft-server:${spigotVersion}:maps-spigot@csrg")
+            mojangServer("org.spigotmc:spigot:${spigotVersion}:remapped-mojang")
+            obfServer("org.spigotmc:spigot:${spigotVersion}:remapped-obf")
+        }
+    }
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(javaLevel)
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.release = bytecodeLevel
+    }
+
+    // The tests that every adapter runs the same way, such as the shipped jar check.
+    sourceSets.test.java.srcDir(rootProject.file('packet-adapters/shared-test/java'))
+
+    def serverJar = new File(localMaven.url).toPath().resolve("org/spigotmc/spigot/${spigotVersion}/"
+            + "spigot-${spigotVersion}${mappings == 'spigot' ? '-remapped-mojang' : ''}.jar").toFile()
+    // BuildTools installs the Mojang-mapped server only when asked; from 26.1 there are no mappings to ask for.
+    def buildToolsArgs = ['--rev', minecraftVersion] + (mappings == 'spigot' ? ['--remapped'] : [])
+
+    // Runs Spigot BuildTools, which builds this Spigot version from Spigot's sources with Mojang's mappings and
+    // installs it into the local Maven repository. It needs git, and takes several minutes.
+    tasks.register('installSpigotServer', JavaExec) {
+        description = "Builds Spigot ${minecraftVersion} with BuildTools into the local Maven repository."
+        group = 'build setup'
+        def buildTools = new File(buildToolsDir, "BuildTools-${buildToolsBuild}.jar")
+        javaLauncher.set(adapterLauncher)
+        classpath = files(buildTools)
+        mainClass = 'org.spigotmc.builder.Bootstrap'
+        workingDir = new File(buildToolsDir, 'work')
+        args buildToolsArgs
+        doFirst {
+            workingDir.mkdirs()
+            if (!buildTools.isFile()) {
+                def url = "https://hub.spigotmc.org/jenkins/job/BuildTools/${buildToolsBuild}/artifact/target/BuildTools.jar"
+                logger.lifecycle("Downloading $url")
+                new URL(url).withInputStream { input -> buildTools.withOutputStream { it << input } }
+            }
+            def sha256 = java.security.MessageDigest.getInstance('SHA-256').digest(buildTools.bytes)
+                    .encodeHex().toString()
+            if (sha256 != buildToolsSha256) {
+                buildTools.delete()
+                throw new GradleException("BuildTools ${buildToolsBuild} has SHA-256 $sha256, not $buildToolsSha256")
+            }
+        }
+    }
+
+    def checkSpigotServer = tasks.register('checkSpigotServer') {
+        description = "Fails with the command to run when Spigot ${minecraftVersion} in Mojang's names is missing."
+        doLast {
+            if (!serverJar.isFile()) {
+                throw new GradleException("The ${adapter.name} packet adapter needs Spigot ${minecraftVersion} in "
+                        + "Mojang's names, and ${serverJar} is missing. Install it with "
+                        + "'./gradlew :${adapter.name}:installSpigotServer', which runs Spigot BuildTools "
+                        + "${buildToolsArgs.join(' ')} on Java ${javaLevel}.")
+            }
+        }
+    }
+    tasks.named('compileJava') { dependsOn checkSpigotServer }
+
+    def shipped = tasks.named('jar')
+    if (mappings == 'spigot') {
+        def obfJar = layout.buildDirectory.file("libs/${adapter.name}-obf.jar")
+        def reobfJar = layout.buildDirectory.file("libs/${adapter.name}-reobf.jar")
+
+        // Step 1: Mojang names back to the obfuscated names Minecraft ships, reading the Mojang-named server for
+        // inheritance.
+        def remapToObf = tasks.register('remapToObf', JavaExec) {
+            description = 'Remaps the adapter from Mojang names to the names Minecraft ships.'
+            inputs.files(tasks.named('jar')).withPropertyName('adapterJar')
+            inputs.files(configurations.mojangMappings).withPropertyName('mappings')
+            outputs.file(obfJar)
+            javaLauncher.set(adapterLauncher)
+            classpath = configurations.specialSource + configurations.mojangServer
+            mainClass = 'net.md_5.specialsource.SpecialSource'
+            doFirst {
+                args '--live', '-i', tasks.named('jar').get().archiveFile.get().asFile,
+                        '-o', obfJar.get().asFile, '-m', configurations.mojangMappings.singleFile, '--reverse'
+            }
+        }
+        // Step 2: the shipped obfuscated names to Spigot's names, reading the obfuscated server for inheritance.
+        def reobf = tasks.register('reobfJar', JavaExec) {
+            description = "Remaps the adapter to Spigot ${minecraftVersion}'s names, the jar the plugin ships."
+            inputs.files(remapToObf).withPropertyName('obfJar')
+            inputs.files(configurations.spigotMappings).withPropertyName('mappings')
+            outputs.file(reobfJar)
+            javaLauncher.set(adapterLauncher)
+            classpath = configurations.specialSource + configurations.obfServer
+            mainClass = 'net.md_5.specialsource.SpecialSource'
+            doFirst {
+                args '--live', '-i', obfJar.get().asFile, '-o', reobfJar.get().asFile,
+                        '-m', configurations.spigotMappings.singleFile
+            }
+        }
+        artifacts {
+            shippedAdapter(reobfJar) { builtBy reobf }
+        }
+        shipped = reobf
+    } else {
+        artifacts {
+            shippedAdapter(tasks.named('jar'))
+        }
+    }
+
+    tasks.named('assemble') { dependsOn shipped }
+
+    tasks.named('test', Test) {
+        useJUnitPlatform()
+        javaLauncher.set(adapterLauncher)
+        // The shipped jar check reads the plugin jar and links it against Spigot's server as it runs.
+        dependsOn rootProject.tasks.named('shadowJar')
+        inputs.files(configurations.runtimeServer).withPropertyName('runtimeServer')
+        systemProperty 'rakunloots.shadowJar', rootProject.tasks.named('shadowJar').get().archiveFile.get().asFile
+                .absolutePath
+        systemProperty 'rakunloots.revision', adapter.name
+        systemProperty 'rakunloots.javaLevel', "${javaLevel}"
+        systemProperty 'rakunloots.bytecodeLevel', "${bytecodeLevel}"
+        systemProperty 'rakunloots.mappings', mappings
+        doFirst {
+            systemProperty 'rakunloots.runtimeServer', configurations.runtimeServer.asPath
+        }
+    }
+}
+
+// The shipped jar of every packet adapter, added to the plugin jar.
+configurations {
+    packetAdapters {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
+dependencies {
+    packetAdapterProjects.each { adapter ->
+        packetAdapters(project(path: adapter.path, configuration: 'shippedAdapter'))
+    }
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+jar {
+    dependsOn configurations.packetAdapters
+    from sourceSets.folia.output
+    from sourceSets.fancy.output
+    from {
+        configurations.packetAdapters.collect { zipTree(it).matching { exclude 'META-INF/**' } }
+    }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+['compileFancyJava', 'compileFancyTestJava'].each {
+    tasks.named(it, JavaCompile) {
+        javaCompiler = javaToolchains.compilerFor {
+            languageVersion = JavaLanguageVersion.of(fancyJavaVersion)
+        }
+        // Java 21 bytecode on the JDK 25 toolchain: FancyHolograms' API is Java 25 bytecode, which javac 25 reads, and
+        // Paper's plugin remapper on 1.20.6 to 1.21.5 cannot read a class newer than Java 21 (ADR 0017).
+        options.release = fancyBytecodeVersion
+    }
+}
+
+shadowJar {
+    from sourceSets.folia.output
+    relocate("fr.skytasul.glowingentities", "me.rakkoon69.rakunloots.libs.glowingentities")
+    relocate("fr.skytasul.guardianbeam", "me.rakkoon69.rakunloots.libs.guardianbeam")
+    relocate("fr.skytasul.reflection", "me.rakkoon69.rakunloots.libs.reflection")
+    relocate("de.tr7zw.changeme.nbtapi", "me.rakkoon69.rakunloots.libs.nbt")
+
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    // Shadow 7.1.2 reads every class with its own shaded ASM to relocate, and that ASM cannot read the FancyHolograms
+    // provider's Java 25 classes, nor packet adapters above Java 18. They need no relocation, so they go into the
+    // finished jar as they are: the fancy classes, and each packet adapter's shipped jar.
+    inputs.files(sourceSets.fancy.output.classesDirs).withPropertyName('fancyClasses')
+    inputs.files(project.configurations.packetAdapters).withPropertyName('packetAdapters')
+    doLast {
+        sourceSets.fancy.output.classesDirs.each { classes ->
+            if (classes.exists()) {
+                ant.zip(destfile: archiveFile.get().asFile, update: true) {
+                    fileset(dir: classes)
+                }
+            }
+        }
+        project.configurations.packetAdapters.each { adapterJar ->
+            ant.zip(destfile: archiveFile.get().asFile, update: true) {
+                zipfileset(src: adapterJar, excludes: 'META-INF/**')
+            }
+        }
+    }
+}

@@ -1,0 +1,219 @@
+From 23ed8e42fab4bdf12c06efc9ca21c66d8b8d49f6 Mon Sep 17 00:00:00 2001
+From: rakun68 <hoa.lehuu68@gmail.com>
+Date: Fri, 23 Oct 2026 01:15:46 +0700
+Subject: [PATCH] Exercise menu smoke checks and separate external startup
+ diagnostics (#114)
+
+
+diff --git a/MANUAL.md b/MANUAL.md
+index ec74148..6385d83 100644
+--- a/MANUAL.md
++++ b/MANUAL.md
+@@ -77,0 +78,4 @@ tools/mc.sh paper-26.2 deploy > deploy.out 2>&1
++The menu checks open the wiki before the first reload, check its shipped loot order, open a loot page and return, click a claim row, and check the direct `claim all` behavior and console player-only replies. Add `--after-reload` for a second complete run against the same installed jar, configuration and database. That mode verifies the jar hash, starts the existing install and reloads it before the checks. Both modes reset only the stopped test bots' player files.
++
++Known Windows OSHI crash-report preload diagnostics are printed separately as external diagnostics, with their full traces retained in the report. The matcher recognizes only the named Perflib-009 registry error and the three `SystemReport` null-process diagnostics. A RakunLoots frame, any plugin ERROR or any other unexpected startup exception still fails the run. `python -m unittest discover -s tools -p test_rltest_startup.py` checks this attribution. No Windows registry repair or JVM workaround is required for these tests.
++
+diff --git a/tools/rltest.py b/tools/rltest.py
+index 3c0652c..a50e32e 100644
+--- a/tools/rltest.py
++++ b/tools/rltest.py
+@@ -1 +1,5 @@
+-"""Smoke test RakunLoots on one server: python tools/rltest.py <server> <rakunloots.jar> <bot version>
++"""Smoke test RakunLoots: python tools/rltest.py <server> <rakunloots.jar> <bot version> [--after-reload]
++
++The default makes a fresh install. --after-reload preserves the existing plugin config/database and verifies the
++installed jar matches, then starts it and reloads before repeating the checks. Both modes reset only the stopped
++test bots' player files to keep their positions and inventories reproducible.
+@@ -5 +9 @@ of every loot, a timer summon, the summon item, drop open, inventory open, a bre
+-the claim command, reload, a restart that keeps the boxes, and removal. Each check prints PASS, FAIL, or INFO. Every
++the claim menu and claim-all command, wiki pages, reload, a restart that keeps the boxes, and removal. Each check prints PASS, FAIL, or INFO. Every
+@@ -21,0 +26 @@ import uuid
++from rltest_startup import classify_startup
+@@ -26,0 +32 @@ SERVER, JAR, BOTVER = sys.argv[1], sys.argv[2], sys.argv[3]
++AFTER_RELOAD = '--after-reload' in sys.argv[4:]
+@@ -133 +139,7 @@ def forget_bots():
+-# 1. Fresh startup with the shipped defaults.
++# 1. Fresh startup, or a second run using the same installed jar and config after reload.
++if AFTER_RELOAD:
++    installed = os.path.join(SDIR, 'plugins', 'RakunLoots.jar')
++    if not os.path.isfile(installed) or not os.path.isdir(os.path.join(SDIR, 'plugins', 'RakunLoots')):
++        raise SystemExit('--after-reload requires an existing tested RakunLoots install')
++    if hashlib.sha256(open(installed, 'rb').read()).digest() != hashlib.sha256(open(JAR, 'rb').read()).digest():
++        raise SystemExit('--after-reload requires the same jar as the installed first run')
+@@ -136,2 +148,6 @@ forget_bots()
+-out(f'== {SERVER}  jar={os.path.basename(JAR)}  bot version={BOTVER}  port={PORT}')
+-start = sh('tools/fresh.sh', SERVER, JAR, timeout=900)
++out(f'== {SERVER}  jar={os.path.basename(JAR)}  bot version={BOTVER}  port={PORT}  '
++    f'mode={"after-reload" if AFTER_RELOAD else "fresh"}')
++start = (sh('tools/mc.sh', SERVER, 'start', timeout=900) if AFTER_RELOAD
++         else sh('tools/fresh.sh', SERVER, JAR, timeout=900))
++if AFTER_RELOAD:
++    check('Reloaded.' in cmd('rkl reload'), 'reload the existing install before repeating the smoke test')
+@@ -143,2 +159,4 @@ check('[RakunProbe] RakunProbe enabled' in boot, 'RakunProbe enabled')
+-errs = [l for l in boot.splitlines() if re.search(r'ERROR|Exception', l) and not re.search(r'\[RakunLoots\] [A-Z_]{4,} ', l)]
+-check(not errs, 'no ERROR or exception at startup', f'{len(errs)} lines' if errs else '')
++errs, external_startup = classify_startup(boot)
++for diagnostic in external_startup:
++    out('INFO external Windows OSHI bootstrap diagnostic (full trace retained below): ' + diagnostic.splitlines()[0])
++check(not errs, 'no unexpected ERROR or exception at startup', f'{len(errs)} lines' if errs else '')
+@@ -146,0 +165,4 @@ out(f'INFO startup warning codes: {", ".join(codes) or "none"}')
++fresh_warns = [l for l in boot.splitlines() if re.search(r'WARN\]: \[RakunLoots\]', l)]
++check(not fresh_warns, 'no RakunLoots WARN at startup', f'{len(fresh_warns)} lines')
++check(all(os.path.isfile(os.path.join(SDIR, 'plugins', 'RakunLoots', 'menus', name))
++          for name in ('claim.yml', 'wiki.yml')), 'both shipped menu files were written')
+@@ -148,0 +171,9 @@ check('"adapter"' in holo, 'packet hologram adapter picked', holo[:160])
++r = bot('wait 1000; chat /loots; wait 1000; window; close; '
++        'chat /claimsummon; wait 1000; window', 'Other1', timeout=30)
++check(any(x.get('open') and x.get('size') == 54 for x in r if x.get('kind') == 'window'),
++      'wiki opens after reload' if AFTER_RELOAD else 'wiki opens before the first reload')
++check(any('no summon items waiting' in c for c in chats(r)),
++      'empty claim works after reload' if AFTER_RELOAD else 'empty claim works before the first reload')
++before_reload_windows = [x for x in r if x.get('kind') == 'window']
++check(bool(before_reload_windows) and not before_reload_windows[-1].get('open'),
++      'an empty claim does not open a menu')
+@@ -156,0 +188,4 @@ check('Did you mean airdrops' in cmd('rkl summon airdrop world'), 'a mistyped lo
++for player_command in ('claimsummon', 'claimsummon all', 'loots'):
++    reply = cmd(player_command)
++    check('player' in reply.lower() and 'unknown command' not in reply.lower(),
++          f'{player_command} is player only', reply)
+@@ -256 +291,2 @@ cmd('rkl give treasure_chest Other1 2')
+-r = bot('wait 1500; chat /claimsummon; wait 1500; inv', 'Other1', timeout=30)
++r = bot('wait 1500; chat /claimsummon; wait 1000; window; click 0; wait 1000; window; inv',
++        'Other1', timeout=30)
+@@ -259 +295,33 @@ check(any('waiting' in c for c in chats(r)), 'join message names the claim comma
+-check(any('You took 2' in c for c in chats(r)), 'claim gives the summon items', str(chats(r)[-1:]))
++claim_windows = [x for x in r if x.get('kind') == 'window']
++check(any(w.get('open') and w.get('size') == 54
++          and any(s['slot'] == 0 and s['name'] == 'compass' and s['count'] == 2 for s in w.get('slots', []))
++          for w in claim_windows), 'claim command opens the shipped menu with the owed items')
++check(any('You took 2' in c for c in chats(r)), 'claim menu row gives the summon items', str(chats(r)[-2:]))
++check(bool(inv) and sum(s['count'] for s in inv[-1]['slots'] if s['name'] == 'compass') == 2,
++      'claim row gives exactly two summon items')
++check(bool(claim_windows) and not claim_windows[-1].get('open'), 'claim menu closes when nothing is owed')
++cmd('rkl give treasure_chest Other1 1')
++r = bot('wait 1000; chat /claimsummon all; wait 1000; window; inv', 'Other1', timeout=30)
++check(any('You took 1' in c for c in chats(r)), 'claim all keeps the direct claim behaviour', str(chats(r)[-2:]))
++check(not any(x.get('open') for x in r if x.get('kind') == 'window'), 'claim all does not open a menu')
++
++# The bot observes real inventory packets; client-only colours and sounds still need the owner's check.
++r = bot('wait 1000; chat /loots; wait 1000; window; click 3; wait 1000; window; '
++        'click 48; wait 1000; window; close', 'Other1', timeout=40)
++wiki_windows = [x for x in r if x.get('kind') == 'window' and x.get('open')]
++expected_names = ['Deep Vault', 'Head Trophy', 'Buried Stash', 'Treasure Chest', 'Air Supply',
++                  'Sky Lantern', 'Sunken Treasure']
++first_slots = {s['slot']: s for s in wiki_windows[0].get('slots', [])} if wiki_windows else {}
++names = [re.sub(r'§.', '', first_slots.get(i, {}).get('customName') or '') for i in range(7)]
++check(bool(wiki_windows) and wiki_windows[0].get('size') == 54, 'wiki opens the shipped list menu')
++check(all(expected in actual for expected, actual in zip(expected_names, names)),
++      'wiki orders the shipped loots by timer chance', str(names))
++loot_pages = [w for w in wiki_windows if any(s['slot'] == 49 and s['name'] == 'book'
++                                           for s in w.get('slots', []))]
++info = next((s for w in loot_pages for s in w.get('slots', []) if s['slot'] == 49), {})
++info_text = re.sub(r'§.', '', '\n'.join(info.get('lore') or []))
++check(bool(loot_pages) and 'inventory' in info_text.lower() and '0:30' in info_text and '10:00' in info_text,
++      'wiki loot page shows treasure chest information', info_text)
++last_slots = {s['slot']: s for s in wiki_windows[-1].get('slots', [])} if wiki_windows else {}
++check(bool(loot_pages) and 'Deep Vault' in re.sub(r'§.', '', last_slots.get(0, {}).get('customName') or ''),
++      'wiki back returns to the list')
+diff --git a/tools/rltest_startup.py b/tools/rltest_startup.py
+new file mode 100644
+index 0000000..327f8e2
+--- /dev/null
++++ b/tools/rltest_startup.py
+@@ -0,0 +1,36 @@
++"""Attribute the known Windows OSHI bootstrap diagnostics without hiding plugin errors."""
++import re
++
++
++def classify_startup(text):
++    unexpected, external = [], []
++    for record in re.split(r'(?m)(?=^\[\d{2}:\d{2}:\d{2}\])', text):
++        lines = record.splitlines()
++        if not lines:
++            continue
++        problems = [line for line in lines if re.search(r'ERROR|Exception', line)
++                    and not (re.search(r'\[RakunLoots\] [A-Z_]{4,} ', line)
++                             and 'ERROR]' not in line)]
++        if not problems:
++            continue
++        header = lines[0]
++        plugin = '[RakunLoots]' in record or 'me.rakkoon69.rakunloots' in record
++        startup_thread = re.search(r'\[(CrashReport preload thread|ServerMain)/(ERROR|WARN)\]', header)
++        preload = 'net.minecraft.CrashReport.preload(' in record
++        registry = (startup_thread and '/ERROR]' in header and preload
++                    and 'oshi.driver.windows.registry.HkeyPerformanceDataUtil.' in record
++                    and 'Unable to locate English counter names in registry Perflib 009.' in header
++                    and len(problems) == 2
++                    and problems[1] == 'com.sun.jna.platform.win32.Win32Exception: The parameter is incorrect.')
++        process = (startup_thread and '/WARN]' in header and preload
++                   and re.search(r'Failed to get system info for Process '
++                                 r'(Loads|Virtual Size \(MiB\)|Resident Size \(MiB\))$', header)
++                   and 'Cannot invoke "oshi.software.os.OSProcess.' in record
++                   and 'because "process" is null' in record
++                   and 'net.minecraft.SystemReport.' in record
++                   and len(problems) == 1)
++        if not plugin and (registry or process):
++            external.append(record)
++        else:
++            unexpected.extend(problems)
++    return unexpected, external
+diff --git a/tools/test_rltest_startup.py b/tools/test_rltest_startup.py
+new file mode 100644
+index 0000000..c1906c7
+--- /dev/null
++++ b/tools/test_rltest_startup.py
+@@ -0,0 +1,53 @@
++import unittest
++
++from rltest_startup import classify_startup
++
++
++REGISTRY = '''[00:29:05] [CrashReport preload thread/ERROR]: [oshi.driver.windows.registry.HkeyPerformanceDataUtil] Unable to locate English counter names in registry Perflib 009. Counters may need to be rebuilt:
++com.sun.jna.platform.win32.Win32Exception: The parameter is incorrect.
++ at oshi.driver.windows.registry.HkeyPerformanceDataUtil.mapCounterIndicesFromRegistry(HkeyPerformanceDataUtil.java:274)
++ at net.minecraft.CrashReport.preload(CrashReport.java:240)
++'''
++PROCESS = '''[00:29:06] [CrashReport preload thread/WARN]: Failed to get system info for Process Loads
++java.lang.NullPointerException: Cannot invoke "oshi.software.os.OSProcess.getUserTime()" because "process" is null
++ at net.minecraft.SystemReport.putProcessDetails(SystemReport.java:188)
++ at net.minecraft.CrashReport.preload(CrashReport.java:240)
++'''
++
++
++class StartupAttributionTest(unittest.TestCase):
++    def test_known_external_records_stay_visible(self):
++        errors, external = classify_startup(REGISTRY + PROCESS)
++        self.assertEqual([], errors)
++        self.assertEqual(2, len(external))
++        self.assertIn('Win32Exception', external[0])
++        self.assertIn('NullPointerException', external[1])
++
++    def test_spigot_preloads_on_server_main_without_a_logger_name(self):
++        registry = REGISTRY.replace('CrashReport preload thread', 'ServerMain').replace(
++            '[oshi.driver.windows.registry.HkeyPerformanceDataUtil] ', '')
++        process = PROCESS.replace('CrashReport preload thread', 'ServerMain')
++        errors, external = classify_startup(registry + process)
++        self.assertEqual([], errors)
++        self.assertEqual(2, len(external))
++
++    def test_plugin_frame_never_gets_the_external_exception(self):
++        errors, external = classify_startup(PROCESS + ' at me.rakkoon69.rakunloots.Plugin.onEnable(Plugin.java:1)\n')
++        self.assertTrue(errors)
++        self.assertEqual([], external)
++
++    def test_unknown_or_plugin_errors_still_fail(self):
++        for text in ('[00:00:00] [Server thread/ERROR]: [RakunLoots] Could not enable\n',
++                     '[00:00:00] [Server thread/ERROR]: [RakunLoots] UNUSABLE_MENU broken\n',
++                     '[00:00:00] [Server thread/ERROR]: Unknown startup error\n',
++                     REGISTRY + 'java.lang.IllegalStateException: unexpected nested problem\n',
++                     PROCESS + 'java.lang.IllegalStateException: unexpected nested problem\n',
++                     PROCESS.replace('CrashReport.preload', 'Unrelated.method'),
++                     PROCESS.replace('Process Loads', 'Something else')):
++            errors, external = classify_startup(text)
++            self.assertTrue(errors)
++            self.assertEqual([], external)
++
++
++if __name__ == '__main__':
++    unittest.main()

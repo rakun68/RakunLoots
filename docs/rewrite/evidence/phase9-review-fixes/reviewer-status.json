@@ -1,0 +1,26 @@
+{
+  "head": "d53a589a2e36753ba2cbbe00862582e7923d858e",
+  "start": "d53a589a2e36753ba2cbbe00862582e7923d858e",
+  "model": "deepseek/deepseek-flash-high",
+  "seconds": 679,
+  "phase_seconds": {
+    "setup": 40,
+    "agent": 569,
+    "test": 0
+  },
+  "agent_exit": 0,
+  "review_violation": false,
+  "findings": 0,
+  "findings_unreadable": false,
+  "report_asked": true,
+  "final_recovered": true,
+  "blocked": "none",
+  "flags": [
+    {
+      "flag": "OUT-OF-SCOPE",
+      "detail": "src/folia/java/me/rakkoon69/rakunloots/server/FoliaServerAdapter.java, src/foliaTest/java/me/rakkoon69/rakunloots/server/FakeFoliaServer.java, src/main/java/me/rakkoon69/rakunloots/menu/MenuService.java, src/main/java/me/rakkoon69/rakunloots/wiki/WikiMenu.java"
+    }
+  ],
+  "test_exit": -1,
+  "first_test_exit": -1
+}

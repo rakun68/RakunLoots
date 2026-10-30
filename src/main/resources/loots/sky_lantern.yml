@@ -1,0 +1,71 @@
+# A glowing block that hangs in the open air. It shows the anywhere placement, which takes any spot of free blocks in the
+# height range with no floor, and a loot with no laser and no hologram section. It is not on a world timer in
+# worlds.yml; it is for the summon item and for admins. Keys are explained in airdrops.yml and treasure_chest.yml.
+
+display_name: '&r&e&lSky Lantern'
+description:
+  - '&f(&e+&f) A lantern of light, floating in the sky.'
+
+language: en
+open_mode: drop
+lock: 5
+# A short life: the lantern drifts away after four minutes.
+life: 240
+summon_delay: 20
+block: glowstone
+
+roll:
+  min: 1
+  max: 2
+  entries:
+    dust:
+      weight: 40
+      amount: 8
+      item:
+        id: glowstone_dust
+    feather:
+      weight: 30
+      amount: 4
+      item:
+        id: feather
+    membrane:
+      weight: 15
+      amount: 2
+      item:
+        id: phantom_membrane
+    rockets:
+      weight: 25
+      amount: 6
+      item:
+        id: firework_rocket
+
+summon_item:
+  id: glowstone_dust
+  name: '&r&e&lLantern Spark'
+  lore:
+    - '&7Right click to hang a lantern'
+    - '&7in the sky above you.'
+
+summon_settings:
+  # anywhere: no floor is needed. The box takes a spot in the range where the replaceable blocks are.
+  summon_type: anywhere
+  y_range: '90:200'
+  replaceable_blocks:
+    - 'minecraft:air'
+  attempts: 20
+  player_ring:
+    min: 0
+    max: 8
+  vertical_offset_enable: true
+  vertical_offset: 20
+
+animations:
+  summon:
+    - SPARKLE
+  remove:
+    - GOLD_BURST
+
+# No hologram and no laser section: the defaults apply, which is a hologram with the language's lines and no beam.
+glow:
+  enabled: true
+  color: YELLOW

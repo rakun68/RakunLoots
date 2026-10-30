@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.menu.Phase9SupersededRetirementProofTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:09:32" hostname="LAPTOP-2PQGPS0P" time="0.122">
+  <properties/>
+  <testcase name="aClosedOldMenuRetiresWhenItsReplacementLosesToAFailedOpen()" classname="me.rakkoon69.rakunloots.menu.Phase9SupersededRetirementProofTest" time="0.122"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,107 @@
+# A vault deep in the rock, walled in. It shows the deep_buried placement with enclosed on, a long lock and life, an
+# enchanted book in the roll, and an owner message of its own. Keys are explained in airdrops.yml and treasure_chest.yml.
+
+display_name: '&r&5&lDeep Vault'
+description:
+  - '&f(&5+&f) A sealed vault deep underground.'
+
+language: en
+open_mode: inventory
+lock: 120
+life: 1800
+summon_delay: 100
+block: blast_furnace
+
+message_owner_on_remove_enable: true
+messages:
+  message_owner_on_remove: "{prefix} &7Your {box_name} &r&7at &c{box_x} {box_y} {box_z} &r&7is gone for good."
+
+# Its life running out spills the items; an explosion does not end it.
+loot_end:
+  allow_explosion: false
+  timeout_spill: true
+
+roll:
+  min: 2
+  max: 3
+  entries:
+    diamonds:
+      weight: 40
+      amount: 3
+      item:
+        id: diamond
+    scrap:
+      weight: 25
+      amount: 2
+      item:
+        id: netherite_scrap
+    emeralds:
+      weight: 40
+      amount: 10
+      item:
+        id: emerald
+    vault_book:
+      slot: 13
+      weight: 15
+      amount: 1
+      item:
+        # An enchanted book keeps its enchantments as stored enchantments.
+        id: enchanted_book
+        enchants:
+          - 'mending:1'
+    ancient_debris:
+      weight: 10
+      amount: 1
+      item:
+        id: ancient_debris
+
+summon_item:
+  id: amethyst_shard
+  name: '&r&5&lVault Key Shard'
+  lore:
+    - '&7Right click to seal a vault'
+    - '&7in the rock around you.'
+
+summon_settings:
+  # deep_buried: the box is inside solid rock with no air next to it when enclosed is true.
+  summon_type: deep_buried
+  deep_buried:
+    enclosed: true
+  y_range: '-60:20'
+  replaceable_blocks:
+    - '@natural_ground'
+  avoid_surfaces:
+    - minecraft:lava
+    - minecraft:water
+  player_ring:
+    min: 0
+    max: 24
+  vertical_offset_enable: true
+  vertical_offset: 30
+
+animations:
+  summon:
+    - RED_SPHERE
+  alive:
+    - SPARKLE
+  unlocked:
+    - GREEN_SPHERE
+  open:
+    - WHITE_SPHERE
+  remove:
+    - CLOUD_RING
+
+hologram:
+  enabled: true
+  height: 1
+  view_range: 16
+
+glow:
+  enabled: true
+  color: DARK_PURPLE
+
+laser:
+  type: GUARDIAN
+  view_distance: 24
+  # Blocks above the bottom of the box's block where the beam's entity starts, 0 to 64. A guardian has no hitbox.
+  start_offset: 0

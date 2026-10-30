@@ -1,0 +1,43 @@
+{
+  "folia": {
+    "footer": [
+      [
+        "58",
+        "0"
+      ]
+    ],
+    "failures": [],
+    "plugin_warn_errors": [],
+    "jar_sha256": "9032E7906D9509616D9824CF7E060483416A714B254E507A43EEFE042BB0558B"
+  },
+  "paper": {
+    "footer": [
+      [
+        "58",
+        "0"
+      ]
+    ],
+    "failures": [],
+    "plugin_warn_errors": [],
+    "jar_sha256": "9032E7906D9509616D9824CF7E060483416A714B254E507A43EEFE042BB0558B"
+  },
+  "spigot": {
+    "footer": [
+      [
+        "58",
+        "0"
+      ]
+    ],
+    "failures": [],
+    "plugin_warn_errors": [],
+    "jar_sha256": "9032E7906D9509616D9824CF7E060483416A714B254E507A43EEFE042BB0558B"
+  },
+  "shutdown": {
+    "kind": "result",
+    "pass": true,
+    "reason": "socketClosed",
+    "menuId": 1,
+    "closePacketBeforeDisconnect": true
+  },
+  "total_passed": 174
+}

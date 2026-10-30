@@ -1,0 +1,4 @@
+{"kind":"ready","menuId":1,"title":{"type":"compound","value":{"color":{"type":"string","value":"dark_gray"},"text":{"type":"string","value":"Loots wiki"}}},"size":54}
+{"kind":"server_close_window","data":{"windowId":1}}
+{"kind":"kicked","reason":{"type":"string","value":"Server closed"}}
+{"kind":"result","pass":true,"reason":"socketClosed","menuId":1,"closePacketBeforeDisconnect":true}

@@ -1,0 +1,2 @@
+Stopping the server
+folia-26.2 stopped (pid 13224 exited)

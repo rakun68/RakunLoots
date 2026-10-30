@@ -1,0 +1,86 @@
+# A treasure on the sea floor. It shows the underwater placement and its options. It is not on a world timer in
+# worlds.yml, because a timer rarely finds water; players call it with the summon item or an admin with /rkl summon.
+# Keys are explained in airdrops.yml and treasure_chest.yml.
+
+display_name: '&r&9&lSunken Treasure'
+description:
+  - '&f(&9+&f) A treasure lying under the water.'
+
+language: en
+open_mode: drop
+lock: 20
+life: 600
+summon_delay: 60
+block: sea_lantern
+
+message_owner_on_remove_enable: true
+
+loot_end:
+  allow_explosion: true
+
+roll:
+  min: 2
+  max: 3
+  entries:
+    crystals:
+      weight: 40
+      amount: 6
+      item:
+        id: prismarine_crystals
+    heart:
+      weight: 10
+      amount: 1
+      item:
+        id: heart_of_the_sea
+    shell:
+      weight: 20
+      amount: 1
+      item:
+        id: nautilus_shell
+    nuggets:
+      weight: 40
+      amount: 12
+      item:
+        id: gold_nugget
+
+summon_item:
+  id: heart_of_the_sea
+  name: '&r&9&lTide Charm'
+  lore:
+    - '&7Right click in the water to sink'
+    - '&7a treasure to the floor near you.'
+
+summon_settings:
+  # underwater: the box is placed in water.
+  summon_type: underwater
+  underwater:
+    # sinking: on the floor of the water. floating: at the surface.
+    position: sinking
+    # Whether a pool of water inside a cave counts.
+    cave_water: true
+    # Blocks of water above the box at least.
+    min_depth: 3
+  y_range: '-20:62'
+  player_ring:
+    min: 0
+    max: 20
+
+animations:
+  summon:
+    - BLUE_SPHERE
+  alive:
+    - CLOUD_RING
+  open:
+    - WHITE_SPHERE
+  remove:
+    - CLOUD_RING
+
+glow:
+  enabled: true
+  color: BLUE
+
+laser:
+  type: GUARDIAN
+  view_distance: 40
+  # Blocks above the bottom of the box's block where the beam's entity starts, 0 to 64. A guardian has no hitbox.
+  start_offset: 0

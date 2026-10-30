@@ -1,0 +1,14 @@
+| ID | Verdict | Evidence |
+|---|---|---|
+| ID6 | Fixed | `openTracked` inherits `oldClosed` across superseding attempts (`MenuService.java:117`); stale `land` with no newer opening calls `forgetLocked` (`:168`); `forgetLocked` retires only when no newer pending exists and never drops a newer pending/successful session (`:187`). Retained proof is byte-identical to `6cc62e4`; race tests cover later success, first failure while later pending, and later failure after stale land. |
+| New | None | No actionable new defect in `6cc62e4..d53a589`; ID1/ID3 prior accepted portions untouched. |
+
+Verification passed: new proof + race tests **4 tests, 0 failures/errors**; focused `MenuServiceTest`, `Phase9MenuEngineAcceptanceTest`, `WikiMenuTest`, `Phase9WikiOpenRaceProofTest` **25 tests, 0 failures/errors**. No full host check run; root handles separately. Working tree clean.
+
+<boxie-findings>
+[]
+</boxie-findings>
+
+BLOCKED: none```boxie-findings
+[]
+```

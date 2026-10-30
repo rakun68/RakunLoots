@@ -1,0 +1,88 @@
+# A loot box that is a player head with a skin. It shows block: player_head with head_data, and the top_surface
+# placement with plants on_top. Keys are explained in airdrops.yml and treasure_chest.yml.
+
+display_name: '&r&f&lHead Trophy'
+description:
+  - '&f(&f+&f) A trophy head left on the ground.'
+
+language: en
+open_mode: drop
+lock: 15
+life: 300
+summon_delay: 30
+# A player_head block shows the skin of head_data, and its block item keeps that skin too.
+block: player_head
+# The skin as the base64 'Value' from https://minecraft-heads.com (For Developers). It means nothing for another block.
+head_data: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjI1ODdiMzQxM2EzNDIwZWJlOTk3OTAwMDI2MTA4YjFmZTlkNTY2MzYzOWU5ZDMzNzJkMmMzMzA0YTgzMTdjMiJ9fX0='
+
+# The head item drops when the trophy ends.
+loot_end:
+  drop_block: true
+
+roll:
+  min: 1
+  max: 3
+  entries:
+    bones:
+      weight: 40
+      amount: 8
+      item:
+        id: bone
+    arrows:
+      weight: 30
+      amount: 16
+      item:
+        id: arrow
+    bow:
+      weight: 10
+      amount: 1
+      item:
+        id: bow
+        name: '&fTrophy Bow'
+        enchants:
+          - 'power:2'
+    skull:
+      weight: 5
+      amount: 1
+      item:
+        id: skeleton_skull
+
+summon_item:
+  id: bone
+  name: '&r&f&lTrophy Bone'
+  lore:
+    - '&7Right click to leave a trophy head'
+    - '&7on the ground near you.'
+
+summon_settings:
+  summon_type: top_surface
+  top_surface:
+    # on_top: the head stands on top of plants and flowers and leaves them. replace (airdrops.yml) breaks them.
+    plants: on_top
+  y_range: '40:200'
+  player_ring:
+    min: 2
+    max: 12
+
+animations:
+  summon:
+    - SPARKLE
+  unlocked:
+    - GOLD_BURST
+  open:
+    - WHITE_SPHERE
+  remove:
+    - CLOUD_RING
+
+hologram:
+  view_range: 32
+
+glow:
+  enabled: true
+  color: WHITE
+
+laser:
+  type: GUARDIAN
+  view_distance: 30
+  # Blocks above the bottom of the box's block where the beam's entity starts, 0 to 64. A guardian has no hitbox.
+  start_offset: 0

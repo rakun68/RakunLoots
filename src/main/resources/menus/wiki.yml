@@ -1,0 +1,58 @@
+# The loots wiki, with two pages: list shows every loot, and loot shows one loot's contents.
+# Each page has the same keys as menus/claim.yml: rows, content_slots, filler, and buttons.
+list:
+  # rows: 1 to 6; missing inherits this value, an unusable value warns high and uses it.
+  rows: 6
+  # content_slots: the slots the loots fill, in order; a slot or a "first-last" range. A button on a content slot
+  # warns high and takes the slot out.
+  content_slots:
+    - "0-44"
+  # filler: the item in every slot that is neither content nor a button.
+  filler:
+    id: gray_stained_glass_pane
+  # previous_page and next_page page the loots.
+  buttons:
+    previous_page:
+      slot: 45
+      item:
+        id: arrow
+      sound:
+        key: minecraft:ui.button.click
+    next_page:
+      slot: 53
+      item:
+        id: arrow
+      sound:
+        key: minecraft:ui.button.click
+loot:
+  rows: 6
+  content_slots:
+    - "0-44"
+  filler:
+    id: gray_stained_glass_pane
+  # back returns to the list. info shows the loot's details and has no sound block, so a click on it plays nothing.
+  # Each button has a slot, an item, and an optional sound block with a key, a volume, and a pitch, as menus/claim.yml
+  # explains. A known button with no slot or item inherits this file's value; an unknown button warns high and drops.
+  buttons:
+    previous_page:
+      slot: 45
+      item:
+        id: arrow
+      sound:
+        key: minecraft:ui.button.click
+    back:
+      slot: 48
+      item:
+        id: oak_door
+      sound:
+        key: minecraft:ui.button.click
+    info:
+      slot: 49
+      item:
+        id: book
+    next_page:
+      slot: 53
+      item:
+        id: arrow
+      sound:
+        key: minecraft:ui.button.click

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T05:10:11" hostname="LAPTOP-2PQGPS0P" time="0.014">
+  <properties/>
+  <testcase name="explicitClosesRetireOnlyTheEpochTheyActuallyClose()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.003"/>
+  <testcase name="closeAllRetiresEveryOpenSessionAndOnlyOnce()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.001"/>
+  <testcase name="replaceIfMovesTheSubscriptionToTheEpochItInstallsAndTheOldCloseIsNotTerminal()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.002"/>
+  <testcase name="aFreshOpenRetiresTheEpochItSupersedes()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.001"/>
+  <testcase name="aFailedReplacementRetiresTheOldEpochWhenItsMenuWasPhysicallyClosed()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.003"/>
+  <testcase name="anOrdinaryCloseRetiresTheInstalledEpochOnceAndALateRegistrationCannotResurrectIt()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.002"/>
+  <testcase name="aFailedReplacementThatLeavesTheOldMenuOpenKeepsTheSubscription()" classname="me.rakkoon69.rakunloots.menu.Phase9MenuRetirementTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,78 @@
+name: RakunLoots
+version: 1.0.0-SNAPSHOT
+main: me.rakkoon69.rakunloots.RakunLootsPlugin
+api-version: '1.18'
+folia-supported: true
+load: POSTWORLD
+softdepend: [ MMOItems , ItemEdit , ItemBridge , Coins , ExecutableItems , Oraxen , ItemsAdder , DecentHolograms , HolographicDisplays , FancyHolograms]
+# Fetched by the server at start (Spigot 1.17+), not shaded. Keep in step with build.gradle.
+libraries:
+  - com.mysql:mysql-connector-j:9.7.0
+authors: [ rakkoon69 ]
+description: 'Custom Loots With Summon Animations, Summon Types, Glowing Blocks, Per World Settings,.... Everything Is Customizable!'
+
+# The admin and claim commands register through the server's command map under the names in config.yml.
+permissions:
+  rakunloots.admin:
+    default: op
+    description: all permissions
+    children:
+      rakunloots.command.help: true
+      rakunloots.command.reload: true
+      rakunloots.command.list: true
+      rakunloots.command.give: true
+      rakunloots.command.summon: true
+      rakunloots.command.timer: true
+      rakunloots.command.warnings: true
+      rakunloots.command.remove: true
+      rakunloots.command.remove.all: true
+      rakunloots.command.remove.world: true
+      rakunloots.command.remove.loot: true
+      rakunloots.command.remove.near: true
+  rakunloots.command.help:
+    default: op
+    description: list the commands you can run, or explain one
+  rakunloots.command.reload:
+    default: op
+    description: reload the config, the loots, the languages, the world timers, and the holograms
+  rakunloots.command.list:
+    default: op
+    description: list the loot ids
+  rakunloots.command.give:
+    default: op
+    description: give summon items to a player
+  rakunloots.command.summon:
+    default: op
+    description: summon a loot in a world or around a player
+  rakunloots.command.timer:
+    default: op
+    description: run a world's timer summon now
+  rakunloots.command.warnings:
+    default: op
+    description: list the warnings since the last enable or reload
+  rakunloots.claim:
+    # The plugin replaces this default with claim_command.permission_default from config.yml.
+    default: true
+    description: take the summon items you are owed with the claim command
+  rakunloots.wiki:
+    # The plugin replaces this default with wiki_command.permission_default from config.yml.
+    default: true
+    description: open the loots wiki
+  rakunloots.command.remove:
+    default: op
+    description: open the remove command, which ends loot boxes
+  rakunloots.command.remove.all:
+    default: op
+    description: remove every loot box
+  rakunloots.command.remove.world:
+    default: op
+    description: remove the loot boxes of one world
+  rakunloots.command.remove.loot:
+    default: op
+    description: remove the loot boxes of one loot
+  rakunloots.command.remove.near:
+    default: op
+    description: remove the loot boxes around you
+  rakunloots.bypass.lock:
+    default: op
+    description: take from and break any locked loot box, not only your own
