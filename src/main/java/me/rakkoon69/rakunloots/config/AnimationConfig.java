@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.loot.LootAnimations;
+
 import org.yaml.snakeyaml.error.YAMLException;
 
 import java.util.ArrayList;

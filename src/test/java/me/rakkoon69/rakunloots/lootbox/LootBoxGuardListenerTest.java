@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.lootbox;
 
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxGuardListener;
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxPhysicsGuardListener;
 import me.rakkoon69.rakunloots.storage.SummonKind;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -9,8 +11,6 @@ import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.block.state.BlockStateMock;
 import be.seeseemelk.mockbukkit.inventory.HopperInventoryMock;
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxGuardListener;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxPhysicsGuardListener;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;

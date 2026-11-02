@@ -1,6 +1,7 @@
 package me.rakkoon69.rakunloots.visuals;
 
 import fr.skytasul.guardianbeam.Laser;
+import me.rakkoon69.rakunloots.config.LaserType;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;

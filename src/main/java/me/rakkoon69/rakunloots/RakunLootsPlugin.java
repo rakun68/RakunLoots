@@ -3,15 +3,13 @@ package me.rakkoon69.rakunloots;
 import me.rakkoon69.rakunloots.animation.AnimationRegistry;
 import me.rakkoon69.rakunloots.animation.AnimationService;
 import me.rakkoon69.rakunloots.animation.ParticleSink;
-import me.rakkoon69.rakunloots.claim.ClaimJoinListener;
-import me.rakkoon69.rakunloots.claim.ClaimMenu;
-import me.rakkoon69.rakunloots.claim.UnclaimedSummonItems;
-import me.rakkoon69.rakunloots.command.AdminCommands;
-import me.rakkoon69.rakunloots.command.BukkitCommandRegistrar;
-import me.rakkoon69.rakunloots.command.BukkitCommandSources;
-import me.rakkoon69.rakunloots.command.ClaimCommand;
+import me.rakkoon69.rakunloots.summon.item.ClaimJoinListener;
+import me.rakkoon69.rakunloots.summon.item.ClaimMenu;
+import me.rakkoon69.rakunloots.summon.item.UnclaimedSummonItems;
+import me.rakkoon69.rakunloots.command.handler.RakunLootsCommands;
+import me.rakkoon69.rakunloots.command.bukkit.BukkitCommandRegistrar;
+import me.rakkoon69.rakunloots.command.bukkit.BukkitCommandSources;
 import me.rakkoon69.rakunloots.command.CommandRegistry;
-import me.rakkoon69.rakunloots.command.WikiCommand;
 import me.rakkoon69.rakunloots.config.ConfigFolder;
 import me.rakkoon69.rakunloots.config.ConfigLoader;
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
@@ -19,7 +17,7 @@ import me.rakkoon69.rakunloots.config.DefaultAccess;
 import me.rakkoon69.rakunloots.config.StorageSettings;
 import me.rakkoon69.rakunloots.hologram.BukkitHologramServer;
 import me.rakkoon69.rakunloots.hologram.HologramProvider;
-import me.rakkoon69.rakunloots.hologram.HologramProviderChoice;
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.hologram.HologramProviders;
 import me.rakkoon69.rakunloots.hologram.HologramService;
 import me.rakkoon69.rakunloots.hologram.OwnerNames;
@@ -37,24 +35,24 @@ import me.rakkoon69.rakunloots.menu.MenuListener;
 import me.rakkoon69.rakunloots.menu.MenuRenderer;
 import me.rakkoon69.rakunloots.menu.MenuService;
 import me.rakkoon69.rakunloots.lootbox.LootBoxLifecycle;
-import me.rakkoon69.rakunloots.lootbox.SummonService;
-import me.rakkoon69.rakunloots.lootbox.WorldBroadcasts;
-import me.rakkoon69.rakunloots.lootbox.WorldTimers;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxGuardListener;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxInteractionListener;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxPhysicsGuardListener;
-import me.rakkoon69.rakunloots.lootbox.listener.SummonChunkListener;
-import me.rakkoon69.rakunloots.server.BukkitNameCatalog;
+import me.rakkoon69.rakunloots.summon.SummonService;
+import me.rakkoon69.rakunloots.summon.WorldBroadcasts;
+import me.rakkoon69.rakunloots.summon.WorldTimers;
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxGuardListener;
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxInteractionListener;
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxPhysicsGuardListener;
+import me.rakkoon69.rakunloots.summon.SummonChunkListener;
+import me.rakkoon69.rakunloots.server.bukkit.BukkitNameCatalog;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
-import me.rakkoon69.rakunloots.server.ServerAdapters;
+import me.rakkoon69.rakunloots.server.bukkit.ServerAdapters;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.LootBoxStoreException;
 import me.rakkoon69.rakunloots.storage.LootBoxStores;
-import me.rakkoon69.rakunloots.summon.SummonSearch;
-import me.rakkoon69.rakunloots.summonitem.SummonItemGiveBack;
-import me.rakkoon69.rakunloots.summonitem.SummonItemListener;
-import me.rakkoon69.rakunloots.summonitem.SummonItemMaker;
-import me.rakkoon69.rakunloots.summonitem.SummonItemUse;
+import me.rakkoon69.rakunloots.summon.search.SummonSearch;
+import me.rakkoon69.rakunloots.summon.item.SummonItemGiveBack;
+import me.rakkoon69.rakunloots.summon.item.SummonItemListener;
+import me.rakkoon69.rakunloots.summon.item.SummonItemMaker;
+import me.rakkoon69.rakunloots.summon.item.SummonItemUse;
 import me.rakkoon69.rakunloots.visuals.BoxVisualsListener;
 import me.rakkoon69.rakunloots.visuals.BoxVisualsService;
 import me.rakkoon69.rakunloots.visuals.GlowLibraries;
@@ -281,12 +279,9 @@ public class RakunLootsPlugin extends JavaPlugin {
         BukkitCommandSources sources = new BukkitCommandSources(getServer(), this::config);
         CommandRegistry registry = new CommandRegistry(sources, key -> config.message("", key), log::debug);
         registrar = new BukkitCommandRegistrar(this, registry);
-        ConfigSnapshot snapshot = config;
-        registrar.register(AdminCommands.root(snapshot.adminCommand(), new AdminCommands.Parts(
+        RakunLootsCommands.register(registrar::register, config, new RakunLootsCommands.Parts(
                 this::reloadConfigFiles, adapter, sources, lifecycle, summons, timers, holograms, animations, visuals,
-                search::reload, menus::reload, giveBack::give, log.record())));
-        registrar.register(ClaimCommand.node(snapshot.claimCommand(), claims, claimMenu));
-        registrar.register(WikiCommand.node(snapshot.wikiCommand(), wikiMenu));
+                search::reload, menus::reload, giveBack::give, log.record(), claims, claimMenu, wikiMenu));
     }
 
     /**
@@ -303,9 +298,9 @@ public class RakunLootsPlugin extends JavaPlugin {
         // Enable and reload both come here, and the warnings command lists what happened since the last one.
         log.record().clear();
         log.config(snapshot.rawWarnings());
-        applyPermissionDefault(ClaimCommand.PERMISSION, "take the summon items you are owed with the claim command",
+        applyPermissionDefault(RakunLootsCommands.CLAIM_PERMISSION, "take the summon items you are owed with the claim command",
                 snapshot.claimCommand().permissionDefault());
-        applyPermissionDefault(WikiCommand.PERMISSION, "open the loots wiki",
+        applyPermissionDefault(RakunLootsCommands.WIKI_PERMISSION, "open the loots wiki",
                 snapshot.wikiCommand().permissionDefault());
         return snapshot;
     }

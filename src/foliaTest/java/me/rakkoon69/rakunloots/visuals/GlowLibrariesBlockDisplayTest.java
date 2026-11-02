@@ -1,7 +1,7 @@
 package me.rakkoon69.rakunloots.visuals;
 
-import me.rakkoon69.rakunloots.server.FoliaFakes;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.server.bukkit.FoliaFakes;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;

@@ -1,13 +1,14 @@
 package me.rakkoon69.rakunloots.visuals;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.ConfigWarning;
+import me.rakkoon69.rakunloots.config.GlowColor;
+import me.rakkoon69.rakunloots.config.LaserType;
 import me.rakkoon69.rakunloots.hologram.ShippedHologramConfig;
 import me.rakkoon69.rakunloots.lootbox.BoxEvent;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.PlayerPosition;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import me.rakkoon69.rakunloots.visuals.FakeGlowLibrary.Call;
 import me.rakkoon69.rakunloots.visuals.FakeGlowLibrary.Op;
 import me.rakkoon69.rakunloots.visuals.FakeLaserLibrary.Start;

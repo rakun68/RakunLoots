@@ -1,24 +1,24 @@
 package me.rakkoon69.rakunloots.lootbox;
 
+import me.rakkoon69.rakunloots.lootbox.bukkit.LootBoxInteractionListener;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.lootbox.listener.LootBoxInteractionListener;
 import me.rakkoon69.rakunloots.menu.MenuIcon;
 import me.rakkoon69.rakunloots.menu.MenuListener;
 import me.rakkoon69.rakunloots.menu.MenuService;
 import me.rakkoon69.rakunloots.menu.MenuView;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.MenuHolder;
-import me.rakkoon69.rakunloots.server.PaperServerAdapter;
+import me.rakkoon69.rakunloots.server.bukkit.ServerAdapters;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
 import me.rakkoon69.rakunloots.storage.SummonKind;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter.Drop;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter.InventoryOpen;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter.Message;
-import me.rakkoon69.rakunloots.summon.FakeSharedInventory;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter.Drop;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter.InventoryOpen;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter.Message;
+import me.rakkoon69.rakunloots.fake.FakeSharedInventory;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -420,7 +420,7 @@ class LootBoxInteractionListenerTest {
         FakeSharedInventory shared = fixture.adapter.inventoryOpens().get(0).inventory();
         shared.contents().keySet().forEach(slot -> shared.take(owner.getUniqueId(), slot));
 
-        MenuService menus = new MenuService(new PaperServerAdapter(plugin));
+        MenuService menus = new MenuService(ServerAdapters.select(plugin));
         server.getPluginManager().registerEvents(new MenuListener(menus), plugin);
         MenuView view = new MenuView("Menu", 3, Map.of(0, new MenuIcon(new ItemStack(Material.DIAMOND),
                 Optional.empty(), Optional.empty())));

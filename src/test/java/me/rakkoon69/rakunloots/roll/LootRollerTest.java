@@ -4,11 +4,10 @@ import me.rakkoon69.rakunloots.WarningKinds;
 
 import me.rakkoon69.rakunloots.config.ConfigLoader;
 import me.rakkoon69.rakunloots.config.ConfigSources;
-import me.rakkoon69.rakunloots.config.Loot;
+import me.rakkoon69.rakunloots.config.loot.Loot;
 import me.rakkoon69.rakunloots.server.NameCatalog;
 import me.rakkoon69.rakunloots.items.ItemResolveResult;
 import me.rakkoon69.rakunloots.items.ItemSourceRegistry;
-import me.rakkoon69.rakunloots.items.ItemWarning;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.junit.jupiter.api.Test;

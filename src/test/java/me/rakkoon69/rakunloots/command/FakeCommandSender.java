@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * A sender that holds the permissions it was given and records what it was sent.
  */
-final class FakeCommandSender implements CommandSender {
+public final class FakeCommandSender implements CommandSender {
 
     private final String name;
     private final Set<String> permissions = new HashSet<>();
@@ -19,7 +19,7 @@ final class FakeCommandSender implements CommandSender {
     private SenderLocation location;
     private java.util.UUID playerId;
 
-    FakeCommandSender(String name, String... permissions) {
+    public FakeCommandSender(String name, String... permissions) {
         this.name = name;
         this.permissions.addAll(List.of(permissions));
     }
@@ -34,7 +34,7 @@ final class FakeCommandSender implements CommandSender {
         return permissions.contains(permission);
     }
 
-    FakeCommandSender at(SenderLocation location) {
+    public FakeCommandSender at(SenderLocation location) {
         this.location = location;
         return this;
     }
@@ -47,7 +47,7 @@ final class FakeCommandSender implements CommandSender {
     /**
      * Makes the sender a player with this id.
      */
-    FakeCommandSender asPlayer(java.util.UUID playerId) {
+    public FakeCommandSender asPlayer(java.util.UUID playerId) {
         this.playerId = playerId;
         return this;
     }
@@ -74,11 +74,11 @@ final class FakeCommandSender implements CommandSender {
     /**
      * Every button sent, in order.
      */
-    List<CommandButton> buttons() {
+    public List<CommandButton> buttons() {
         return List.copyOf(buttons);
     }
 
-    List<String> messages() {
+    public List<String> messages() {
         return List.copyOf(messages);
     }
 }

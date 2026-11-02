@@ -15,7 +15,7 @@ import me.rakkoon69.rakunloots.warning.Warnings;
 import me.rakkoon69.rakunloots.server.LoadedWorld;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;

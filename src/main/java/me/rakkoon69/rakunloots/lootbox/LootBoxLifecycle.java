@@ -1,10 +1,10 @@
 package me.rakkoon69.rakunloots.lootbox;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.Loot;
+import me.rakkoon69.rakunloots.config.loot.Loot;
 import me.rakkoon69.rakunloots.config.MessageRenderer;
-import me.rakkoon69.rakunloots.config.OpenMode;
-import me.rakkoon69.rakunloots.config.SummonSearchSettings;
+import me.rakkoon69.rakunloots.config.loot.OpenMode;
+import me.rakkoon69.rakunloots.config.summon.SummonSearchSettings;
 import me.rakkoon69.rakunloots.items.ItemSourceRegistry;
 import me.rakkoon69.rakunloots.text.MessageText;
 import me.rakkoon69.rakunloots.roll.LootRoller;
@@ -24,9 +24,6 @@ import me.rakkoon69.rakunloots.storage.LoadedBox;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.LootBoxStoreException;
 import me.rakkoon69.rakunloots.storage.SummonKind;
-import me.rakkoon69.rakunloots.summon.ChunkHolds;
-import me.rakkoon69.rakunloots.summon.OccupiedCheck;
-import me.rakkoon69.rakunloots.summon.Spot;
 import me.rakkoon69.rakunloots.warning.Warnings;
 import org.bukkit.inventory.ItemStack;
 
@@ -1342,7 +1339,7 @@ public final class LootBoxLifecycle {
     /**
      * The id the server reports for a block, so a later changed-block check compares like with like.
      */
-    static String namespaced(String blockId) {
+    public static String namespaced(String blockId) {
         String lower = blockId.trim().toLowerCase(Locale.ROOT);
         return lower.contains(":") ? lower : "minecraft:" + lower;
     }

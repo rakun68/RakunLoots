@@ -1,5 +1,6 @@
 package me.rakkoon69.rakunloots.visuals;
 
+import me.rakkoon69.rakunloots.config.GlowColor;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 
 import java.util.UUID;

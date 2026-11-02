@@ -1,7 +1,7 @@
 package me.rakkoon69.rakunloots.storage;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.Loot;
+import me.rakkoon69.rakunloots.config.loot.Loot;
 import me.rakkoon69.rakunloots.config.StorageSettings;
 import me.rakkoon69.rakunloots.roll.RolledContents;
 import me.rakkoon69.rakunloots.roll.RolledStack;

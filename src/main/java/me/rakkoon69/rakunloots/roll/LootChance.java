@@ -1,7 +1,7 @@
 package me.rakkoon69.rakunloots.roll;
 
-import me.rakkoon69.rakunloots.config.ContentEntry;
-import me.rakkoon69.rakunloots.config.Roll;
+import me.rakkoon69.rakunloots.config.loot.ContentEntry;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 
 import java.util.ArrayList;
 import java.util.Collections;

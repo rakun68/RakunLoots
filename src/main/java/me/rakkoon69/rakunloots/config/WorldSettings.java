@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.summon.SummonSearchSettings;
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;

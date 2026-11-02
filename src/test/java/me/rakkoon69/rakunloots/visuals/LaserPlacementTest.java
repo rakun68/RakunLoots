@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.visuals;
 
+import me.rakkoon69.rakunloots.config.LaserType;
+import me.rakkoon69.rakunloots.config.VisualsSettings;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.visuals.LaserPlacement.Hitbox;
 import me.rakkoon69.rakunloots.visuals.LaserPlacement.Placed;

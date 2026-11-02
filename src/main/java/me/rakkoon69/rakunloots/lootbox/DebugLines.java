@@ -13,7 +13,7 @@ import java.util.function.Function;
  * the server adapter for the world's name, and only while debug mode is on, so a server with debug off does no extra
  * work.
  */
-final class DebugLines {
+public final class DebugLines {
 
     private DebugLines() {
     }
@@ -22,7 +22,7 @@ final class DebugLines {
      * Writes the line the function builds from the world's name, when debug mode is on. A world that is not listed is
      * named by its key. Never throws.
      */
-    static void inWorld(ServerAdapter adapter, Warnings sink, UUID worldKey, Function<String, String> line) {
+    public static void inWorld(ServerAdapter adapter, Warnings sink, UUID worldKey, Function<String, String> line) {
         if (!sink.debugEnabled()) {
             return;
         }
@@ -44,11 +44,11 @@ final class DebugLines {
         }
     }
 
-    static String at(BlockPosition position) {
+    public static String at(BlockPosition position) {
         return "x=" + position.x() + " y=" + position.y() + " z=" + position.z();
     }
 
-    static String source(SummonSource source) {
+    public static String source(SummonSource source) {
         return source.summonItemPlayer().map(player -> "summon item " + player)
                 .orElse(source.kind().name().toLowerCase(java.util.Locale.ROOT).replace('_', ' '));
     }

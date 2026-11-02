@@ -1,6 +1,8 @@
 package me.rakkoon69.rakunloots.hologram;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
+import me.rakkoon69.rakunloots.config.HologramSettings;
 import me.rakkoon69.rakunloots.lootbox.BoxEvent;
 import me.rakkoon69.rakunloots.lootbox.BoxObserver;
 import me.rakkoon69.rakunloots.text.MessageText;

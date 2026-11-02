@@ -1,6 +1,7 @@
 package me.rakkoon69.rakunloots.hologram;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.hologram.RecordingHologramProvider.Call;
 import me.rakkoon69.rakunloots.hologram.RecordingHologramProvider.Recorded;
 import me.rakkoon69.rakunloots.lootbox.BoxEvent;

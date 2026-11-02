@@ -4,7 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import me.rakkoon69.rakunloots.server.PaperServerAdapter;
+import me.rakkoon69.rakunloots.server.bukkit.ServerAdapters;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
@@ -44,7 +44,7 @@ class MenuListenerTest {
         server.addWorld(new WorldMock(Material.GRASS_BLOCK, 0, 256, 63));
         JavaPlugin plugin = MockBukkit.loadWith(MenuTestPlugin.class,
                 new PluginDescriptionFile("MenuTest", "1.0", MenuTestPlugin.class.getName()));
-        menus = new MenuService(new PaperServerAdapter(plugin));
+        menus = new MenuService(ServerAdapters.select(plugin));
         server.getPluginManager().registerEvents(new MenuListener(menus), plugin);
         player = server.addPlayer();
     }

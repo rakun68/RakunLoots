@@ -228,12 +228,14 @@ A module is a top-level package with its subpackages. A module's interface is it
 2. `server`.
 3. `items`.
 4. `config`.
-5. `roll`, `storage`.
-6. `lootbox`.
-7. `hologram`, `animation`, `visuals`, `menu`.
-8. `summon`.
-9. `wiki`, `command`.
-10. The plugin class.
+5. `roll`.
+6. `storage`.
+7. `lootbox`.
+8. `hologram`, `animation`, `visuals`, `menu`.
+9. `summon`.
+10. `wiki`.
+11. `command`.
+12. The plugin class.
 
 Inside a module, a root package and its subpackages may import each other. The layout rule: a module splits implementations into a subpackage when it mixes a seam with two or more shipped adapters, or when it holds more than about 15 files. Bukkit code that only the module itself and the plugin class reach sits in a `bukkit` subpackage. Tests move with their classes. Test fakes that several modules share, such as `FakeServerAdapter`, move to one test package, and the packet adapter subprojects' tests follow.
 
@@ -257,7 +259,7 @@ Out of this phase: splitting `ServerAdapter` into narrower interfaces, and deepe
 
 Order: the warning module, the text leaf, and the `server` moves first, since they break most cycles. Then the Bukkit adapter, summon, config, command, and the implementation subpackages. The ArchUnit test comes last.
 
-Done when every main and test class is in its new package, the old packages are gone, the shipped jar is no larger than before, an ArchUnit test (test scope only) finds no import against the layer order, no cycle between modules, and no `bukkit` subpackage imported outside its module and the plugin class, every existing test passes in the root project, the Folia and FancyHolograms source sets, and every packet adapter subproject, and `rltest` passes on Paper 26.2, Spigot 26.2, and Folia 26.2.
+Done. Every main and test class is in its new package, the old packages are gone, and the shipped jar is no larger than before. `ModuleLayersTest`, an ArchUnit test in test scope only, finds no import against the layer order, no cycle between modules, and no `bukkit` subpackage imported outside its module and the plugin class. The loot box listeners sit in `lootbox/bukkit`. Every existing test passes in the root project, the Folia and FancyHolograms source sets, and every packet adapter subproject, and `rltest` passes on Paper 26.2, Spigot 26.2, and Folia 26.2.
 
 ## Later
 

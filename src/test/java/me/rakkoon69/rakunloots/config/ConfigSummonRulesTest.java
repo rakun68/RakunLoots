@@ -4,12 +4,11 @@ import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;
 
-import me.rakkoon69.rakunloots.server.UnloadedChunkPolicy;
-import me.rakkoon69.rakunloots.summon.PlacementRule;
-import me.rakkoon69.rakunloots.summon.PlantsMode;
-import me.rakkoon69.rakunloots.summon.SummonRing;
-import me.rakkoon69.rakunloots.summon.SummonRules;
-import me.rakkoon69.rakunloots.summon.UnderwaterPosition;
+import me.rakkoon69.rakunloots.config.summon.PlacementRule;
+import me.rakkoon69.rakunloots.config.summon.PlantsMode;
+import me.rakkoon69.rakunloots.config.summon.SummonRing;
+import me.rakkoon69.rakunloots.config.summon.SummonRules;
+import me.rakkoon69.rakunloots.config.summon.UnderwaterPosition;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

@@ -1,5 +1,6 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.loot.RawRollFixture;
 import me.rakkoon69.rakunloots.roll.LootChance;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;

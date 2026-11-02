@@ -23,11 +23,12 @@ import me.rakkoon69.rakunloots.server.ParticleSpec;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
 import me.rakkoon69.rakunloots.storage.SummonKind;
-import me.rakkoon69.rakunloots.summon.MissReason;
-import me.rakkoon69.rakunloots.summon.OccupiedCheck;
-import me.rakkoon69.rakunloots.summon.Spot;
-import me.rakkoon69.rakunloots.summon.SpotFinder;
-import me.rakkoon69.rakunloots.summon.SummonResult;
+import me.rakkoon69.rakunloots.summon.SummonReport;
+import me.rakkoon69.rakunloots.summon.SummonService;
+import me.rakkoon69.rakunloots.summon.SummonTarget;
+import me.rakkoon69.rakunloots.summon.search.SearchMiss;
+import me.rakkoon69.rakunloots.summon.search.SpotFinder;
+import me.rakkoon69.rakunloots.summon.search.SummonResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -538,7 +539,7 @@ class LootBoxAnimationTest {
 
         private CompletableFuture<SummonResult> next() {
             if (spots.isEmpty()) {
-                return CompletableFuture.completedFuture(SummonResult.miss(MissReason.ATTEMPTS_USED_UP));
+                return CompletableFuture.completedFuture(SummonResult.miss(SearchMiss.ATTEMPTS_USED_UP));
             }
             return CompletableFuture.completedFuture(SummonResult.hit(spots.remove(0)));
         }

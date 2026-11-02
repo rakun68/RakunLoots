@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 /**
  * Reads YAML and the scalar and list values every config file shares.
  */
-final class ConfigValues {
+public final class ConfigValues {
 
     private ConfigValues() {
     }
@@ -33,7 +33,7 @@ final class ConfigValues {
      * {@code name: {name} Chest} reads as a map and then fails on the text after it. Empty when the error has no
      * position or its line holds no brace.
      */
-    static OptionalInt quoteLine(String content, YAMLException error) {
+    public static OptionalInt quoteLine(String content, YAMLException error) {
         if (!(error instanceof MarkedYAMLException marked)) {
             return OptionalInt.empty();
         }
@@ -49,7 +49,7 @@ final class ConfigValues {
     /**
      * YAML 1.2 booleans only ({@code true}/{@code false}). {@code yes}/{@code 1} stay scalars.
      */
-    static Yaml yaml() {
+    public static Yaml yaml() {
         LoaderOptions loaderOptions = new LoaderOptions();
         DumperOptions dumperOptions = new DumperOptions();
         Representer representer = new Representer(dumperOptions);
@@ -70,7 +70,7 @@ final class ConfigValues {
         return new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
     }
 
-    static void warnUnknownKeys(
+    public static void warnUnknownKeys(
             String lootId,
             Map<String, Object> map,
             Set<String> known,
@@ -86,7 +86,7 @@ final class ConfigValues {
     /**
      * Whole number inside the 32-bit integer range. 10.5 is not an integer.
      */
-    static OptionalInt strictInt(Object value) {
+    public static OptionalInt strictInt(Object value) {
         if (value instanceof Integer i) {
             return OptionalInt.of(i);
         }
@@ -124,7 +124,7 @@ final class ConfigValues {
         return OptionalInt.empty();
     }
 
-    static Optional<Boolean> strictBoolean(Object value) {
+    public static Optional<Boolean> strictBoolean(Object value) {
         if (value instanceof Boolean bool) {
             return Optional.of(bool);
         }
@@ -139,7 +139,7 @@ final class ConfigValues {
         return Optional.empty();
     }
 
-    static Optional<Integer> intValue(Object value) {
+    public static Optional<Integer> intValue(Object value) {
         if (value == null) {
             return Optional.empty();
         }
@@ -153,7 +153,7 @@ final class ConfigValues {
         }
     }
 
-    static List<String> blockEntriesOrDefault(Object raw, List<String> defaults) {
+    public static List<String> blockEntriesOrDefault(Object raw, List<String> defaults) {
         if (raw == null) {
             return defaults;
         }
@@ -161,7 +161,7 @@ final class ConfigValues {
         return entries.isEmpty() && !(raw instanceof List<?>) ? defaults : entries;
     }
 
-    static List<String> blockEntries(Object raw) {
+    public static List<String> blockEntries(Object raw) {
         if (!(raw instanceof List<?> list)) {
             return List.of();
         }
@@ -181,7 +181,7 @@ final class ConfigValues {
     /**
      * The root of a file whose YAML error has no warning to carry it. The error names {@code file} and the line.
      */
-    static Map<String, Object> parseRoot(String file, String content) {
+    public static Map<String, Object> parseRoot(String file, String content) {
         try {
             return parseRoot(content);
         } catch (YAMLException error) {
@@ -190,7 +190,7 @@ final class ConfigValues {
     }
 
     @SuppressWarnings("unchecked")
-    static Map<String, Object> parseRoot(String content) {
+    public static Map<String, Object> parseRoot(String content) {
         if (content == null || content.isBlank()) {
             return Collections.emptyMap();
         }
@@ -201,7 +201,7 @@ final class ConfigValues {
         return Collections.emptyMap();
     }
 
-    static Optional<String> stringValue(Object value) {
+    public static Optional<String> stringValue(Object value) {
         if (value == null) {
             return Optional.empty();
         }
@@ -211,7 +211,7 @@ final class ConfigValues {
         return Optional.of(String.valueOf(value));
     }
 
-    static Optional<String> textValue(Object value) {
+    public static Optional<String> textValue(Object value) {
         if (value instanceof String s) {
             return Optional.of(s);
         }

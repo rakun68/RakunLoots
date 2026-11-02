@@ -1,8 +1,8 @@
 package me.rakkoon69.rakunloots.roll;
 
-import me.rakkoon69.rakunloots.config.ContentEntry;
-import me.rakkoon69.rakunloots.config.Loot;
-import me.rakkoon69.rakunloots.config.Roll;
+import me.rakkoon69.rakunloots.config.loot.ContentEntry;
+import me.rakkoon69.rakunloots.config.loot.Loot;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 import me.rakkoon69.rakunloots.items.ItemResolveResult;
 import me.rakkoon69.rakunloots.items.ItemSourceRegistry;
 import me.rakkoon69.rakunloots.items.ItemWarning;

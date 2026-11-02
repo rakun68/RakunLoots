@@ -1,7 +1,5 @@
 package me.rakkoon69.rakunloots.lootbox;
 
-import me.rakkoon69.rakunloots.summon.Spot;
-
 import java.util.UUID;
 
 /**

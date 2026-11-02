@@ -8,7 +8,7 @@ import me.rakkoon69.rakunloots.lootbox.BoxEvent;
 import me.rakkoon69.rakunloots.lootbox.BoxObserver;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.TaskScheduler;
-import me.rakkoon69.rakunloots.summon.Spot;
+import me.rakkoon69.rakunloots.lootbox.Spot;
 import me.rakkoon69.rakunloots.warning.Warnings;
 
 import java.util.ArrayList;

@@ -389,7 +389,7 @@ public final class ConfigWarning implements Warning {
     /**
      * A loot file that is not valid YAML, with the line of the error when that line holds {@code {}.
      */
-    static ConfigWarning yamlParseRejected(String lootId, OptionalInt quoteLine) {
+    public static ConfigWarning yamlParseRejected(String lootId, OptionalInt quoteLine) {
         return yamlParseRejected(lootId).withQuoteLine(quoteLine);
     }
 
@@ -445,7 +445,7 @@ public final class ConfigWarning implements Warning {
         return new ConfigWarning(Severity.HIGH, Kind.YAML_PARSE_REJECTED, Optional.empty(), Optional.of("blocks"));
     }
 
-    static ConfigWarning blocksParseRejected(OptionalInt quoteLine) {
+    public static ConfigWarning blocksParseRejected(OptionalInt quoteLine) {
         return blocksParseRejected().withQuoteLine(quoteLine);
     }
 
@@ -551,7 +551,7 @@ public final class ConfigWarning implements Warning {
         return new ConfigWarning(Severity.HIGH, Kind.YAML_PARSE_REJECTED, Optional.empty(), Optional.of("animations"));
     }
 
-    static ConfigWarning animationsParseRejected(OptionalInt quoteLine) {
+    public static ConfigWarning animationsParseRejected(OptionalInt quoteLine) {
         return animationsParseRejected().withQuoteLine(quoteLine);
     }
 
@@ -634,7 +634,7 @@ public final class ConfigWarning implements Warning {
         return new ConfigWarning(Severity.HIGH, Kind.YAML_PARSE_REJECTED, Optional.empty(), Optional.of("warnings"));
     }
 
-    static ConfigWarning warningsParseRejected(OptionalInt quoteLine) {
+    public static ConfigWarning warningsParseRejected(OptionalInt quoteLine) {
         return warningsParseRejected().withQuoteLine(quoteLine);
     }
 
@@ -972,7 +972,7 @@ public final class ConfigWarning implements Warning {
     /**
      * This warning with the hint written.
      */
-    ConfigWarning withHint(String text) {
+    public ConfigWarning withHint(String text) {
         return new ConfigWarning(severity, kind, languageId, key, lootId, lootLanguage, activeLanguage, writtenId,
                 currentId, entryId, groupName, cycle, worldName, entries, closeMatches, quoteLine,
                 Optional.of(text), count);

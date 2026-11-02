@@ -1,5 +1,6 @@
 package me.rakkoon69.rakunloots.hologram;
 
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.warning.Severity;
 import me.rakkoon69.rakunloots.warning.Warning;
 import me.rakkoon69.rakunloots.warning.WarningKind;

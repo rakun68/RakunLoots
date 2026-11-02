@@ -3,14 +3,14 @@ package me.rakkoon69.rakunloots.hologram.packet.v1_18_R1;
 import me.rakkoon69.rakunloots.hologram.FakeHologramServer;
 import me.rakkoon69.rakunloots.hologram.HologramProvider;
 import me.rakkoon69.rakunloots.hologram.HologramProvider.CanRun;
-import me.rakkoon69.rakunloots.hologram.HologramProviderChoice;
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.hologram.HologramProviders;
 import me.rakkoon69.rakunloots.hologram.HologramWarning;
 import me.rakkoon69.rakunloots.hologram.RecordingHologramProvider;
 import me.rakkoon69.rakunloots.hologram.packet.PacketAdapterMatch;
 import me.rakkoon69.rakunloots.hologram.packet.PacketAdapters;
 import me.rakkoon69.rakunloots.hologram.packet.PacketHologramProvider;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

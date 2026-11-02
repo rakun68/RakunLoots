@@ -1,7 +1,7 @@
 package me.rakkoon69.rakunloots.menu;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.MenuSound;
+import me.rakkoon69.rakunloots.config.menu.MenuSound;
 import me.rakkoon69.rakunloots.server.MenuHandle;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
 import org.bukkit.inventory.ItemStack;

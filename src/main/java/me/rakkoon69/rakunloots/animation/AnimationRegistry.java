@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.animation;
 
+import me.rakkoon69.rakunloots.animation.type.ShippedAnimations;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,8 +24,7 @@ public final class AnimationRegistry {
      */
     public static AnimationRegistry create() {
         AnimationRegistry registry = new AnimationRegistry();
-        registry.types.put(SphereAnimation.NAME, new SphereAnimation());
-        registry.types.put(ExplosionAnimation.NAME, new ExplosionAnimation());
+        registry.types.putAll(ShippedAnimations.all());
         return registry;
     }
 

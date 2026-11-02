@@ -2,18 +2,16 @@ package me.rakkoon69.rakunloots.lootbox;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.ConfigWarning;
 import me.rakkoon69.rakunloots.roll.RolledStack;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.storage.LootBoxRecord;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
 import me.rakkoon69.rakunloots.storage.SummonKind;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter.BlockWrite;
-import me.rakkoon69.rakunloots.summon.MissReason;
-import me.rakkoon69.rakunloots.summon.Spot;
-import me.rakkoon69.rakunloots.summon.SummonResult;
-import me.rakkoon69.rakunloots.summon.SummonSearch;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter.BlockWrite;
+import me.rakkoon69.rakunloots.summon.search.SearchMiss;
+import me.rakkoon69.rakunloots.summon.search.SummonResult;
+import me.rakkoon69.rakunloots.summon.search.SummonSearch;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -207,7 +205,7 @@ class LootBoxSummonTest {
         assertFalse(lifecycle.occupiedCheck().isOccupied(WORLD, 4, 64, 4));
         assertFalse(lifecycle.occupiedCheck().isOccupied(UUID.randomUUID(), 3, 64, 4));
         SummonResult again = search.aroundCenter(WORLD, "marker", 3, 64, 4, lifecycle.occupiedCheck()).join();
-        assertEquals(Optional.of(MissReason.ATTEMPTS_USED_UP), again.missReason());
+        assertEquals(Optional.of(SearchMiss.ATTEMPTS_USED_UP), again.missReason());
     }
 
     /**

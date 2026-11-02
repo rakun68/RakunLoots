@@ -2,13 +2,12 @@ package me.rakkoon69.rakunloots.lootbox;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.ConfigWarning;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.ChunkPosition;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
 import me.rakkoon69.rakunloots.storage.SummonKind;
-import me.rakkoon69.rakunloots.summon.FakeSharedInventory;
+import me.rakkoon69.rakunloots.fake.FakeSharedInventory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

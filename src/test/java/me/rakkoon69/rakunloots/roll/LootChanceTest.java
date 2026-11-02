@@ -1,7 +1,7 @@
 package me.rakkoon69.rakunloots.roll;
 
-import me.rakkoon69.rakunloots.config.RawRollFixture;
-import me.rakkoon69.rakunloots.config.Roll;
+import me.rakkoon69.rakunloots.config.loot.RawRollFixture;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

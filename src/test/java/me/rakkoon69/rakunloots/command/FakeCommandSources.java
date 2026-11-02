@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Fixed names. Steve and Steven are known, and only Steve is online.
  */
-final class FakeCommandSources implements CommandSources {
+public final class FakeCommandSources implements CommandSources {
 
     @Override
     public Collection<String> lootIds() {
@@ -21,12 +21,12 @@ final class FakeCommandSources implements CommandSources {
     /**
      * The world the lifecycle tests build their boxes in.
      */
-    static final java.util.UUID WORLD_KEY = java.util.UUID.fromString("00000000-0000-0000-0000-00000000b0b0");
+    public static final java.util.UUID WORLD_KEY = java.util.UUID.fromString("00000000-0000-0000-0000-00000000b0b0");
 
     /**
      * A second loaded world that holds no box. The other names are not loaded.
      */
-    static final java.util.UUID CREATIVE_KEY = java.util.UUID.fromString("00000000-0000-0000-0000-0000000c0c0c");
+    public static final java.util.UUID CREATIVE_KEY = java.util.UUID.fromString("00000000-0000-0000-0000-0000000c0c0c");
 
     @Override
     public java.util.Optional<java.util.UUID> worldKey(String worldName) {
@@ -37,9 +37,9 @@ final class FakeCommandSources implements CommandSources {
         };
     }
 
-    static final java.util.UUID STEVE_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a1");
-    static final java.util.UUID STEVEN_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a2");
-    static final java.util.UUID ALEX_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a3");
+    public static final java.util.UUID STEVE_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a1");
+    public static final java.util.UUID STEVEN_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a2");
+    public static final java.util.UUID ALEX_ID = java.util.UUID.fromString("00000000-0000-0000-0000-0000000000a3");
 
     @Override
     public java.util.Optional<java.util.UUID> playerId(String playerName) {

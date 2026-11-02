@@ -15,7 +15,7 @@ import me.rakkoon69.rakunloots.menu.MenuRenderer;
 import me.rakkoon69.rakunloots.menu.MenuService;
 import me.rakkoon69.rakunloots.warning.Warnings;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.junit.jupiter.api.Test;

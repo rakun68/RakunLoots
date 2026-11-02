@@ -1,5 +1,8 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.menu.MenuButton;
+import me.rakkoon69.rakunloots.config.menu.MenuPage;
+import me.rakkoon69.rakunloots.config.menu.MenuSound;
 import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;

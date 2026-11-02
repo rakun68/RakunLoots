@@ -1,8 +1,8 @@
 package me.rakkoon69.rakunloots.menu;
 
-import me.rakkoon69.rakunloots.config.MenuButton;
-import me.rakkoon69.rakunloots.config.MenuPage;
-import me.rakkoon69.rakunloots.config.MenuSound;
+import me.rakkoon69.rakunloots.config.menu.MenuButton;
+import me.rakkoon69.rakunloots.config.menu.MenuPage;
+import me.rakkoon69.rakunloots.config.menu.MenuSound;
 import me.rakkoon69.rakunloots.items.ItemReference;
 import me.rakkoon69.rakunloots.items.ItemResolveResult;
 import me.rakkoon69.rakunloots.items.ItemSourceRegistry;

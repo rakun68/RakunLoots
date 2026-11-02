@@ -1,5 +1,6 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.block.KnownBlockNames;
 import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;

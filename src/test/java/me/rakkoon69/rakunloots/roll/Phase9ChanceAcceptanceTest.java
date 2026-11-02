@@ -4,6 +4,8 @@ import me.rakkoon69.rakunloots.WarningKinds;
 
 import me.rakkoon69.rakunloots.config.*;
 import me.rakkoon69.rakunloots.config.MessageRenderer;
+import me.rakkoon69.rakunloots.config.loot.RawRollFixture;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;

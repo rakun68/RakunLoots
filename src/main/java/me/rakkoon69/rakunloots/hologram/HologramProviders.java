@@ -1,5 +1,6 @@
 package me.rakkoon69.rakunloots.hologram;
 
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.hologram.HologramProvider.CanRun;
 import me.rakkoon69.rakunloots.warning.Warnings;
 

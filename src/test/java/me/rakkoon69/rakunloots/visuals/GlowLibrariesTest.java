@@ -1,10 +1,11 @@
 package me.rakkoon69.rakunloots.visuals;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
+import me.rakkoon69.rakunloots.config.GlowColor;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.bukkit.plugin.Plugin;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

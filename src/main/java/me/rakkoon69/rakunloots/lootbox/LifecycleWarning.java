@@ -163,12 +163,12 @@ public final class LifecycleWarning implements Warning {
                 OptionalInt.empty(), Optional.of(cause));
     }
 
-    static LifecycleWarning summonFailed(String lootId, Throwable cause) {
+    public static LifecycleWarning summonFailed(String lootId, Throwable cause) {
         return new LifecycleWarning(Severity.HIGH, Kind.SUMMON_FAILED, Optional.of(lootId),
                 OptionalInt.empty(), Optional.of(cause));
     }
 
-    static LifecycleWarning timerFailed(String step, Throwable cause) {
+    public static LifecycleWarning timerFailed(String step, Throwable cause) {
         return new LifecycleWarning(Severity.HIGH, Kind.TIMER_FAILED, Optional.empty(),
                 OptionalInt.empty(), Optional.of(cause), Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.of(step), 0, List.of());

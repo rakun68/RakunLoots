@@ -14,8 +14,7 @@ import me.rakkoon69.rakunloots.storage.LootBoxRecord;
 import me.rakkoon69.rakunloots.storage.LootBoxStore;
 import me.rakkoon69.rakunloots.storage.LootBoxWarning;
 import me.rakkoon69.rakunloots.storage.SqliteStores;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
-import me.rakkoon69.rakunloots.summon.Spot;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import me.rakkoon69.rakunloots.warning.Warning;
 import me.rakkoon69.rakunloots.warning.Warnings;
 
@@ -39,15 +38,15 @@ import java.util.stream.Collectors;
  * A lifecycle over the shipped config, a SQLite store in a temp folder, and the fake server adapter with a flat
  * world: grass at y 63 and air above, in loaded chunks -1 to 1.
  */
-final class LifecycleFixture {
+public final class LifecycleFixture {
 
-    static final UUID WORLD = UUID.fromString("00000000-0000-0000-0000-00000000b0b0");
-    static final int GROUND_Y = 63;
+    public static final UUID WORLD = UUID.fromString("00000000-0000-0000-0000-00000000b0b0");
+    public static final int GROUND_Y = 63;
 
     /**
      * Resolves written ids to namespaced lower case, as the server catalog does. Every tag holds one stand-in block.
      */
-    static final NameCatalog SERVER_LIKE = new NameCatalog() {
+    public static final NameCatalog SERVER_LIKE = new NameCatalog() {
         @Override
         public Optional<String> currentId(String writtenId) {
             if (writtenId.startsWith("@") || writtenId.startsWith("#")) {
@@ -63,11 +62,11 @@ final class LifecycleFixture {
         }
     };
 
-    final Path folder;
-    final FakeServerAdapter adapter = new FakeServerAdapter(WORLD);
-    final Warnings warnings = new Warnings();
+    public final Path folder;
+    public final FakeServerAdapter adapter = new FakeServerAdapter(WORLD);
+    public final Warnings warnings = new Warnings();
 
-    LifecycleFixture(Path folder) {
+    public LifecycleFixture(Path folder) {
         this.folder = folder;
         for (int chunkX = -1; chunkX <= 1; chunkX++) {
             for (int chunkZ = -1; chunkZ <= 1; chunkZ++) {
@@ -76,7 +75,7 @@ final class LifecycleFixture {
         }
     }
 
-    static ChunkView flatChunk(int chunkX, int chunkZ) {
+    public static ChunkView flatChunk(int chunkX, int chunkZ) {
         return new ChunkView(WORLD, chunkX, chunkZ, 0, 256,
                 (x, y, z) -> y == GROUND_Y ? "minecraft:grass_block" : "minecraft:air");
     }
@@ -84,18 +83,18 @@ final class LifecycleFixture {
     /**
      * An air spot on the ground.
      */
-    static Spot airSpot(int x, int z) {
+    public static Spot airSpot(int x, int z) {
         return new Spot(WORLD, x, GROUND_Y + 1, z, "minecraft:air");
     }
 
-    static BlockPosition position(Spot spot) {
+    public static BlockPosition position(Spot spot) {
         return new BlockPosition(spot.x(), spot.y(), spot.z());
     }
 
     /**
      * The shipped config.yml, worlds.yml, blocks.yml, en.yml, and loots/airdrops.yml, plus any extra loot files.
      */
-    static ConfigSnapshot shippedConfig(Map<String, String> extraLoots) {
+    public static ConfigSnapshot shippedConfig(Map<String, String> extraLoots) {
         return shippedConfig(extraLoots, "load");
     }
 
@@ -103,7 +102,7 @@ final class LifecycleFixture {
      * The shipped config with the shipped world's {@code unloaded_chunks} set to {@code load}, {@code generate}, or
      * {@code skip}. Smart summon cannot skip, so {@code skip} also sets the shipped world's mode to {@code spawn}.
      */
-    static ConfigSnapshot shippedConfig(Map<String, String> extraLoots, String unloadedChunks) {
+    public static ConfigSnapshot shippedConfig(Map<String, String> extraLoots, String unloadedChunks) {
         String worlds = resource("/worlds.yml");
         if (!worlds.contains("unloaded_chunks: generate")) {
             throw new IllegalStateException("the shipped worlds.yml no longer sets unloaded_chunks: generate");
@@ -119,22 +118,22 @@ final class LifecycleFixture {
         return ConfigLoader.load(sources.build(), SERVER_LIKE, WarningKinds.all());
     }
 
-    static ConfigSnapshot shippedConfig() {
+    public static ConfigSnapshot shippedConfig() {
         return shippedConfig(Map.of());
     }
 
-    LootBoxStore openStore() throws Exception {
+    public LootBoxStore openStore() throws Exception {
         return SqliteStores.open(folder);
     }
 
-    LootBoxLifecycle lifecycle(ConfigSnapshot config, LootBoxStore store, long seed) {
+    public LootBoxLifecycle lifecycle(ConfigSnapshot config, LootBoxStore store, long seed) {
         return new LootBoxLifecycle(adapter, config, ItemSourceRegistry.create(), store, new Random(seed), warnings);
     }
 
     /**
      * Every box the store file holds, read through a second connection, by box id.
      */
-    Map<UUID, LootBoxRecord> storedBoxes(ConfigSnapshot config) throws Exception {
+    public Map<UUID, LootBoxRecord> storedBoxes(ConfigSnapshot config) throws Exception {
         try (LootBoxStore reader = openStore()) {
             return reader.loadAll(config, world -> true).boxes().stream()
                     .map(loaded -> loaded.box())
@@ -142,7 +141,7 @@ final class LifecycleFixture {
         }
     }
 
-    static String resource(String path) {
+    public static String resource(String path) {
         try (InputStream in = LifecycleFixture.class.getResourceAsStream(path)) {
             if (in == null) {
                 throw new IOException("missing resource " + path);
@@ -156,13 +155,13 @@ final class LifecycleFixture {
     /**
      * Records every warning, from any thread.
      */
-    static final class Warnings implements me.rakkoon69.rakunloots.warning.Warnings {
+    public static final class Warnings implements me.rakkoon69.rakunloots.warning.Warnings {
 
-        final List<LifecycleWarning> lifecycle = new CopyOnWriteArrayList<>();
-        final List<RollWarning> roll = new CopyOnWriteArrayList<>();
-        final List<LootBoxWarning> store = new CopyOnWriteArrayList<>();
-        final List<String> debug = new CopyOnWriteArrayList<>();
-        volatile boolean debugOn;
+        public final List<LifecycleWarning> lifecycle = new CopyOnWriteArrayList<>();
+        public final List<RollWarning> roll = new CopyOnWriteArrayList<>();
+        public final List<LootBoxWarning> store = new CopyOnWriteArrayList<>();
+        public final List<String> debug = new CopyOnWriteArrayList<>();
+        public volatile boolean debugOn;
 
         @Override
         public boolean debugEnabled() {
@@ -199,7 +198,7 @@ final class LifecycleFixture {
             store.add(warning);
         }
 
-        List<LifecycleWarning.Kind> lifecycleKinds() {
+        public List<LifecycleWarning.Kind> lifecycleKinds() {
             return lifecycle.stream().map(LifecycleWarning::kind).toList();
         }
     }

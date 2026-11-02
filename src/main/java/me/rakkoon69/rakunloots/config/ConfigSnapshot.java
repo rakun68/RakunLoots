@@ -1,9 +1,10 @@
 package me.rakkoon69.rakunloots.config;
 
-import me.rakkoon69.rakunloots.hologram.HologramProviderChoice;
-import me.rakkoon69.rakunloots.hologram.HologramSettings;
-import me.rakkoon69.rakunloots.visuals.VisualsSettings;
-import me.rakkoon69.rakunloots.summon.SummonRules;
+import me.rakkoon69.rakunloots.config.loot.Loot;
+import me.rakkoon69.rakunloots.config.loot.LootAnimations;
+import me.rakkoon69.rakunloots.config.loot.WikiSettings;
+import me.rakkoon69.rakunloots.config.menu.MenuPage;
+import me.rakkoon69.rakunloots.config.summon.SummonRules;
 import me.rakkoon69.rakunloots.warning.WarningLevel;
 import me.rakkoon69.rakunloots.warning.WarningSettings;
 

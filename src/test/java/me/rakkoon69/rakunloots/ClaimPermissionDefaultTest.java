@@ -3,7 +3,7 @@ package me.rakkoon69.rakunloots;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import me.rakkoon69.rakunloots.command.ClaimCommand;
+import me.rakkoon69.rakunloots.command.handler.RakunLootsCommands;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
@@ -122,12 +122,12 @@ class ClaimPermissionDefaultTest {
     }
 
     private void assertGranted(boolean playerHas, boolean operatorHas, String value) {
-        assertEquals(playerHas, player.hasPermission(ClaimCommand.PERMISSION), "player with " + value);
-        assertEquals(operatorHas, operator.hasPermission(ClaimCommand.PERMISSION), "operator with " + value);
+        assertEquals(playerHas, player.hasPermission(RakunLootsCommands.CLAIM_PERMISSION), "player with " + value);
+        assertEquals(operatorHas, operator.hasPermission(RakunLootsCommands.CLAIM_PERMISSION), "operator with " + value);
     }
 
     private Permission permission() {
-        return server.getPluginManager().getPermission(ClaimCommand.PERMISSION);
+        return server.getPluginManager().getPermission(RakunLootsCommands.CLAIM_PERMISSION);
     }
 
     private Path config() {

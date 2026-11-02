@@ -4,8 +4,6 @@ import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;
 
-import me.rakkoon69.rakunloots.hologram.HologramProviderChoice;
-import me.rakkoon69.rakunloots.hologram.HologramSettings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

@@ -12,7 +12,7 @@ import me.rakkoon69.rakunloots.menu.MenuRenderer;
 import me.rakkoon69.rakunloots.menu.MenuService;
 import me.rakkoon69.rakunloots.warning.Warnings;
 import me.rakkoon69.rakunloots.storage.StreamableServerMock;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package me.rakkoon69.rakunloots.wiki;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
-import me.rakkoon69.rakunloots.config.Loot;
-import me.rakkoon69.rakunloots.config.Roll;
+import me.rakkoon69.rakunloots.config.loot.Loot;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 import me.rakkoon69.rakunloots.roll.LootChance;
 import me.rakkoon69.rakunloots.server.TaskScheduler;
 

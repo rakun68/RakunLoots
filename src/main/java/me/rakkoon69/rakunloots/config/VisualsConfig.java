@@ -1,9 +1,5 @@
 package me.rakkoon69.rakunloots.config;
 
-import me.rakkoon69.rakunloots.visuals.GlowColor;
-import me.rakkoon69.rakunloots.visuals.LaserType;
-import me.rakkoon69.rakunloots.visuals.VisualsSettings;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;

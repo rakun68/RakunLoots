@@ -1,12 +1,14 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.loot.ContentEntry;
+import me.rakkoon69.rakunloots.config.loot.Loot;
 import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;
 
 import me.rakkoon69.rakunloots.items.ItemReference;
-import me.rakkoon69.rakunloots.server.BukkitNameCatalog;
-import me.rakkoon69.rakunloots.summon.PlacementRule;
+import me.rakkoon69.rakunloots.server.bukkit.BukkitNameCatalog;
+import me.rakkoon69.rakunloots.config.summon.PlacementRule;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

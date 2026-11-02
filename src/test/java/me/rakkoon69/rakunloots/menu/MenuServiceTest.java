@@ -5,7 +5,7 @@ import me.rakkoon69.rakunloots.WarningKinds;
 import me.rakkoon69.rakunloots.config.ConfigLoader;
 import me.rakkoon69.rakunloots.config.ConfigSources;
 import me.rakkoon69.rakunloots.server.NameCatalog;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.junit.jupiter.api.Test;

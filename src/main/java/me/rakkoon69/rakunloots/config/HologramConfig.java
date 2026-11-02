@@ -1,8 +1,5 @@
 package me.rakkoon69.rakunloots.config;
 
-import me.rakkoon69.rakunloots.hologram.HologramProviderChoice;
-import me.rakkoon69.rakunloots.hologram.HologramSettings;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

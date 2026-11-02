@@ -1,11 +1,12 @@
 package me.rakkoon69.rakunloots.config;
 
+import me.rakkoon69.rakunloots.config.summon.SummonSearchSettings;
 import me.rakkoon69.rakunloots.server.NameCatalog;
 
 import me.rakkoon69.rakunloots.WarningKinds;
 
 import me.rakkoon69.rakunloots.server.UnloadedChunkPolicy;
-import me.rakkoon69.rakunloots.summon.SummonRing;
+import me.rakkoon69.rakunloots.config.summon.SummonRing;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

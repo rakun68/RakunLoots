@@ -1,6 +1,6 @@
 package me.rakkoon69.rakunloots.roll;
 
-import me.rakkoon69.rakunloots.config.RawRollFixture;
+import me.rakkoon69.rakunloots.config.loot.RawRollFixture;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

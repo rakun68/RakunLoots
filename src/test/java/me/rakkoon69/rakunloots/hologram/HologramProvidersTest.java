@@ -1,6 +1,6 @@
 package me.rakkoon69.rakunloots.hologram;
 
-import me.rakkoon69.rakunloots.config.ConfigWarning;
+import me.rakkoon69.rakunloots.config.HologramProviderChoice;
 import me.rakkoon69.rakunloots.hologram.HologramProvider.CanRun;
 import me.rakkoon69.rakunloots.hologram.decent.DecentHologramsProvider;
 import me.rakkoon69.rakunloots.hologram.decent.FakeDecentHolograms;
@@ -13,7 +13,7 @@ import me.rakkoon69.rakunloots.hologram.packet.PacketAdapters;
 import me.rakkoon69.rakunloots.hologram.packet.PacketHologramProvider;
 import me.rakkoon69.rakunloots.lootbox.BoxEvent;
 import me.rakkoon69.rakunloots.server.BlockPosition;
-import me.rakkoon69.rakunloots.summon.FakeServerAdapter;
+import me.rakkoon69.rakunloots.fake.FakeServerAdapter;
 import me.rakkoon69.rakunloots.warning.Severity;
 import me.rakkoon69.rakunloots.warning.Warnings;
 import org.junit.jupiter.api.Test;
@@ -29,12 +29,12 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.UUID;
 
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.AUTO;
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.DECENTHOLOGRAMS;
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.FANCYHOLOGRAMS;
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.HOLOGRAPHICDISPLAYS;
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.NONE;
-import static me.rakkoon69.rakunloots.hologram.HologramProviderChoice.PACKETS;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.AUTO;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.DECENTHOLOGRAMS;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.FANCYHOLOGRAMS;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.HOLOGRAPHICDISPLAYS;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.NONE;
+import static me.rakkoon69.rakunloots.config.HologramProviderChoice.PACKETS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;

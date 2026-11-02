@@ -1,6 +1,8 @@
 package me.rakkoon69.rakunloots.visuals;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
+import me.rakkoon69.rakunloots.config.LaserType;
+import me.rakkoon69.rakunloots.config.VisualsSettings;
 import me.rakkoon69.rakunloots.lootbox.BoxEvent;
 import me.rakkoon69.rakunloots.lootbox.BoxObserver;
 import me.rakkoon69.rakunloots.server.BlockPosition;

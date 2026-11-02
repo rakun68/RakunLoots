@@ -1,5 +1,12 @@
 package me.rakkoon69.rakunloots.command;
 
+import me.rakkoon69.rakunloots.command.argument.ChoiceArgument;
+import me.rakkoon69.rakunloots.command.argument.IntegerArgument;
+import me.rakkoon69.rakunloots.command.argument.LootIdArgument;
+import me.rakkoon69.rakunloots.command.argument.OnlinePlayerArgument;
+import me.rakkoon69.rakunloots.command.argument.PlayerArgument;
+import me.rakkoon69.rakunloots.command.argument.RadiusArgument;
+import me.rakkoon69.rakunloots.command.argument.WorldArgument;
 import me.rakkoon69.rakunloots.hologram.ShippedHologramConfig;
 
 import java.util.ArrayList;
@@ -12,10 +19,10 @@ import java.util.Map;
  * <player> <online>}, and the shipped {@code help}. Each handler records the line it was given. The messages of the
  * sample nodes sit in test text over the shipped messages, which cover everything else.
  */
-final class SampleCommands {
+public final class SampleCommands {
 
-    static final String BASE = "rakunloots.command";
-    static final String PREFIX = "&f[&bRakunLoots&f]&7";
+    public static final String BASE = "rakunloots.command";
+    public static final String PREFIX = "&f[&bRakunLoots&f]&7";
 
     private static final Map<String, String> SAMPLE_TEXT = Map.ofEntries(
             Map.entry("command_give_summary", "Gives summon items."),
@@ -48,18 +55,18 @@ final class SampleCommands {
             Map.entry("command_whois_arg_online", "A player who is online.")
     );
 
-    final CommandRegistry registry;
-    final List<String> ran = new ArrayList<>();
-    final FakeCommandSources sources = new FakeCommandSources();
+    public final CommandRegistry registry;
+    public final List<String> ran = new ArrayList<>();
+    public final FakeCommandSources sources = new FakeCommandSources();
 
-    SampleCommands() {
+    public SampleCommands() {
         var snapshot = ShippedHologramConfig.load();
         CommandMessages messages = key -> SAMPLE_TEXT.getOrDefault(key, snapshot.message("", key));
         registry = new CommandRegistry(sources, messages);
         registry.register(root());
     }
 
-    CommandNode root() {
+    public CommandNode root() {
         return CommandNode.builder("rkl")
                 .aliases("rkloots")
                 .permissionBase(BASE)
@@ -99,13 +106,13 @@ final class SampleCommands {
                 .build();
     }
 
-    FakeCommandSender admin() {
+    public FakeCommandSender admin() {
         return new FakeCommandSender("Admin",
                 BASE + ".give", BASE + ".remove", BASE + ".remove.world", BASE + ".remove.near",
                 BASE + ".timer", BASE + ".whois", BASE + ".help");
     }
 
-    List<String> dispatch(CommandSender sender, String line) {
+    public List<String> dispatch(CommandSender sender, String line) {
         FakeCommandSender fake = (FakeCommandSender) sender;
         int before = fake.messages().size();
         registry.dispatch(sender, line);

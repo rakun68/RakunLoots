@@ -1,6 +1,7 @@
 package me.rakkoon69.rakunloots.visuals;
 
 import fr.skytasul.glowingentities.GlowingBlocks;
+import me.rakkoon69.rakunloots.config.GlowColor;
 import me.rakkoon69.rakunloots.server.BlockPosition;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
 import org.bukkit.Bukkit;

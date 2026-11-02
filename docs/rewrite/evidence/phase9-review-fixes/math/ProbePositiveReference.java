@@ -1,4 +1,6 @@
 package me.rakkoon69.rakunloots.config;
+import me.rakkoon69.rakunloots.config.loot.ContentEntry;
+import me.rakkoon69.rakunloots.config.loot.Roll;
 import me.rakkoon69.rakunloots.items.ItemReference;
 import me.rakkoon69.rakunloots.roll.LootChance;
 import java.util.*;

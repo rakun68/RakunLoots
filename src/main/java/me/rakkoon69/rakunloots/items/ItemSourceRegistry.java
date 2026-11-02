@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.items;
 
+import me.rakkoon69.rakunloots.items.source.ShippedItemSources;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -11,6 +13,11 @@ import java.util.Set;
  * There is no unregister. Resolve does not write to the log.
  */
 public final class ItemSourceRegistry {
+
+    /**
+     * The source a reference without one resolves through, and the one whose items take vanilla additions here.
+     */
+    private static final String VANILLA = "vanilla";
 
     static final Set<String> SHIPPED_NAMES = Set.of(
             "vanilla",
@@ -28,12 +35,7 @@ public final class ItemSourceRegistry {
 
     public static ItemSourceRegistry create() {
         ItemSourceRegistry registry = new ItemSourceRegistry();
-        registry.sources.put(VanillaItemSource.NAME, new VanillaItemSource());
-        registry.sources.put(MmoItemsItemSource.NAME, MmoItemsItemSource.create());
-        registry.sources.put(ItemEditItemSource.NAME, ItemEditItemSource.create());
-        registry.sources.put(ExecutableItemsItemSource.NAME, ExecutableItemsItemSource.create());
-        registry.sources.put(OraxenItemSource.NAME, OraxenItemSource.create());
-        registry.sources.put(ItemsAdderItemSource.NAME, ItemsAdderItemSource.create());
+        registry.sources.putAll(ShippedItemSources.all());
         return registry;
     }
 
@@ -66,7 +68,7 @@ public final class ItemSourceRegistry {
 
         String canonicalSource;
         if (rawSource == null || rawSource.trim().isEmpty()) {
-            canonicalSource = VanillaItemSource.NAME;
+            canonicalSource = VANILLA;
         } else {
             canonicalSource = rawSource.trim().toLowerCase(Locale.ROOT);
         }
@@ -96,7 +98,7 @@ public final class ItemSourceRegistry {
         }
 
         VanillaAdditions additions = reference.additions();
-        if (VanillaItemSource.NAME.equals(canonicalSource)) {
+        if (VANILLA.equals(canonicalSource)) {
             return VanillaAdditionsApplier.apply(
                     result.source(),
                     result.id(),

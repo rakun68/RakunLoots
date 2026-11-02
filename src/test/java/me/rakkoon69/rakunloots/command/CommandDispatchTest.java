@@ -1,5 +1,7 @@
 package me.rakkoon69.rakunloots.command;
 
+import me.rakkoon69.rakunloots.command.argument.LootIdArgument;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

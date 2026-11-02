@@ -1,6 +1,6 @@
 package me.rakkoon69.rakunloots.menu;
 
-import me.rakkoon69.rakunloots.config.MenuSound;
+import me.rakkoon69.rakunloots.config.menu.MenuSound;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
