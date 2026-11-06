@@ -255,6 +255,31 @@ class SummonItemTest {
     }
 
     /**
+     * The player is told at the click that the loot is coming, and again where it landed when the delay ends.
+     */
+    @Test
+    void aSummonItemTellsThePlayerAtTheClickAndWhereTheBoxLanded() throws Exception {
+        ConfigSnapshot shipped = shippedConfig();
+        start(shipped, new SummonSearch(fixture.adapter, shipped, () -> 0L, new Random(1)));
+        fixture.adapter.setPlayers(List.of(new PlayerPosition(player.getUniqueId(), 10.5, 70, -3.5)));
+        player.getInventory().setItemInMainHand(summonItem(1));
+
+        rightClick(player);
+
+        String used = player.nextMessage();
+        assertTrue(used != null && used.contains("Summoning"), used);
+        assertTrue(fixture.adapter.messages().isEmpty(), "nothing has landed yet");
+        step(DELAY);
+        List<String> landed = fixture.adapter.messages().stream()
+                .filter(message -> message.playerId().equals(player.getUniqueId()))
+                .map(message -> message.text())
+                .toList();
+        assertEquals(1, landed.size(), landed.toString());
+        assertTrue(landed.get(0).contains("landed at") && landed.get(0).contains("10 " + (GROUND_Y + 1) + " -4"),
+                landed.get(0));
+    }
+
+    /**
      * Acceptance: the off hand is ignored. A summon item there does nothing and a main hand click of another item
      * does not reach it.
      */

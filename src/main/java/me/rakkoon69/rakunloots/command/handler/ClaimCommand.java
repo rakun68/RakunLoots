@@ -30,6 +30,7 @@ final class ClaimCommand {
         return CommandNode.builder(settings.name())
                 .aliases(settings.aliases().toArray(String[]::new))
                 .permission(PERMISSION)
+                .helpKeys("command_claim")
                 .handler(invocation -> {
                     Optional<UUID> playerId = invocation.sender().playerId();
                     if (playerId.isEmpty()) {

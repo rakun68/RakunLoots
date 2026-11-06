@@ -67,7 +67,8 @@ class BukkitCommandRegistrarTest {
     void aLineTypedOnTheServerRunsThroughTheNameOrAnAlias() {
         server.dispatchCommand(player, "rkloots help help");
 
-        assertEquals("§f[§bRakunLoots§f]§7 §7Usage: §e/rkloots help [command]", player.nextMessage());
+        assertEquals("§8§m-----------------------------------------------------", player.nextMessage());
+        assertEquals(" §b§lRakunLoots §8» §b/rkloots help§3 [command]", player.nextMessage());
     }
 
     @Test

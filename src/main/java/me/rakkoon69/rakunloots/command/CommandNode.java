@@ -170,7 +170,11 @@ public final class CommandNode {
         if (arguments.isEmpty()) {
             List<CommandNode> visible = visibleChildren(sender);
             if (!visible.isEmpty()) {
-                usage.append(" <").append(String.join("|", visible.stream().map(CommandNode::name).toList())).append('>');
+                // A node that runs on its own takes its children as optional words.
+                boolean optional = handler != null;
+                usage.append(optional ? " [" : " <")
+                        .append(String.join("|", visible.stream().map(CommandNode::name).toList()))
+                        .append(optional ? ']' : '>');
             }
         }
         for (CommandArgument<?> argument : arguments) {

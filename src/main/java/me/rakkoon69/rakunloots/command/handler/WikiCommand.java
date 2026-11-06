@@ -27,6 +27,7 @@ final class WikiCommand {
         return CommandNode.builder(settings.name())
                 .aliases(settings.aliases().toArray(String[]::new))
                 .permission(PERMISSION)
+                .helpKeys("command_wiki")
                 .handler(invocation -> {
                     Optional<UUID> playerId = invocation.sender().playerId();
                     Optional<SenderLocation> location = invocation.sender().location();

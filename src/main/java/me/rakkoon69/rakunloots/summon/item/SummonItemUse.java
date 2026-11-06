@@ -1,6 +1,7 @@
 package me.rakkoon69.rakunloots.summon.item;
 
 import me.rakkoon69.rakunloots.config.ConfigSnapshot;
+import me.rakkoon69.rakunloots.config.MessageRenderer;
 import me.rakkoon69.rakunloots.config.loot.Loot;
 import me.rakkoon69.rakunloots.lootbox.AbandonReason;
 import me.rakkoon69.rakunloots.lootbox.SummonGiveBack;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,6 +29,11 @@ import java.util.function.Supplier;
  * summons than the player has items. The summon service gives the item back when the summon is abandoned.
  */
 public final class SummonItemUse {
+
+    /**
+     * The message the player gets when the click takes the item, before the summon searches and waits its delay.
+     */
+    static final String USED_KEY = "summon_item_used";
 
     private final SummonItemMaker maker;
     private final Supplier<ConfigSnapshot> config;
@@ -77,6 +84,11 @@ public final class SummonItemUse {
             inventory.setItemInMainHand(rest);
         }
         UUID playerId = player.getUniqueId();
+        String used = MessageRenderer.render(config.get(), lootId.get(), USED_KEY,
+                Map.of("box_name", loot.get().displayName()));
+        if (!used.isEmpty()) {
+            player.sendMessage(used);
+        }
         service.summon(lootId.get(), SummonTarget.player(player.getWorld().getUID(), playerId), Optional.of(playerId),
                 SummonSource.summonItem(playerId)).whenComplete((report, failure) -> {
             if (failure != null) {

@@ -31,7 +31,7 @@ final class GiveCommand {
         return CommandNode.builder("give")
                 .argument(CommandArgument.required("loot", LootIdArgument.INSTANCE))
                 .argument(CommandArgument.optional("player", PlayerArgument.INSTANCE))
-                .argument(CommandArgument.optional("amount", new IntegerArgument(1, MAX_AMOUNT)))
+                .argument(CommandArgument.optional("amount", new IntegerArgument(1, MAX_AMOUNT, 1, 64)))
                 .handler(invocation -> give(invocation, giver, sources))
                 .build();
     }
