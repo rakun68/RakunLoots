@@ -17,6 +17,7 @@ import me.rakkoon69.rakunloots.visuals.BoxVisualsService;
 import me.rakkoon69.rakunloots.server.ServerAdapter;
 import me.rakkoon69.rakunloots.wiki.WikiMenu;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -88,16 +89,25 @@ public final class RakunLootsCommands {
      * Hands the admin, claim, and wiki roots to the registrar, under the names the config gives them.
      */
     public static void register(Consumer<CommandNode> registrar, ConfigSnapshot config, Parts parts) {
-        registrar.accept(root(config.adminCommand(), parts));
-        registrar.accept(ClaimCommand.node(config.claimCommand(), parts.claims(), parts.claimMenu()));
-        registrar.accept(WikiCommand.node(config.wikiCommand(), parts.wikiMenu()));
+        CommandNode claim = ClaimCommand.node(config.claimCommand(), parts.claims(), parts.claimMenu());
+        CommandNode wiki = WikiCommand.node(config.wikiCommand(), parts.wikiMenu());
+        registrar.accept(root(config.adminCommand(), parts, List.of(wiki, claim)));
+        registrar.accept(claim);
+        registrar.accept(wiki);
     }
 
     static CommandNode root(AdminCommandSettings settings, Parts parts) {
+        return root(settings, parts, List.of());
+    }
+
+    /**
+     * @param others the stand-alone roots that {@code help} names after the admin commands
+     */
+    static CommandNode root(AdminCommandSettings settings, Parts parts, List<CommandNode> others) {
         return CommandNode.builder(settings.name())
                 .aliases(settings.aliases().toArray(String[]::new))
                 .permissionBase(PERMISSION_BASE)
-                .child(HelpCommand.node())
+                .child(HelpCommand.node(others))
                 .child(ReloadCommand.node(parts.configLoader(), parts.summons(), parts.lifecycle(), parts.timers(),
                         parts.holograms(), parts.animations(), parts.visuals(), parts.search(), parts.menus()))
                 .child(ListCommand.node(parts.sources()))

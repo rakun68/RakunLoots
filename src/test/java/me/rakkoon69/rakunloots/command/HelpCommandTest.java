@@ -16,19 +16,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class HelpCommandTest {
 
+    private static final String DIVIDER = "&8&m-----------------------------------------------------";
+
     private final SampleCommands sample = new SampleCommands();
     private final FakeCommandSender admin = sample.admin();
 
     @Test
-    void helpListsEachCommandTheSenderCanRunOnOneLineWithItsUsageAndSummary() {
+    void helpListsEachCommandTheSenderCanRunOnOneLineWithItsUsageAndSummaryBetweenDividers() {
         assertEquals(List.of(
-                PREFIX + " &fCommands you can run:",
-                "&e/rkl give <loot> [player] [amount] &8- &7Gives summon items.",
-                "&e/rkl remove world <world> &8- &7Removes the loot boxes of one world.",
-                "&e/rkl remove near <radius> &8- &7Removes the loot boxes around you.",
-                "&e/rkl timer <world> now [--force] &8- &7Runs a world's timer now.",
-                "&e/rkl whois <player> <online> &8- &7Names a player.",
-                "&e/rkl help [command] &8- &7Lists the commands you can run, or explains one."
+                DIVIDER,
+                " &b&lRakunLoots &8» &fCommands &8(&76&8)",
+                " &8• &b/rkl give&3 <loot> [player] [amount] &8- &7Gives summon items.",
+                " &8• &b/rkl remove world&3 <world> &8- &7Removes the loot boxes of one world.",
+                " &8• &b/rkl remove near&3 <radius> &8- &7Removes the loot boxes around you.",
+                " &8• &b/rkl timer&3 <world> now [--force] &8- &7Runs a world's timer now.",
+                " &8• &b/rkl whois&3 <player> <online> &8- &7Names a player.",
+                " &8• &b/rkl help&3 [command] &8- &7Lists the commands you can run, or explains one.",
+                " &7Run &b/rkl help [command] &7to see how one works.",
+                DIVIDER
         ), sample.dispatch(admin, "rkl help"));
     }
 
@@ -38,59 +43,100 @@ class HelpCommandTest {
                 BASE + ".remove.near", BASE + ".help");
 
         assertEquals(List.of(
-                PREFIX + " &fCommands you can run:",
-                "&e/rkl give <loot> [player] [amount] &8- &7Gives summon items.",
-                "&e/rkl remove near <radius> &8- &7Removes the loot boxes around you.",
-                "&e/rkl help [command] &8- &7Lists the commands you can run, or explains one."
+                DIVIDER,
+                " &b&lRakunLoots &8» &fCommands &8(&73&8)",
+                " &8• &b/rkl give&3 <loot> [player] [amount] &8- &7Gives summon items.",
+                " &8• &b/rkl remove near&3 <radius> &8- &7Removes the loot boxes around you.",
+                " &8• &b/rkl help&3 [command] &8- &7Lists the commands you can run, or explains one.",
+                " &7Run &b/rkl help [command] &7to see how one works.",
+                DIVIDER
         ), sample.dispatch(limited, "rkl help"));
+    }
+
+    @Test
+    void helpNamesTheOtherRootsItWasGivenThatTheSenderCanRunUnderTheirOwnNames() {
+        CommandNode wiki = CommandNode.builder("loots").permission("rakunloots.wiki").helpKeys("command_wiki")
+                .handler(inv -> { }).build();
+        CommandNode claim = CommandNode.builder("claimsummon").permission("rakunloots.claim")
+                .helpKeys("command_claim").handler(inv -> { })
+                .child(CommandNode.builder("all").permission("rakunloots.claim").handler(inv -> { }).build())
+                .build();
+        CommandNode open = CommandNode.builder("open").permissionBase(BASE)
+                .child(HelpCommand.node(List.of(wiki, claim)))
+                .build();
+        sample.registry.register(open);
+        FakeCommandSender helper = new FakeCommandSender("Helper", BASE + ".help", "rakunloots.wiki");
+
+        assertEquals(List.of(
+                DIVIDER,
+                " &b&lRakunLoots &8» &fCommands &8(&72&8)",
+                " &8• &b/open help&3 [command] &8- &7Lists the commands you can run, or explains one.",
+                " &fOther commands:",
+                " &8• &b/loots&3 &8- &7Opens the loots wiki: every loot in your world and its chance.",
+                " &7Run &b/open help [command] &7to see how one works.",
+                DIVIDER
+        ), sample.dispatch(helper, "open help"));
+
+        FakeCommandSender both = new FakeCommandSender("Both", BASE + ".help", "rakunloots.wiki", "rakunloots.claim");
+        assertEquals(" &8• &b/claimsummon&3 [all] &8- &7Opens the summon items waiting for you. Add all to take"
+                + " them all.", sample.dispatch(both, "open help").get(5));
     }
 
     @Test
     void helpOfACommandShowsUsageDescriptionEachArgumentAndItsTypeAnExampleAndThePermission() {
         assertEquals(List.of(
-                PREFIX + " &7Usage: &e/rkl give <loot> [player] [amount]",
-                "&7Gives a player the summon item of a loot.",
-                "&8> &floot &8(&7a loot id&8) &7The loot whose summon item to give.",
-                "&8> &fplayer &8(&7a player name&8) &7Who gets it. You, when left out.",
-                "&8> &famount &8(&7a whole number from 1 to 64&8) &7How many. 1 when left out.",
-                "&7Example: &e/rkl give airdrops Steve 2",
-                "&7Permission: &erakunloots.command.give"
+                DIVIDER,
+                " &b&lRakunLoots &8» &b/rkl give&3 <loot> [player] [amount]",
+                " &7Gives a player the summon item of a loot.",
+                " &8• &floot &8(&7a loot id&8) &7The loot whose summon item to give.",
+                " &8• &fplayer &8(&7a player name&8) &7Who gets it. You, when left out.",
+                " &8• &famount &8(&7a whole number from 1 to 64&8) &7How many. 1 when left out.",
+                " &7Example: &b/rkl give airdrops Steve 2",
+                " &7Permission: &erakunloots.command.give",
+                DIVIDER
         ), sample.dispatch(admin, "rkl help give"));
     }
 
     @Test
     void helpOfANestedCommandTakesItsWordsAndUsesTheLabelTheSenderTyped() {
         assertEquals(List.of(
-                PREFIX + " &7Usage: &e/rkloots remove world <world>",
-                "&7Ends every loot box in the world as an admin removal.",
-                "&8> &fworld &8(&7a world name&8) &7The world to clear.",
-                "&7Example: &e/rkl remove world world_nether",
-                "&7Permission: &erakunloots.command.remove.world"
+                DIVIDER,
+                " &b&lRakunLoots &8» &b/rkloots remove world&3 <world>",
+                " &7Ends every loot box in the world as an admin removal.",
+                " &8• &fworld &8(&7a world name&8) &7The world to clear.",
+                " &7Example: &b/rkl remove world world_nether",
+                " &7Permission: &erakunloots.command.remove.world",
+                DIVIDER
         ), sample.dispatch(admin, "rkloots help remove world"));
     }
 
     @Test
     void helpOfACommandWithChildrenListsTheChildrenTheSenderCanRun() {
         assertEquals(List.of(
-                PREFIX + " &7Usage: &e/rkl remove <world|near>",
-                "&7Ends loot boxes as admin removals.",
-                "&7Example: &e/rkl remove near 20",
-                "&7Permission: &erakunloots.command.remove",
-                "&e/rkl remove world <world> &8- &7Removes the loot boxes of one world.",
-                "&e/rkl remove near <radius> &8- &7Removes the loot boxes around you."
+                DIVIDER,
+                " &b&lRakunLoots &8» &b/rkl remove&3 <world|near>",
+                " &7Ends loot boxes as admin removals.",
+                " &7Example: &b/rkl remove near 20",
+                " &7Permission: &erakunloots.command.remove",
+                " &fSubcommands:",
+                " &8• &b/rkl remove world&3 <world> &8- &7Removes the loot boxes of one world.",
+                " &8• &b/rkl remove near&3 <radius> &8- &7Removes the loot boxes around you.",
+                DIVIDER
         ), sample.dispatch(admin, "rkl help remove"));
     }
 
     @Test
     void helpOfHelpShowsTheShippedMessages() {
         assertEquals(List.of(
-                PREFIX + " &7Usage: &e/rkl help [command]",
-                "&7Without a command it lists every command you can run. With a command it shows how to use that"
+                DIVIDER,
+                " &b&lRakunLoots &8» &b/rkl help&3 [command]",
+                " &7Without a command it lists every command you can run. With a command it shows how to use that"
                         + " command.",
-                "&8> &fcommand &8(&7a command name&8) &7The command to explain, such as remove world. Leave it out to"
-                        + " list every command.",
-                "&7Example: &e/rkl help remove world",
-                "&7Permission: &erakunloots.command.help"
+                " &8• &fcommand &8(&7a command name&8) &7The command to explain, such as remove world. Leave it"
+                        + " out to list every command.",
+                " &7Example: &b/rkl help remove world",
+                " &7Permission: &erakunloots.command.help",
+                DIVIDER
         ), sample.dispatch(admin, "rkl help help"));
     }
 
@@ -105,8 +151,8 @@ class HelpCommandTest {
 
         List<String> shown = sample.dispatch(helper, "open help ping");
 
-        assertEquals(PREFIX + " &7Usage: &e/open ping", shown.get(0));
-        assertEquals("&7Permission: &eeveryone", shown.get(shown.size() - 1));
+        assertEquals(" &b&lRakunLoots &8» &b/open ping&3", shown.get(1));
+        assertEquals(" &7Permission: &eeveryone", shown.get(shown.size() - 2));
     }
 
     @Test

@@ -39,6 +39,8 @@ class ShippedCommandFilesTest {
             "cmd_type_online_player", "cmd_type_integer", "cmd_type_radius", "cmd_type_choice", "cmd_type_command",
             "cmd_help_header", "cmd_help_entry", "cmd_help_usage", "cmd_help_description", "cmd_help_argument",
             "cmd_help_example", "cmd_help_permission", "cmd_help_permission_everyone",
+            "cmd_help_divider", "cmd_help_others", "cmd_help_subcommands", "cmd_help_footer",
+            "command_claim_summary", "command_wiki_summary",
             "cmd_remove_done", "cmd_remove_near_needs_player", "cmd_remove_world_not_loaded",
             "cmd_reason_world_or_player_unknown", "cmd_type_world_or_player",
             "cmd_reload_done", "cmd_reload_failed", "cmd_list", "cmd_list_none",

@@ -9,8 +9,10 @@ import me.rakkoon69.rakunloots.match.CloseMatcher;
 
 /**
  * The {@code help [command]} node, for any root to add as a child. Without a command it lists what the sender can
- * run, one line each. With one it shows that command's usage, what it does, each argument and its type, an example,
- * and its permission. A command the sender cannot run is not listed and is unknown to {@code help <command>}.
+ * run, one line each, between two dividers, then the other roots it was given that the sender can run, such as the
+ * claim and wiki commands. With one it shows that command's usage, what it does, each argument and its type, an
+ * example, its permission, and the commands under it. A command the sender cannot run is not listed and is unknown to
+ * {@code help <command>}.
  */
 public final class HelpCommand {
 
@@ -20,26 +22,46 @@ public final class HelpCommand {
     }
 
     public static CommandNode node() {
+        return node(List.of());
+    }
+
+    /**
+     * @param others roots of their own that the list names after this root's commands, under their own names
+     */
+    public static CommandNode node(List<CommandNode> others) {
+        List<CommandNode> listed = List.copyOf(others);
         return CommandNode.builder("help")
                 .argument(CommandArgument.optional(ARGUMENT, new TopicArgument()))
-                .handler(HelpCommand::run)
+                .handler(invocation -> run(invocation, listed))
                 .build();
     }
 
-    private static void run(CommandInvocation invocation) {
+    private static void run(CommandInvocation invocation, List<CommandNode> others) {
         CommandNode root = invocation.node().root();
         CommandSender sender = invocation.sender();
         if (invocation.has(ARGUMENT)) {
             detail(invocation, invocation.get(ARGUMENT, CommandNode.class));
             return;
         }
-        invocation.reply("cmd_help_header");
-        entries(invocation, runnable(root, sender));
+        List<CommandNode> commands = runnable(root, sender);
+        List<CommandNode> reachable = others.stream().filter(other -> other.reachable(sender)).toList();
+        invocation.reply("cmd_help_divider");
+        invocation.reply("cmd_help_header", Map.of("count", Integer.toString(commands.size() + reachable.size())));
+        entries(invocation, commands, invocation.label());
+        if (!reachable.isEmpty()) {
+            invocation.reply("cmd_help_others");
+            for (CommandNode other : reachable) {
+                entries(invocation, List.of(other), other.name());
+            }
+        }
+        invocation.reply("cmd_help_footer", Map.of("label", invocation.label()));
+        invocation.reply("cmd_help_divider");
     }
 
     private static void detail(CommandInvocation invocation, CommandNode node) {
         CommandSender sender = invocation.sender();
-        invocation.reply("cmd_help_usage", Map.of("usage", node.usage(invocation.label(), sender)));
+        invocation.reply("cmd_help_divider");
+        invocation.reply("cmd_help_usage", usage(node, invocation.label(), sender));
         invocation.reply("cmd_help_description", Map.of("description", invocation.message(node.helpKey("description"), Map.of())));
         for (CommandArgument<?> argument : node.arguments()) {
             invocation.reply("cmd_help_argument", Map.of(
@@ -54,17 +76,31 @@ public final class HelpCommand {
         List<CommandNode> below = new ArrayList<>(runnable(node, sender));
         below.remove(node);
         if (!below.isEmpty()) {
-            entries(invocation, below);
+            invocation.reply("cmd_help_subcommands");
+            entries(invocation, below, invocation.label());
+        }
+        invocation.reply("cmd_help_divider");
+    }
+
+    private static void entries(CommandInvocation invocation, List<CommandNode> nodes, String label) {
+        for (CommandNode node : nodes) {
+            Map<String, String> values = new java.util.HashMap<>(usage(node, label, invocation.sender()));
+            values.put("summary", invocation.message(node.helpKey("summary"), Map.of()));
+            invocation.reply("cmd_help_entry", values);
         }
     }
 
-    private static void entries(CommandInvocation invocation, List<CommandNode> nodes) {
-        for (CommandNode node : nodes) {
-            invocation.reply("cmd_help_entry", Map.of(
-                    "usage", node.usage(invocation.label(), invocation.sender()),
-                    "summary", invocation.message(node.helpKey("summary"), Map.of())
-            ));
+    /**
+     * The usage in two parts, so a message can color them apart: {@code command}, the slash, label, and words, and
+     * {@code args}, the rest with its leading space, or blank.
+     */
+    private static Map<String, String> usage(CommandNode node, String label, CommandSender sender) {
+        StringBuilder command = new StringBuilder("/").append(label);
+        for (String word : node.path()) {
+            command.append(' ').append(word);
         }
+        String usage = node.usage(label, sender);
+        return Map.of("command", command.toString(), "args", usage.substring(command.length()));
     }
 
     /**
