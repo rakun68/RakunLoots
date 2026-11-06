@@ -297,6 +297,25 @@ class SummonServiceTest {
         assertEquals(1, fixture.adapter.blockWrites().size());
         assertTrue(lifecycle.isLootBox(WORLD, 3, 64, 4));
         assertEquals(0, service.pendingCount(WORLD));
+        assertTrue(fixture.adapter.messages().isEmpty(), "an admin summon tells no player");
+    }
+
+    /**
+     * A summon item's player is told where the box landed, with the shipped message, once the block is written.
+     */
+    @Test
+    void aSummonItemThatPlacesItsBoxTellsThePlayerWhereItLanded() {
+        start();
+        finder.spots.add(airSpot(3, 4));
+
+        SummonReport report = itemSummon("instant", FIRST).join();
+
+        assertTrue(report.box().isPresent(), "abandoned " + report.abandoned());
+        assertEquals(1, messagesTo(FIRST).size());
+        String text = messagesTo(FIRST).get(0);
+        assertTrue(text.contains("landed at") && text.contains("3 64 4"), text);
+        assertTrue(messagesTo(SECOND).isEmpty());
+        assertTrue(giveBack.given.isEmpty());
     }
 
     /**

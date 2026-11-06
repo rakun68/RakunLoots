@@ -50,6 +50,11 @@ import java.util.function.Predicate;
  */
 public final class SummonService {
 
+    /**
+     * The message a summon item's player gets when its loot box lands.
+     */
+    static final String LANDED_KEY = "summon_item_landed";
+
     private final ServerAdapter adapter;
     private volatile ConfigSnapshot config;
     private final LootBoxLifecycle lifecycle;
@@ -102,7 +107,29 @@ public final class SummonService {
         Objects.requireNonNull(target, "target");
         Objects.requireNonNull(owner, "owner");
         Objects.requireNonNull(source, "source");
-        return run(lootId, target, owner, source).whenComplete((report, failure) -> debug(lootId, source, report));
+        return run(lootId, target, owner, source).whenComplete((report, failure) -> {
+            debug(lootId, source, report);
+            if (report != null) {
+                report.box().ifPresent(box -> landed(lootId, source, box));
+            }
+        });
+    }
+
+    /**
+     * Tells a summon item's player where its loot box landed. A summon with no summon item tells no one here.
+     */
+    private void landed(String lootId, SummonSource source, LootBox box) {
+        source.summonItemPlayer().ifPresent(player -> {
+            ConfigSnapshot snapshot = config;
+            String text = MessageRenderer.render(snapshot, lootId, LANDED_KEY, java.util.Map.of(
+                    "box_name", snapshot.loot(lootId).map(Loot::displayName).orElse(lootId),
+                    "box_x", Integer.toString(box.position().x()),
+                    "box_y", Integer.toString(box.position().y()),
+                    "box_z", Integer.toString(box.position().z())));
+            if (!text.isEmpty()) {
+                adapter.sendMessage(player, text);
+            }
+        });
     }
 
     private CompletableFuture<SummonReport> run(String lootId, SummonTarget target, Optional<UUID> owner,
