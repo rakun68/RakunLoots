@@ -91,8 +91,18 @@ class ArgumentTypesTest {
     }
 
     @Test
-    void aPlayerCompletesOnlineAndOfflineNames() {
-        assertEquals(List.of("Steve", "Steven"), complete("rkl give airdrops st"));
+    void aPlayerCompletesOnlyOnlineNamesButStillTakesAnOfflineOne() {
+        assertEquals(List.of("Steve"), complete("rkl give airdrops st"));
+        sample.dispatch(admin, "rkl give airdrops Steven");
+        assertEquals(List.of("give airdrops Steven 0"), sample.ran);
+    }
+
+    @Test
+    void anAmountCompletesItsSuggestionsWithinItsBounds() {
+        IntegerArgument amount = new IntegerArgument(1, 1000, 1, 64, 5000);
+        assertEquals(List.of("1", "64"), amount.complete("", null));
+        assertEquals(List.of("64"), amount.complete("6", null));
+        assertEquals(List.of(), new IntegerArgument(1, 10).complete("", null));
     }
 
     @Test

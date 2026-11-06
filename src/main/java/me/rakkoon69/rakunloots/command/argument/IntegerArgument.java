@@ -8,19 +8,25 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A whole number between two bounds, both allowed. It completes nothing.
+ * A whole number between two bounds, both allowed. It completes the suggestions it was given that are within the
+ * bounds, or nothing.
  */
 public final class IntegerArgument implements ArgumentType<Integer> {
 
     private final int min;
     private final int max;
+    private final List<String> suggestions;
 
-    public IntegerArgument(int min, int max) {
+    public IntegerArgument(int min, int max, int... suggestions) {
         if (min > max) {
             throw new IllegalArgumentException("min " + min + " is above max " + max);
         }
         this.min = min;
         this.max = max;
+        this.suggestions = java.util.Arrays.stream(suggestions)
+                .filter(value -> value >= min && value <= max)
+                .mapToObj(Integer::toString)
+                .toList();
     }
 
     @Override
@@ -52,6 +58,6 @@ public final class IntegerArgument implements ArgumentType<Integer> {
 
     @Override
     public List<String> complete(String partial, ArgumentContext context) {
-        return List.of();
+        return suggestions.stream().filter(value -> value.startsWith(partial)).toList();
     }
 }
