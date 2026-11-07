@@ -111,7 +111,7 @@ summon_settings:
     - minecraft:lava
     - minecraft:fire
     - minecraft:magma_block
-  # How many columns the search tries before it gives up. The default is placement_attempts in config.yml.
+  # How many chunks the search reads before it gives up. The default is placement_attempts in config.yml.
   attempts: 60
   # A summon item places the box this far from the player, in blocks.
   player_ring:

@@ -36,7 +36,8 @@ admin_command:
   aliases:
     - rkloots
 
-# Default attempts per placement rule. A loot may override with summon_settings.attempts.
+# Default attempts per placement rule. One attempt reads one chunk and checks its columns inside the ring.
+# A loot may override with summon_settings.attempts.
 # Do not set a rule above 500. A high count can slow the server.
 placement_attempts:
   top_surface: 30

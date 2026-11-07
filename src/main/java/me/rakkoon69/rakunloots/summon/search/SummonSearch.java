@@ -184,6 +184,7 @@ public final class SummonSearch implements SpotFinder {
                 worldKey,
                 resolved.rules,
                 resolved.settings.unloadedChunks(),
+                ring,
                 occupied,
                 holds,
                 () -> {
@@ -193,7 +194,7 @@ public final class SummonSearch implements SpotFinder {
                     int centerZ = (int) Math.floor(player.z());
                     double angle = RingMath.sampleSmartAngle(
                             player, medianX, medianZ, resolved.settings.medianPull(), random);
-                    return RingMath.sampleColumn(centerX, centerZ, ring, angle, random);
+                    return new Sample(centerX, centerZ, RingMath.sampleColumn(centerX, centerZ, ring, angle, random));
                 }
         );
     }
@@ -215,29 +216,58 @@ public final class SummonSearch implements SpotFinder {
                 worldKey,
                 resolved.rules,
                 policy,
+                ring,
                 occupied,
                 holds,
-                () -> RingMath.sampleColumn(centerX, centerZ, ring, random)
+                () -> new Sample(centerX, centerZ, RingMath.sampleColumn(centerX, centerZ, ring, random))
         );
     }
 
+    /**
+     * One attempt is one chunk read. The attempt tries its sampled column first, so where most columns hold a spot the
+     * spot lands where it was sampled. When that column holds none, it scans every column of the chunk inside the ring
+     * and picks one at random: the chunk is already read, and a sparse spot such as a pond is found once any attempt
+     * lands in its chunk. A chunk scanned empty for one center is not scanned again in this search.
+     */
     private SummonResult tryAttempts(
             UUID worldKey,
             SummonRules rules,
             UnloadedChunkPolicy policy,
+            SummonRing ring,
             OccupiedCheck occupied,
             ChunkHolds holds,
-            Supplier<RingMath.SampledColumn> nextColumn
+            Supplier<Sample> nextSample
     ) {
         HeldReads reads = new HeldReads(worldKey, policy, holds);
+        Set<ScannedChunk> scannedEmpty = new HashSet<>();
         try {
             int attempts = rules.attempts();
             for (int attempt = 0; attempt < attempts; attempt++) {
-                RingMath.SampledColumn column = nextColumn.get();
-                Optional<Spot> spot = tryColumn(rules, column.x(), column.z(), reads, occupied);
+                Sample sample = nextSample.get();
+                int chunkX = Math.floorDiv(sample.column().x(), 16);
+                int chunkZ = Math.floorDiv(sample.column().z(), 16);
+                ScannedChunk scanned = new ScannedChunk(chunkX, chunkZ, sample.centerX(), sample.centerZ());
+                if (scannedEmpty.contains(scanned)) {
+                    continue;
+                }
+                Optional<ChunkView> view = reads.read(chunkX, chunkZ);
+                if (view.isEmpty()) {
+                    scannedEmpty.add(scanned);
+                    continue;
+                }
+                Optional<Spot> spot = ColumnCheck.find(rules, view.get(), Math.floorMod(sample.column().x(), 16),
+                        Math.floorMod(sample.column().z(), 16), occupied, random);
+                if (spot.isEmpty()) {
+                    List<Spot> spots = scanChunkInRing(
+                            rules, view.get(), sample.centerX(), sample.centerZ(), ring, occupied);
+                    if (!spots.isEmpty()) {
+                        spot = Optional.of(spots.get(random.nextInt(spots.size())));
+                    }
+                }
                 if (spot.isPresent()) {
                     return SummonResult.hit(spot.get(), reads.keepOnly(spot.get()));
                 }
+                scannedEmpty.add(scanned);
             }
             return SummonResult.miss(SearchMiss.ATTEMPTS_USED_UP);
         } finally {
@@ -307,24 +337,6 @@ public final class SummonSearch implements SpotFinder {
             }
         }
         return spots;
-    }
-
-    private Optional<Spot> tryColumn(
-            SummonRules rules,
-            int blockX,
-            int blockZ,
-            HeldReads reads,
-            OccupiedCheck occupied
-    ) {
-        int chunkX = Math.floorDiv(blockX, 16);
-        int chunkZ = Math.floorDiv(blockZ, 16);
-        Optional<ChunkView> view = reads.read(chunkX, chunkZ);
-        if (view.isEmpty()) {
-            return Optional.empty();
-        }
-        int localX = Math.floorMod(blockX, 16);
-        int localZ = Math.floorMod(blockZ, 16);
-        return ColumnCheck.find(rules, view.get(), localX, localZ, occupied, random);
     }
 
     private Optional<ChunkView> readChunk(
@@ -464,6 +476,15 @@ public final class SummonSearch implements SpotFinder {
 
     private static long chunkKey(int chunkX, int chunkZ) {
         return (chunkX & 0xffffffffL) | ((long) chunkZ << 32);
+    }
+
+    /**
+     * One sampled column and the ring center it was sampled around.
+     */
+    private record Sample(int centerX, int centerZ, RingMath.SampledColumn column) {
+    }
+
+    private record ScannedChunk(int chunkX, int chunkZ, int centerX, int centerZ) {
     }
 
     private record ResolvedSearch(SummonSearchSettings settings, SummonRules rules, SearchMiss miss) {
