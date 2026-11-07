@@ -27,9 +27,7 @@ final class RingMath {
     }
 
     static SampledColumn sampleColumn(int centerX, int centerZ, SummonRing ring, double angle, Random random) {
-        double u = random.nextDouble();
-        double r = Math.sqrt(ring.min() * (double) ring.min() + u * (ring.max() * (double) ring.max()
-                - ring.min() * (double) ring.min()));
+        double r = sampleDistance(ring, random);
         double vx = Math.cos(angle);
         double vz = Math.sin(angle);
         double denom = Math.max(Math.abs(vx), Math.abs(vz));
@@ -39,9 +37,44 @@ final class RingMath {
         return new SampledColumn(x, z);
     }
 
+    /**
+     * A column spread evenly over the ring's area. The distance is spread by area, and the column sits at a uniform
+     * point on the square at that distance. A uniform angle would put half as many columns per block on a diagonal as
+     * on an axis.
+     */
     static SampledColumn sampleColumn(int centerX, int centerZ, SummonRing ring, Random random) {
-        double angle = random.nextDouble() * 2.0 * Math.PI;
-        return sampleColumn(centerX, centerZ, ring, angle, random);
+        double r = sampleDistance(ring, random);
+        double along = (random.nextDouble() * 2.0 - 1.0) * r;
+        double dx;
+        double dz;
+        switch (random.nextInt(4)) {
+            case 0 -> {
+                dx = r;
+                dz = along;
+            }
+            case 1 -> {
+                dx = -r;
+                dz = along;
+            }
+            case 2 -> {
+                dx = along;
+                dz = r;
+            }
+            default -> {
+                dx = along;
+                dz = -r;
+            }
+        }
+        return new SampledColumn(centerX + (int) Math.floor(dx + 0.5), centerZ + (int) Math.floor(dz + 0.5));
+    }
+
+    /**
+     * A square distance between the ring's minimum and maximum, spread by area.
+     */
+    private static double sampleDistance(SummonRing ring, Random random) {
+        double u = random.nextDouble();
+        return Math.sqrt(ring.min() * (double) ring.min() + u * (ring.max() * (double) ring.max()
+                - ring.min() * (double) ring.min()));
     }
 
     static double sampleSmartAngle(
